@@ -5,7 +5,6 @@
         v-model="searchQuery"
         label="البحث عن موقع"
         prepend-icon="mdi-magnify"
-        clearable
       >
         <template v-slot:append>
           <v-btn icon @click="searchLocation">

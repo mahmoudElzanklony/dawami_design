@@ -15,22 +15,28 @@ export default defineNuxtPlugin((nuxtApp) => {
     instance.interceptors.request.use((request) => {
         let token: string | undefined;
         let organizationId: string | undefined;
+        let locale: string | undefined;
+        
         if (process.server) {
             const event = nuxtApp.ssrContext?.event;
             if (event) {
                 token = getCookie(event, 'authToken');
                 organizationId = getCookie(event, 'organizationId');
+                locale = getCookie(event, 'i18n_locale') || 'ar';
             }
         } else {
             token = useCookie('authToken').value;
             organizationId = useCookie('organizationId').value;
+            locale = useCookie('i18n_locale').value || 'ar';
         }
+        
         if (token) {
             request.headers.Authorization = `Bearer ${token}`;
         }
         if (organizationId) {
             request.headers['organization_id'] = organizationId;
         }
+        request.headers['lang'] = locale;
         return request;
     });
 

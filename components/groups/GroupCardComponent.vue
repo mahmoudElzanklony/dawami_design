@@ -82,7 +82,7 @@
           <!-- Footer with date -->
           <div class="card-footer mt-3 pt-2">
             <div class="d-flex align-center">
-              <span class="text-caption text-grey-darken-1">{{ formatDate(info?.created_at) }}</span>
+              <span class="text-caption text-grey-darken-1"><i class="fa-duotone fa-solid fa-calendar-days primary-color"></i> {{ formatDate(info?.created_at) }}</span>
             </div>
           </div>
         </div>

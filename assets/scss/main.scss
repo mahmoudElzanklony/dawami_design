@@ -1,0 +1,135 @@
+// assets/scss/main.scss
+@use "@/assets/scss/_variables.scss" as *;
+
+/*-------------------------public classes-----------*/
+.v-application {
+  color: $black;
+  background-color: unset !important;
+}
+
+.v-input__prepend {
+  display: none !important;
+}
+
+
+.duoicon-primary-layer {
+  color: $primary_color
+}
+
+.duoicon-secondary-layer {
+  /*By default, the child layer has an opacity of 30% applied. If you apply color to the child layer, be sure to set the opacity to 1 */
+  opacity: 1;
+  color: $secondary_color
+}
+
+.primary-color {
+  color: $primary_color !important;
+}
+
+.bg-primary-color {
+  background-color: $primary_color !important;
+}
+
+.bg-gray-color {
+  background-color: $gray !important;
+}
+.bg-gray-50-color {
+  background-color: rgb(249,250,251) !important;
+
+}
+
+.white {
+  color: white !important;
+}
+
+.red {
+  color: $red !important;
+}
+
+.white_gray {
+  color: $gray_color;
+}
+
+.gray {
+  color: $gray;
+}
+
+.big-font {
+  font-size: $big-font;
+}
+
+.semi-big-font {
+  font-size: $semi-big-font;
+}
+
+.bigger-normal-font{
+  font-size: $bigger-normal-font;
+}
+
+.normal-font {
+  font-size: $normal-font;
+}
+
+.small-font {
+  font-size: $small-font;
+}
+
+.swal2-container {
+  z-index: 999999;
+}
+
+.text-gray{
+    color: $text_gray;
+}
+
+.ma-t-auto{
+  margin-top: auto !important;
+}
+/*--------------custom input----------*/
+input[type="radio"].radio-btn {
+  width: 22px;
+  height: 22px;
+  position: relative;
+  top: 5px;
+  appearance: none;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+input[type="radio"].radio-btn:checked {
+  border-color: $primary_color;
+}
+
+/* Creating the inner circle */
+input[type="radio"].radio-btn:checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px; /* Adjust inner circle size */
+  height: 12px;
+  border-radius: 50%;
+  background-color: $primary_color; /* Use CSS variable or replace with your color */
+  transform: translate(-50%, -50%); /* Centers the circle */
+}
+
+input[type="radio"].radio-btn:checked + span {
+  color: $primary_color;
+}
+button{
+  background-color: $primary_color;
+}
+
+body {
+  font-family: $font-family;
+}
+
+.my-confirm-button {
+  color: #ffffff !important;
+}
+
+.my-cancel-button {
+  color: #000000 !important;
+}

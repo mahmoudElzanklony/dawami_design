@@ -1,0 +1,12 @@
+# Cache CSS & JS for 1 month
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+</IfModule>
+
+# Enable gzip compression (reduces file size)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/css application/javascript application/x-javascript
+</IfModule>

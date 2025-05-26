@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "start": "PORT=3003 node .output/server/index.mjs",
+    "deploy": "pm2 start npm --name questionaire -- start",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^1.1.4",
+    "@mdi/font": "^7.4.47",
+    "@nuxtjs/i18n": "^9.5.3",
+    "@nuxtjs/leaflet": "^1.2.6",
+    "@pinia/nuxt": "^0.10.1",
+    "@tailwindcss/oxide": "^4.0.6",
+    "@tailwindcss/vite": "^4.0.6",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "axios": "^1.7.9",
+    "d3": "^7.9.0",
+    "dagrejs": "^0.2.1",
+    "duo-icons": "^1.1.4",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "leaflet-geosearch": "^4.2.0",
+    "nuxt": "^3.15.4",
+    "pinia": "^3.0.1",
+    "pinia-plugin-persistedstate": "^4.2.0",
+    "sweetalert2": "^11.17.2",
+    "vue": "latest",
+    "vue-draggable-next": "^2.2.1",
+    "vue-router": "latest",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.6",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.2",
+    "sass": "^1.85.0",
+    "sass-loader": "^16.0.5",
+    "tailwindcss": "^4.0.6",
+    "vite-plugin-vuetify": "^2.1.0",
+    "vuetify": "^3.7.0-beta.1"
+  }
+}

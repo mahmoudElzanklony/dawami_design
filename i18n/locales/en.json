@@ -1,0 +1,440 @@
+{
+  "navigation": {
+    "users": "Users",
+    "organizations": "Universities",
+    "branches": "Grades",
+    "groups": "Groups",
+    "fields": "Subjects",
+    "files": "Files",
+    "subscriptions": "Subscriptions",
+    "bills": "Bills",
+    "assistants": "Assistants",
+    "questions": "Questions",
+    "exams": "Exams",
+    "places": "Places",
+    "lessons": "Lessons",
+    "attendance": "Attendance"
+  },
+  "phone_input": {
+    "country_code_required": "Country code required",
+    "enter_phone": "Enter phone number",
+    "phone_label": "Phone Number",
+    "phone_required": "Phone number is required",
+    "invalid_phone": "Invalid phone number"
+  },
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "login_button": "Login",
+    "forgot_password": "Forgot password?",
+    "register": "Register a new account",
+    "remember_me": "Remember me",
+    "no_account": "Don't have an account?",
+    "app_name": "iLearn",
+    "copyright": "© All rights reserved - {year}",
+    "error": {
+      "invalid_credentials": "Invalid username or password",
+      "account_blocked": "Account is blocked",
+      "general_error": "An error occurred while logging in",
+      "password_required": "Password is required"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "delete": "Delete",
+    "register": "Register User",
+    "user_type": "User Type",
+    "university": "University",
+    "account_status": "Account Status",
+    "actions": {
+      "viewDetails": "View Details",
+      "resetDevice": "Reset Device",
+      "blockAccount": "Block Account",
+      "unblockAccount": "Unblock Account"
+    },
+    "table": {
+      "avatar": "Avatar",
+      "name": "Name",
+      "phone": "Phone",
+      "type": "Type",
+      "nationality": "Nationality",
+      "device": "Device",
+      "status": "Account Status",
+      "studentCount": "Student Count",
+      "createdAt": "Creation Date"
+    },
+    "status": {
+      "registered": "Registered",
+      "notRegistered": "Not Registered"
+    },
+    "types": {
+      "client": "Client",
+      "admin": "Admin",
+      "doctor": "Doctor"
+    },
+    "inputs": {
+      "username": "Username",
+      "password": "Password",
+      "phone": "Phone Number",
+      "nationality": "Nationality",
+      "branch": "Grade",
+      "group": "Group"
+    },
+    "modal": {
+      "title": "Add User",
+      "confirm": "Confirm",
+      "user_already_added": "This user has already been added by the admin. Would you like to add him to your group as well?",
+      "yes": "Yes",
+      "no": "No",
+      "success": "Success",
+      "user_added_successfully": "User added to group successfully",
+      "error": "Error",
+      "failed_to_add_user": "Failed to add user to group"
+    },
+    "groups_details": {
+      "modal_title": "User Groups",
+      "group_label": "Group",
+      "branch_label": "Branch",
+      "organization_label": "Organization",
+      "info_label": "Information",
+      "no_groups": "No group details available",
+      "close_button": "Close"
+    }
+  },
+  "account": {
+    "currentAccount": "Current Account with Permissions",
+    "welcome": "Welcome",
+    "logout": "Logout"
+  },
+  "global": {
+    "delete": "Delete",
+    "availability": {
+      "blocked": "Blocked",
+      "available": "Available"
+    },
+    "row_count": "Row Count",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "status": {
+      "blocked": "Blocked",
+      "non_blocked": "Available"
+    },
+    "all": "All",
+    "export_pdf": "Export to PDF",
+    "export_visible_data": "Export Visible Data",
+    "export_all_data": "Export All Data",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "submit": "Submit"
+    }
+  },
+  "nationalities": {
+    "egyptian": "Egyptian",
+    "saudi": "Saudi",
+    "emirati": "Emirati",
+    "lebanese": "Lebanese",
+    "syrian": "Syrian",
+    "jordanian": "Jordanian",
+    "palestinian": "Palestinian",
+    "kuwaiti": "Kuwaiti",
+    "iraqi": "Iraqi",
+    "qatari": "Qatari",
+    "bahraini": "Bahraini",
+    "tunisian": "Tunisian",
+    "libyan": "Libyan",
+    "algerian": "Algerian",
+    "moroccan": "Moroccan",
+    "sudanese": "Sudanese",
+    "yemeni": "Yemeni",
+    "omani": "Omani"
+  },
+  "organizations": {
+    "title": "Universities",
+    "add": "Add University",
+    "name": "Name",
+    "description": "Description",
+    "image": "Image",
+    "created_at": "Creation Date",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "branches": {
+    "title": "Grades",
+    "add": "Add Grade",
+    "name": "Name",
+    "description": "Short Description",
+    "university": "University",
+    "created_at": "Creation Date",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "fields": {
+    "title": "Subjects",
+    "add": "Add Subject",
+    "dialog_title": "Save Subject",
+    "name": "Name",
+    "instructor": "Doctor",
+    "instructors": "Doctors",
+    "no_additional_info": "No Additional Information",
+    "places": "Places",
+    "university": "University",
+    "branch": "Grade",
+    "groups": "Groups",
+    "semester": "Semester",
+    "bluetooth_support": "Bluetooth Support",
+    "attendance_tracking": "Attendance Tracking",
+    "ai_support": "AI Support",
+    "price": "Price",
+    "image": "Image",
+    "course_type": "Course Type",
+    "course_types": {
+      "exam_revision": "Exam Revision",
+      "revision": "Revision",
+      "explanation": "Explanation"
+    },
+    "support_options": {
+      "supported": "Supported",
+      "not_supported": "Not Supported"
+    },
+    "semester_options": {
+      "first": "First",
+      "second": "Second"
+    }
+  },
+  "files": {
+    "title": "Files",
+    "delete": "Delete",
+    "add": "Add File",
+    "preview": "Preview",
+    "filename": "File Name",
+    "filetype": "File Type",
+    "branch": "Grade",
+    "subject": "Subject",
+    "semester": "Semester",
+    "price": "Price",
+    "created_at": "Creation Date",
+    "name": "File Name",
+    "type": "File Type",
+    "university": "University",
+    "file": "File",
+    "types": {
+      "pdf": "PDF File",
+      "video": "Video"
+    }
+  },
+  "subscriptions": {
+    "title": "Subscriptions",
+    "delete": "Delete",
+    "register": "Add Subscription",
+    "report": "Subscriptions Report",
+    "table": {
+      "id": "ID",
+      "student": "Student",
+      "doctor": "Doctor",
+      "subject": "Subject",
+      "videoCount": "Video Count",
+      "viewCount": "View Count",
+      "amountDue": "Amount Due",
+      "discountAmount": "Discount Amount",
+      "notes": "Notes",
+      "createdAt": "Creation Date"
+    },
+    "inputs": {
+      "university": "University",
+      "branches": "Grades",
+      "subject": "Subject",
+      "price": "Price",
+      "paid": "Paid Amount",
+      "student": "Student",
+      "notes": "Notes",
+      "priceHint": "Select a subject to show price",
+      "discount": "Discount"
+    }
+  },
+  "bills": {
+    "title": "Bills",
+    "add": "Add Bill",
+    "inputs": {
+      "doctor": "Doctor",
+      "calculated_amount": "Calculated Amount",
+      "total_money": "Total Amount Required",
+      "notes": "Notes"
+    },
+    "table": {
+      "doctor": "Doctor",
+      "phone": "Phone Number",
+      "start_date": "Start Date",
+      "end_date": "End Date",
+      "total_money": "Total Amount",
+      "amount_paid": "Paid Amount",
+      "remain": "Remaining",
+      "notes": "Notes",
+      "created_at": "Creation Date"
+    },
+    "check_button": "Check"
+  },
+  "assistants": {
+    "title": "Assistants",
+    "add": "Add Assistant",
+    "inputs": {
+      "name": "Name",
+      "description": "Short Description",
+      "branch": "Grade",
+      "field": "Subject",
+      "files": "Files"
+    }
+  },
+  "questions": {
+    "title": "Questions",
+    "add_ai_questions": "Add AI Questions",
+    "add_manual_questions": "Add Manual Questions",
+    "add_question": "Add Question",
+    "number_of_true_false_questions": "Number of True/False Questions Generated",
+    "number_of_select_questions": "Number of Select Questions Generated",
+    "chapter_and_notes": "Specific chapters or topics you want questions generated from",
+    "types": {
+      "select": "Select",
+      "true_false": "True or False",
+      "true": "True",
+      "false": "False"
+    },
+    "options": {
+      "add_more": "Add more option",
+      "enter_option": "Enter option here",
+      "correct_option": "Correct answer"
+    },
+    "inputs": {
+      "name": "Name",
+      "assistant": "Assistant",
+      "complexity": "Complexity"
+    },
+    "levels": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "card": {
+      "options": "OPTIONS",
+      "page": "page",
+      "answer": "Answer",
+      "complexity": "Complexity"
+    }
+  },
+  "questions_selector": {
+    "title": "Choose Questions",
+    "search_question": "Search for a question",
+    "available_questions": "Available Questions",
+    "selected_questions": "Selected Questions",
+    "select_subject_first": "Please select the subject first",
+    "multiple_choice": "Multiple Choice",
+    "true_false": "True / False",
+    "question": "Question",
+    "true": "True",
+    "false": "False",
+    "not_specified": "Not specified"
+  },
+  "working_days": {
+    "title": "Lessons",
+    "add": "Add Lesson",
+    "status_offline": "Offline",
+    "status_online": "Online",
+    "time_from": "From",
+    "time_to": "To",
+    "minutes": "Minutes",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "open": "Open",
+    "show_qr": "Show QR Code",
+    "qr_code_title": "QR Code",
+    "qr_code_close": "Close",
+    "hints": {
+      "repeat_times": "Creates scheduled lessons for the upcoming days excluding exception days",
+      "remove_days": "Days that will be skipped when creating repeated lessons",
+      "allowed_time": "Time window (in minutes) after start time during which users can enter the lesson"
+    },
+    "table": {
+      "name": "Name",
+      "field": "Subject",
+      "instructor": "Instructor",
+      "groups": "Groups",
+      "status": "Status",
+      "time": "Time",
+      "allowed_time": "Allowed Time",
+      "check_location": "Location Verification",
+      "actions": "Actions"
+    },
+    "inputs": {
+      "name": "Name",
+      "field": "Subject",
+      "groups": "Groups",
+      "places": "Places",
+      "status": "Status",
+      "check_location": "Location Verification",
+      "time_start": "Start Time",
+      "time_end": "End Time",
+      "allowed_time": "Allowed Time (minutes)",
+      "repeat_times": "Repeat Times",
+      "remove_days": "Exception Days",
+      "limit": "Row Count",
+      "start_date": "Start Date",
+      "end_date": "End Date"
+    },
+    "days": {
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday"
+    }
+  },
+  "exam": {
+    "form_inputs": {
+      "title": "Exam Title",
+      "field": "Subject",
+      "question_mark": "Question Mark",
+      "start_time": "Start Time",
+      "time_in_minutes": "Time (in minutes)",
+      "allowed_time": "Allowed Time",
+      "total_questions": "Total Questions",
+      "is_random_questions_mode": "Random Questions Mode",
+      "is_minus_mode": "Minus Marks For Wrong Answers",
+      "questions": "Questions"
+    },
+    "card": {
+      "minutes": "minutes",
+      "questions": "questions",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "add": "Add Exam",
+    "create_new": "Create New Exam",
+    "title": "Exams"
+  },
+  "delete_modal": {
+    "title": "Are you sure?",
+    "text": "Do you really want to delete this item?",
+    "confirm_button": "Yes!",
+    "cancel_button": "Cancel"
+  },
+  "groups": {
+    "title": "Groups",
+    "name": "Group Name",
+    "info": "Group Information",
+    "add": "Add Group",
+    "places_count": "Places count",
+    "no_places": "No places available",
+    "places": "Places",
+    "more": "More",
+    "note": "Note"
+  }
+}

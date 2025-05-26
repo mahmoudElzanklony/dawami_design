@@ -1,0 +1,441 @@
+{
+  "navigation": {
+    "users": "المستخدمين",
+    "organizations": "الجامعات",
+    "branches": "الفرق",
+    "groups": "المجموعات",
+    "fields": "المواد",
+    "files": "الملفات",
+    "subscriptions": "الاشتراكات",
+    "bills": "الفواتير",
+    "assistants": "المساعدين",
+    "questions": "الاسئلة",
+    "exams": "الاختبارات",
+    "places": "الاماكن",
+    "lessons": "الدروس",
+    "attendance": "الحضور"
+  },
+  "phone_input": {
+    "country_code_required": "الكود مطلوب",
+    "enter_phone": "ادخل رقم الهاتف",
+    "phone_label": "رقم الهاتف",
+    "phone_required": "رقم الهاتف مطلوب",
+    "invalid_phone": "رقم هاتف غير صحيح"
+  },
+  "login": {
+    "title": "تسجيل الدخول",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "login_button": "تسجيل الدخول",
+    "forgot_password": "نسيت كلمة المرور؟",
+    "register": "تسجيل حساب جديد",
+    "remember_me": "تذكرني",
+    "no_account": "ليس لديك حساب؟",
+    "app_name": "iLearn",
+    "copyright": "© جميع الحقوق محفوظة - {year}",
+    "error": {
+      "invalid_credentials": "اسم المستخدم أو كلمة المرور غير صحيحة",
+      "account_blocked": "تم حظر الحساب",
+      "general_error": "حدث خطأ أثناء تسجيل الدخول",
+      "password_required": "كلمة المرور مطلوبة"
+    }
+  },
+  "users": {
+    "title": "المستخدمين",
+    "delete": "حذف",
+    "register": "تسجيل مستخدم",
+    "user_type": "نوع المستخدم",
+    "university": "الجامعة",
+    "account_status": "حالة الحساب",
+    "actions": {
+      "viewDetails": "عرض التفاصيل",
+      "resetDevice": "اعادة ضبط الجهاز",
+      "blockAccount": "حظر الحساب",
+      "unblockAccount": "فك الحظر"
+    },
+    "table": {
+      "avatar": "الصورة",
+      "name": "الاسم",
+      "phone": "الموبايل",
+      "type": "النوع",
+      "nationality": "الجنسية",
+      "device": "الجهاز",
+      "status": "حالة الحساب",
+      "studentCount": "عدد الطلبة",
+      "createdAt": "تاريخ الانشاء"
+    },
+    "status": {
+      "registered": "مسجل",
+      "notRegistered": "غير مسجل"
+    },
+    "types": {
+      "client": "عميل",
+      "admin": "مسؤول",
+      "doctor": "دكتور"
+    },
+    "inputs": {
+      "username": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "phone": "رقم الهاتف",
+      "nationality": "الجنسية",
+      "branch": "الفرقة الدراسية",
+      "group": "المجموعة"
+    },
+    "modal": {
+      "title": "اضافة مستخدم",
+      "confirm": "تأكيد",
+      "user_already_added": "هذا المستخدم تم اضافته سابقا عن طريق المسؤول. هل تود ضمه إليك أيضًا؟",
+      "yes": "نعم",
+      "no": "لا",
+      "success": "نجاح",
+      "user_added_successfully": "تم ضم المستخدم للمجموعة بنجاح",
+      "error": "خطأ",
+      "failed_to_add_user": "فشل إضافة المستخدم للمجموعة"
+    },
+    "groups_details": {
+      "modal_title": "مجموعات المستخدم",
+      "group_label": "المجموعة",
+      "branch_label": "الفرقة",
+      "organization_label": "الجامعة",
+      "info_label": "معلومات",
+      "no_groups": "لا توجد تفاصيل للمجموعات",
+      "close_button": "إغلاق"
+    }
+  },
+  "account": {
+    "currentAccount": "الحساب الحالي بصلاحيات",
+    "welcome": "مرحباَ",
+    "logout": "سجل الخروج"
+  },
+  "global": {
+    "delete": "حذف",
+    "availability": {
+      "blocked": "محظور",
+      "available": "متاح"
+    },
+    "row_count": "عدد الصفوف",
+    "start_date": "تاريخ البداية",
+    "end_date": "تاريخ النهاية",
+    "status": {
+      "blocked": "محظور",
+      "non_blocked": "متاح"
+    },
+    "all": "الكل",
+    "export_pdf": "تصدير إلى PDF",
+    "export_visible_data": "تصدير البيانات المرئية",
+    "export_all_data": "تصدير جميع البيانات",
+    "actions": {
+      "edit": "تعديل",
+      "delete": "حذف",
+      "cancel": "الغاء",
+      "submit": "اضافة"
+    }
+  },
+  "nationalities": {
+    "egyptian": "مصري",
+    "saudi": "سعودي",
+    "emirati": "اماراتي",
+    "lebanese": "لبناني",
+    "syrian": "سوري",
+    "jordanian": "اردني",
+    "palestinian": "فلسطيني",
+    "kuwaiti": "كويتي",
+    "iraqi": "عراقي",
+    "qatari": "قطري",
+    "bahraini": "بحريني",
+    "tunisian": "تونسي",
+    "libyan": "ليبي",
+    "algerian": "جزائري",
+    "moroccan": "مغربي",
+    "sudanese": "سوداني",
+    "yemeni": "يمني",
+    "omani": "عماني"
+  },
+  "organizations": {
+    "title": "الجامعات",
+    "add": "اضافة جامعة",
+    "name": "الاسم",
+    "description": "وصف",
+    "image": "الصورة",
+    "created_at": "تاريخ الانشاء",
+    "actions": {
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  },
+  "branches": {
+    "title": "الفرق",
+    "add": "تسجيل فرقة",
+    "name": "الاسم",
+    "description": "وصف قصير",
+    "university": "الجامعة",
+    "created_at": "تاريخ الانشاء",
+    "actions": {
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  },
+  "fields": {
+    "title": "المواد",
+    "add": "تسجيل مادة",
+    "dialog_title": "حفظ المادة",
+    "name": "الاسم",
+    "instructor": "الدكتور",
+    "instructors": "الدكاترة",
+    "no_additional_info": "لا توجد معلومات اضافية",
+    "places": "الاماكن",
+    "university": "الجامعة",
+    "branch": "الفرقة",
+    "groups": "المجموعات",
+    "semester": "الترم",
+    "bluetooth_support": "البلوتوث",
+    "attendance_tracking": "تتبع الحضور",
+    "ai_support": "الذكاء الصناعي",
+    "price": "السعر",
+    "image": "الصورة",
+    "course_type": "نوع الكورس",
+    "course_types": {
+      "exam_revision": "مراجعة امتحان",
+      "revision": "مراجعة",
+      "explanation": "شرح"
+    },
+    "support_options": {
+      "supported": "يدعم",
+      "not_supported": "لا يدعم"
+    },
+    "semester_options": {
+      "first": "الاول",
+      "second": "الثاني"
+    }
+  },
+  "files": {
+    "title": "ملفات",
+    "delete": "حذف",
+    "add": "إضافة ملف",
+    "preview": "معاينة",
+    "filename": "اسم الملف",
+    "filetype": "نوع الملف",
+    "branch": "الفرقة",
+    "subject": "المادة",
+    "semester": "الفصل الدراسي",
+    "price": "السعر",
+    "created_at": "تاريخ الإنشاء",
+    "name": "اسم الملف",
+    "type": "نوع الملف",
+    "university": "الجامعة",
+    "file": "الملف",
+    "types": {
+      "pdf": "ملف PDF",
+      "video": "فيديو"
+    }
+  },
+  "subscriptions": {
+    "title": "الاشتراكات",
+    "delete": "حذف",
+    "register": "تسجيل اشتراك",
+    "report": "تقرير الاشتراكات",
+    "table": {
+      "id": "ID",
+      "student": "الطالب",
+      "doctor": "الدكتور",
+      "subject": "المادة",
+      "videoCount": "عدد الفيديوهات",
+      "viewCount": "مرات المشاهدة",
+      "amountDue": "المبلغ المستحق",
+      "discountAmount": "مبلغ الخصم",
+      "notes": "ملاحظات",
+      "createdAt": "تاريخ الانشاء"
+    },
+    "inputs": {
+      "university": "الجامعة",
+      "branches": "الفرق الدراسية",
+      "subject": "المادة",
+      "price": "السعر",
+      "paid": "المبلغ المدفوع",
+      "student": "الطالب",
+      "notes": "ملاحظات",
+      "priceHint": "اختر مادة ليظهر السعر",
+      "discount": "الخصم"
+    }
+  },
+  "bills": {
+    "title": "الفواتير",
+    "add": "إضافة فاتورة",
+    "inputs": {
+      "doctor": "الدكتور",
+      "calculated_amount": "المبلغ المحسوب للفترة",
+      "total_money": "إجمالي المبلغ المطلوب",
+      "notes": "ملاحظات"
+    },
+    "table": {
+      "doctor": "الدكتور",
+      "phone": "رقم الهاتف",
+      "start_date": "تاريخ البدء",
+      "end_date": "تاريخ الانتهاء",
+      "total_money": "المبلغ الإجمالي",
+      "amount_paid": "المبلغ المدفوع",
+      "remain": "المتبقي",
+      "notes": "ملاحظات",
+      "created_at": "تاريخ الإنشاء"
+    },
+    "check_button": "تحقق"
+  },
+  "assistants": {
+    "title": "المساعدين",
+    "add": "تسجيل مساعد",
+    "inputs": {
+      "name": "الاسم",
+      "description": "وصف قصير",
+      "branch": "الفرقة الدراسية",
+      "field": "المادة",
+      "files": "الملفات"
+    }
+  },
+  "delete_modal": {
+    "title": "هل انت متاكد?",
+    "text": "هل حقا تريد حذف هذا العنصر?",
+    "confirm_button": "اجل!",
+    "cancel_button": "الغاء"
+  },
+  "questions": {
+    "title": "الاسئلة",
+    "add_ai_questions": "إضافة أسئلة بالذكاء الاصطناعي",
+    "add_manual_questions": "إضافة سؤال يدوي",
+    "add_question": "إضافة سؤال",
+    "number_of_true_false_questions": "عدد الأسئلة صح أو خطأ التي يتم إنشاؤها",
+    "number_of_select_questions": "عدد أسئلة الاختيار من متعدد التي يتم إنشاؤها",
+    "chapter_and_notes": "الفصول أو المواضيع التي تريد إنشاء الأسئلة منها",
+    "inputs": {
+      "name": "الاسم",
+      "assistant": "المساعد",
+      "complexity": "مستوي الصعوبة"
+    },
+    "levels": {
+      "easy": "سهل",
+      "medium": "متوسط",
+      "hard": "صعب"
+    },
+    "types": {
+      "select": "اختيار من متعدد",
+      "true_false": "صح أو خطأ",
+      "true": "صحيح",
+      "false": "خطأ"
+    },
+    "options": {
+      "add_more": "إضافة خيار آخر",
+      "enter_option": "أدخل الخيار هنا",
+      "correct_option": "الإجابة الصحيحة"
+    },
+    "card": {
+      "options": "الخيارات",
+      "page": "صفحة",
+      "answer": "الإجابة",
+      "complexity": "مستوى الصعوبة"
+    }
+  },
+  "questions_selector": {
+    "title": "اختر الأسئلة",
+    "search_question": "البحث عن سؤال",
+    "available_questions": "الأسئلة المتاحة",
+    "selected_questions": "الأسئلة المختارة",
+    "select_subject_first": "يرجى اختيار المادة أولاً",
+    "multiple_choice": "اختيار من متعدد",
+    "true_false": "صح / خطأ",
+    "question": "سؤال",
+    "true": "صحيح",
+    "false": "خطأ",
+    "not_specified": "غير محدد"
+  },
+  "working_days": {
+    "title": "الدروس",
+    "add": "إضافة درس",
+    "status_offline": "اوفلاين",
+    "status_online": "اونلاين",
+    "time_from": "من",
+    "time_to": "الي",
+    "minutes": "دقيقة",
+    "yes": "نعم",
+    "no": "لا",
+    "offline": "اغلاق",
+    "online": "فتح",
+    "show_qr": "عرض رمز QR",
+    "qr_code_title": "رمز QR",
+    "qr_code_close": "إغلاق",
+    "hints": {
+      "repeat_times": "إنشاء دروس مجدولة للأيام القادمة باستثناء أيام الاستثناء",
+      "remove_days": "الأيام التي سيتم تخطيها عند إنشاء دروس متكررة",
+      "allowed_time": "الفترة الزمنية (بالدقائق) بعد وقت البدء التي يمكن للمستخدمين خلالها الدخول إلى الدرس"
+    },
+    "table": {
+      "name": "الاسم",
+      "field": "المادة",
+      "instructor": "المدرس",
+      "groups": "المجموعات",
+      "status": "الحالة",
+      "time": "الوقت",
+      "allowed_time": "الوقت المسموح",
+      "check_location": "التحقق من الموقع",
+      "actions": "الإجراءات"
+    },
+    "inputs": {
+      "name": "الاسم",
+      "field": "المادة",
+      "groups": "المجموعات",
+      "places": "الأماكن",
+      "status": "الحالة",
+      "check_location": "التحقق من الموقع",
+      "time_start": "وقت البداية",
+      "time_end": "وقت النهاية",
+      "allowed_time": "الوقت المسموح (دقائق)",
+      "repeat_times": "عدد مرات التكرار",
+      "remove_days": "أيام الإستثناء",
+      "limit": "عدد الصفوف",
+      "start_date": "تاريخ البداية",
+      "end_date": "تاريخ النهاية"
+    },
+    "days": {
+      "saturday": "السبت",
+      "sunday": "الأحد",
+      "monday": "الإثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة"
+    }
+  },
+  "exam": {
+    "form_inputs": {
+      "title": "عنوان الإمتحان",
+      "field": "المادة",
+      "question_mark": "درجة السؤال",
+      "start_time": "تاريخ البدء",
+      "time_in_minutes": "الوقت (بالدقائق)",
+      "allowed_time": "الوقت المسموح",
+      "total_questions": "الاسئلة الكلية",
+      "is_random_questions_mode": "اختيار عشوائي للأسئلة",
+      "is_minus_mode": "خصم الدرجات للإجابات الخاطئة",
+      "questions": "الأسئلة"
+    },
+    "card": {
+      "minutes": "دقيقة",
+      "questions": "سؤال",
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "add": "إضافة إمتحان",
+    "create_new": "إنشاء إمتحان جديد",
+    "title": "الإمتحانات"
+  },
+  "groups": {
+    "title": "المجموعات",
+    "name": "اسم المجموعة",
+    "info": "ملاحظات",
+    "add": "اضافة مجموعة",
+    "places_count": "عدد الاماكن",
+    "no_places": "لا توجد أماكن",
+    "places": "الاماكن",
+    "more": "المزيد",
+    "note": "ملاحظة"
+
+  }
+}

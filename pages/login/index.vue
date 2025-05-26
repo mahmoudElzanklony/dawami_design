@@ -1,6 +1,6 @@
 <template>
   <div class="bg-grey-lighten-4 h-100vh d-flex flex-column justify-center align-center p-20">
-    <v-card class="w-full md:w-4/5 max-h-800 max-w-600 pa-14 elevation-3">
+    <v-card class="w-full md:w-4/5 max-h-800 max-w-600 pa-4 pa-sm-8 pa-md-14 elevation-3">
       <div class="w-full max-w-500 ma-auto pa-8">
         <div class="text-center mb-6">
           <v-img src="/images/logo-sm.png" class="mx-auto mb-16" width="128"/>

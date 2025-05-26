@@ -77,6 +77,18 @@
             readonly
           ></v-text-field>
         </div>
+
+        <!-- Hidden inputs for form submission -->
+        <input
+          type="hidden"
+          :name="`location[0][latitude]`"
+          :value="latitude"
+        />
+        <input
+          type="hidden"
+          :name="`location[0][longitude]`"
+          :value="longitude"
+        />
       </template>
       
       <template v-if="mapType === 'polygon'">
@@ -96,7 +108,7 @@ import { ref, computed, watch, onMounted, nextTick } from 'vue';
 
 const props = defineProps({
   modelValue: {
-    type: String,
+    type: Object,
     default: null
   },
   mapType: {
@@ -158,16 +170,10 @@ onMounted(() => {
   isClient.value = true;
   
   if (props.modelValue) {
-    console.log(props.modelValue);
     try {
-      const cleanedString = props.modelValue.replace(/(\{|\,)(\s*)([a-zA-Z0-9_]+)(\s*):/g, '$1"$3":');
-      const parsedLocation = JSON.parse(cleanedString);
-      console.log(props.modelValue,parsedLocation);
-      if (props.mapType === 'polygon' && parsedLocation.coordinates) {
-        polygonPositions.value = parsedLocation.coordinates;
-      } else if (parsedLocation.lat && parsedLocation.lang) {
-        latitude.value = parsedLocation.lat;
-        longitude.value = parsedLocation.lang;
+      if (props.modelValue.coordinates) {
+        latitude.value = props.modelValue.coordinates[0].latitude;
+        longitude.value = props.modelValue.coordinates[0].longitude;
       }
     } catch (e) {
       console.error("Error parsing location:", e);
@@ -202,14 +208,9 @@ watch(polygonPositions, () => {
 watch(() => props.modelValue, (newVal) => {
   if (newVal) {
     try {
-      const cleanedString = newVal.replace(/(\{|\,)(\s*)([a-zA-Z0-9_]+)(\s*):/g, '$1"$3":');
-      const parsedLocation = JSON.parse(cleanedString);
-      
-      if (props.mapType === 'polygon' && parsedLocation.coordinates) {
-        polygonPositions.value = parsedLocation.coordinates;
-      } else if (parsedLocation.lat && parsedLocation.lang) {
-        latitude.value = parsedLocation.lat;
-        longitude.value = parsedLocation.lang;
+      if (props.modelValue.coordinates) {
+        latitude.value = props.modelValue.coordinates[0].latitude;
+        longitude.value = props.modelValue.coordinates[0].longitude;
       }
     } catch (e) {
       console.error("Error parsing location:", e);

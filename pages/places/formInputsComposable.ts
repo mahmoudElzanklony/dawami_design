@@ -97,15 +97,22 @@ export const formInputsComposable: FormField[] = [
         FormExists: true,
         conditional: {
             dependsOn: 'type',
-            value: 'polygon'
+            value: 'gps'
         },
-        dependency: {
-            field: 'location_polygon',
-            updateValue: true,
-            valuePath: 'area'
-        }
     },
-    
+    {
+        label: "المساحة (بالمتر المربع)",
+        input_name: "area_in_meters",
+        required: false,
+        type: "number",
+        icon: "fa-duotone fa-solid fa-ruler",
+        searchable: false,
+        FormExists: true,
+        conditional: {
+            dependsOn: 'type',
+            value: 'maps'
+        },
+    },
     {
         label: "نوع التسجيل",
         input_name: "attendance_action",

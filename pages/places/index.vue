@@ -83,8 +83,11 @@ import {callOnServerComposable} from "~/composables/CallOnServerComposable";
 
 const nuxtApp = useNuxtApp();
 
+const PlacesInputsMapping = {
+  area_in_meters: 'location.area'
+}
 const {dialogSwitch, currentItem, update_current_item, page, tab, resetCurrentItem} =
-    useSharedStateComposable(formInputsComposable);
+    useSharedStateComposable(formInputsComposable,PlacesInputsMapping);
 
 const placesStore = usePlacesStore();
 callOnServerComposable(placesStore);

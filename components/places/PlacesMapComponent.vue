@@ -204,26 +204,6 @@ watch(polygonPositions, () => {
   }
 }, { deep: true });
 
-watch(() => props.modelValue, (newVal) => {
-  if (newVal) {
-    try {
-      if (props.modelValue.coordinates) {
-        latitude.value = props.modelValue.coordinates[0].latitude;
-        longitude.value = props.modelValue.coordinates[0].longitude;
-      }
-    } catch (e) {
-      console.error("Error parsing location:", e);
-    }
-  }
-}, { deep: true });
-
-watch(() => props.mapType, (newType) => {
-  if (mapRef.value && mapRef.value.leafletObject) {
-    nextTick(() => {
-      mapRef.value.leafletObject.invalidateSize();
-    });
-  }
-});
 
 watch(searchQuery, (newValue) => {
   if (newValue.trim().length < 3) {
@@ -241,7 +221,7 @@ watch(searchQuery, (newValue) => {
 });
 
 const searchLocation = async () => {
-  if (!searchQuery.value.trim()) return;
+  if (!searchQuery.value && !searchQuery.value.trim()) return;
   
   try {
     // Using Nominatim API for geocoding

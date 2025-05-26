@@ -63,7 +63,7 @@
         
         <div class="info-item" v-if="info?.location?.coordinates">
           <v-icon class="info-icon me-1" color="primary">mdi-map-marker-radius</v-icon>
-          <span class="info-text text-truncate">{{ info?.location?.coordinates[0]?.latitude }}, {{ info?.location?.coordinates[0]?.longitude }}</span>
+          <span class="info-text text-truncate">{{ Number(info?.location?.coordinates[0]?.latitude).toFixed(6) }}, {{ Number(info?.location?.coordinates[0]?.longitude).toFixed(6) }}</span>
         </div>
       </div>
     </v-card-text>
@@ -102,7 +102,8 @@ const hasActions = computed(() => props.has_action_edit || props.has_action_dele
 const getPlaceTypeLabel = (type) => {
   const types = {
     'gps': 'موقع GPS',
-    'maps': 'موقع على الخريطة'
+    'maps': 'موقع على الخريطة',
+    'polygon': 'منطقة جغرافية'
   };
   return types[type] || type;
 };

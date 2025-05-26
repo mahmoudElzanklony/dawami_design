@@ -76,7 +76,7 @@ export const formInputsComposable: FormField[] = [
     
     {
         label: "رسم المنطقة الجغرافية",
-        input_name: "location_polygon",
+        input_name: "location",
         required: true,
         type: "polygon-map",
         FormExists: true,

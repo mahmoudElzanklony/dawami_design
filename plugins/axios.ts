@@ -16,7 +16,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         let token: string | undefined;
         let organizationId: string | undefined;
         let locale: string | undefined;
-
+        console.log(process)
+        console.log(request)
         if (process.server) {
             const event = nuxtApp.ssrContext?.event;
             if (event) {

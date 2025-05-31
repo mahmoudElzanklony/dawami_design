@@ -7,7 +7,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "start": "PORT=3003 node .output/server/index.mjs",
+    "start": "PORT=3009 node .output/server/index.mjs",
     "deploy": "pm2 start npm --name questionaire -- start",
     "postinstall": "nuxt prepare"
   },

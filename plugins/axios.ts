@@ -14,18 +14,29 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     instance.interceptors.request.use((request) => {
         let token: string | undefined;
+        let organizationId: string | undefined;
+        let locale: string | undefined;
+
         if (process.server) {
             const event = nuxtApp.ssrContext?.event;
             if (event) {
                 token = getCookie(event, 'authToken');
+                organizationId = getCookie(event, 'organizationId');
+                locale = getCookie(event, 'i18n_locale') || 'ar';
             }
         } else {
             token = useCookie('authToken').value;
+            organizationId = useCookie('organizationId').value;
+            locale = useCookie('i18n_locale').value || 'ar';
         }
+
         if (token) {
             request.headers.Authorization = `Bearer ${token}`;
         }
-
+        if (organizationId) {
+            request.headers['organization_id'] = organizationId;
+        }
+        request.headers['lang'] = locale;
         return request;
     });
 
@@ -63,6 +74,21 @@ export default defineNuxtPlugin((nuxtApp) => {
         (error) => {
             if (process.client) {
                 const toast = useToast();
+
+                // Check for 401 status code (Unauthorized)
+                if (error.response && error.response.status === 401) {
+                    // Clear auth tokens if needed
+                    const authTokenCookie = useCookie('authToken');
+                    authTokenCookie.value = null;
+
+                    if (process.client) {
+                        localStorage.removeItem('authToken');
+                    }
+
+                    // Redirect to login page
+                    navigateTo('/auth/login');
+                }
+                // added
                 const errorMessage = error.response?.data?.message || error.response?.data?.errors;
                 if (Array.isArray(errorMessage)) {
                     errorMessage.forEach((msg) => {

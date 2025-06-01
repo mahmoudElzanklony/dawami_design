@@ -90,8 +90,8 @@ const passwordRules = [
 ]
 
 const handleLogin = async () => {
-  if (!(await loginForm.value.validate()).valid) return
-
+  //if (!(await loginForm.value.validate()).valid) return
+  console.log('test login')
   submitError.value = ''
 
   try {

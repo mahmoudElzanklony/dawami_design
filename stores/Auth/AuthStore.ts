@@ -10,10 +10,6 @@ export const useAuthStore = defineStore('AuthStore', {
     actions: {
         async login(data: any = null) {
             const {$axios} = useNuxtApp();
-            console.log(data);
-            console.log($axios);
-            console.log($axios.post('/auth/login', data));
-            console.log(await $axios.post('/auth/login', data));
             this.loading = true;
             if (data === null) data = new FormData(event.target)
             let response = await $axios.post('/auth/login', data)

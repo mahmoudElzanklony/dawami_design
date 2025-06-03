@@ -11,7 +11,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             'Content-Type': 'application/json',
         },
     });
-
+    console.log(instance);
+    console.log(instance.interceptors);
+    console.log(instance.interceptors.request);
     instance.interceptors.request.use((request) => {
         let token: string | undefined;
         let organizationId: string | undefined;

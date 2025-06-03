@@ -33,7 +33,7 @@ export const BaseStore = (StoreName: string, url: string, config: BaseStoreConfi
                 this.loading = true;
                 let res = await $axios.get((config?.endpoints?.getAll ?? url) + continue_url)
                 console.log(res)
-                console.log((config?.endpoints?.getAll ?? url) + continue_url)
+                console.log('current url ===>',(config?.endpoints?.getAll ?? url) + continue_url)
 
                 if (put_at_store) {
                     this.data = res?.data

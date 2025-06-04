@@ -251,7 +251,6 @@ const {dialogSwitch, currentItem, update_current_item, page, tab, resetCurrentIt
     useSharedStateComposable(formInputs);
 
 const usersStore = useUsersStore();
-console.log(usersStore);
 callOnServerComposable(usersStore);
 
 const finalInputsStructure = ref([...formInputs]);

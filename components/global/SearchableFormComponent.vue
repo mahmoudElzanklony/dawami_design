@@ -53,6 +53,10 @@ for (let input of props.inputs) {
   }
 }
 
+onMounted(()=>{
+  props.store_name.get_all_data((props.continue_url_search ?? ''));
+})
+
 const dependencyValues = computed(() => {
   const values: Record<string, any> = {};
   for (const input of props.inputs) {

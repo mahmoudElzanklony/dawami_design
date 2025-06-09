@@ -73,6 +73,7 @@ import {useI18n} from '#imports';
 
 const {t} = useI18n();
 const fields = getFormInputs(t);
+
 const {
   dialogSwitch,
   currentItem,
@@ -84,7 +85,7 @@ const nuxtApp = useNuxtApp();
 
 
 const assistantsStore = useAssistantStore()
-callOnServerComposable(assistantsStore)
+callOnServerComposable(assistantsStore);
 
 
 const finalInputsStructure = ref([...fields]);

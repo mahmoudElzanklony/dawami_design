@@ -11,30 +11,37 @@ export const useAuthStore = defineStore('AuthStore', {
         async login(data: any = null) {
             const {$axios} = useNuxtApp();
             this.loading = true;
-            if (data === null) data = new FormData(event.target)
-            let response = await $axios.post('/auth/login', data)
-            this.loading = false;
-            if (response?.status == 200) {
-                this.user = response?.data?.data;
+            
+            try {
+                if (data === null) data = new FormData(event.target)
+                let response = await $axios.post('/auth/login', data)
                 
-                // Handle organizations
-                if (this.user?.organizations && Array.isArray(this.user.organizations)) {
-                    if (this.user.organizations.length === 1) {
-                        // Set organization ID directly if there's only one
-                        this.setOrganizationId(this.user.organizations[0].organization_id);
-                        await navigateTo('/users');
-                    } else if (this.user.organizations.length > 1) {
-                        // Store organizations and show selector
-                        this.organizations = this.user.organizations;
-                        this.showOrgSelector = true;
-                        // Navigation will happen after selection
+                if (response?.status == 200) {
+                    this.user = response?.data?.data;
+    
+                    // Handle organizations
+                    if (this.user?.organizations && Array.isArray(this.user.organizations)) {
+                        if (this.user.organizations.length === 1) {
+                            // Set organization ID directly if there's only one
+                            this.setOrganizationId(this.user.organizations[0].organization_id);
+                            await navigateTo('/users');
+                        } else if (this.user.organizations.length > 1) {
+                            // Store organizations and show selector
+                            this.organizations = this.user.organizations;
+                            this.showOrgSelector = true;
+                            // Navigation will happen after selection
+                        } else {
+                            // No organizations, navigate to dashboard
+                            await navigateTo('/users');
+                        }
                     } else {
-                        // No organizations, navigate to dashboard
                         await navigateTo('/users');
                     }
-                } else {
-                    await navigateTo('/users');
                 }
+            } catch (error) {
+                console.error('Login error:', error);
+            } finally {
+                this.loading = false;
             }
         },
 
@@ -47,18 +54,27 @@ export const useAuthStore = defineStore('AuthStore', {
         async logout() {
             this.loading = true;
             const {$axios} = useNuxtApp();
-            await $axios.post('/auth/logout');
-            const authCookie = useCookie('authToken');
-            const orgCookie = useCookie('organizationId');
-            authCookie.value = null;
-            orgCookie.value = null;
-            if (process.client) {
-                localStorage.removeItem('authToken');
+            
+            try {
+                await $axios.post('/auth/logout');
+                const authCookie = useCookie('authToken');
+                const orgCookie = useCookie('organizationId');
+                authCookie.value = null;
+                orgCookie.value = null;
+                if (process.client) {
+                    localStorage.removeItem('authToken');
+                }
+                this.user = null;
+                await navigateTo('/login');
+            } catch (error) {
+                console.error('Logout error:', error);
+            } finally {
+                this.loading = false;
             }
-            this.user = null;
-            this.loading = false;
-            await navigateTo('/login');
         }
     },
-    persist: true
-})
+    persist: {
+        storage: piniaPluginPersistedstate.localStorage(),
+        pick: ['user', 'showOrgSelector', 'organizations'],
+    },
+});

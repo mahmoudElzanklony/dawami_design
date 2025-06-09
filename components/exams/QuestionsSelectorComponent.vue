@@ -26,14 +26,14 @@
           <draggable
               v-else-if="fieldId"
               v-model="availableQuestionsList"
-              class="questions-list"
+              class="questions-list two-column-list"
               ghost-class="ghost"
               group="questions"
               :item-key="(item) => item.id.toString()"
               @change="handleAvailableQuestionsChange"
           >
             <template #item="{element}">
-              <v-list-item class="question-item mb-2 draggable-item">
+              <v-list-item class="question-item mb-2 draggable-item two-column-item">
                 <div class="w-100">
                   <div v-html="element.question"></div>
 
@@ -68,16 +68,21 @@
           <h4 class="mb-4">{{ $t('questions_selector.selected_questions') }} ({{ selectedQuestions.length }})</h4>
           <draggable
               v-model="selectedQuestions"
-              class="questions-list"
+              class="questions-list two-column-list"
               ghost-class="ghost"
               group="questions"
               :item-key="(item) => item.id.toString()"
               @change="handleSelectedQuestionsChange"
           >
-            <template #item="{element}">
-              <v-list-item class="question-item mb-2 draggable-item">
+            <template #item="{element, index}">
+              <v-list-item class="question-item mb-2 draggable-item two-column-item">
                 <div class="w-100">
-                  <div v-html="element.question"></div>
+                  <div class="d-flex align-center">
+                    <v-chip size="small" color="primary" class="me-2 position-chip">
+                      {{ index + 1 }}
+                    </v-chip>
+                    <div v-html="element.question"></div>
+                  </div>
 
                   <div class="info-container mt-1">
                     <v-chip size="x-small" color="info" class="mr-1">
@@ -97,6 +102,15 @@
                   </div>
                 </div>
                 <template v-slot:append>
+                  <v-icon
+                      color="error"
+                      size="small"
+                      class="me-2"
+                      @click.stop="deleteQuestion(element)"
+                      title="Remove question"
+                  >
+                    mdi-delete
+                  </v-icon>
                   <v-icon color="primary" size="small">mdi-drag-horizontal-variant</v-icon>
                 </template>
               </v-list-item>
@@ -262,6 +276,13 @@ function handleSelectedQuestionsChange(event: any) {
   updateAvailableQuestions();
 }
 
+// Add the deleteQuestion function
+function deleteQuestion(question: any) {
+  selectedQuestions.value = selectedQuestions.value.filter(q => q.id !== question.id);
+  updateSelectedQuestions();
+  updateAvailableQuestions();
+}
+
 onMounted(async () => {
   if (props.fieldId) {
     await fetchQuestions();
@@ -281,7 +302,7 @@ onMounted(async () => {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 16px;
-  height: 800px;
+  min-height: 670px;
   display: flex;
   flex-direction: column;
 }
@@ -325,7 +346,7 @@ onMounted(async () => {
 .correct-option {
   font-size: 0.8rem;
   padding: 2px 4px;
-  background-color: rgba(76, 175, 80, 0.1);
+  background-color: rgba(76, 175, 76, 0.1);
   border-radius: 4px;
   display: inline-block;
 }
@@ -340,5 +361,36 @@ onMounted(async () => {
 
 .w-100 {
   width: 100%;
+}
+
+/* Position chip for question numbers */
+.position-chip {
+  min-width: 30px;
+  justify-content: center;
+}
+
+/* Two-column layout for question items */
+.two-column-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-content: flex-start; /* Keep items at the top */
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.two-column-item {
+  width: calc(50% - 6px);
+  margin-bottom: 0;
+  flex-grow: 0;
+}
+
+@media (max-width: 900px) {
+  .two-column-item {
+    width: 100%;
+  }
+  .two-column-list {
+    gap: 8px;
+  }
 }
 </style>

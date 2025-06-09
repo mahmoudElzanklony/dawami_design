@@ -1,5 +1,6 @@
 import type { FormField } from "@/types/formField";
 import {useUsersStore} from "~/stores/UsersStore";
+import {useOrganizationsStore} from "~/stores/OrganizationsStore";
 
 export const getFormInputs = (t: (key: string) => string): FormField[] => [
     {
@@ -37,6 +38,21 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         searchable: true,
         FormExists: false,
         icon: "",
+    },
+    {
+        label: t('bills.inputs.organization'),
+        input_name: "organization_id",
+        required: true,
+        type: "select",
+        options: [],
+        options_getting_data: "api",
+        item_title: "name",
+        item_value: "id",
+        icon: "",
+        store_name: useOrganizationsStore,
+        continue_url_request: '?limit=9999999999',
+        searchable: true,
+        FormExists: true
     },
     {
         label: t('global.start_date'),

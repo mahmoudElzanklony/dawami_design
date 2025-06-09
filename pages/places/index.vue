@@ -4,8 +4,8 @@
       <v-row class="justify-space-between align-center mb-3">
         <v-col cols="auto">
           <h1 class="bigger-normal-font font-weight-medium text-gray flex items-center">
-            <i class="fa-duotone fa-solid fa-map-location me-2 primary-color"></i>
-            الأماكن
+            <i class="fa-solid fa-location-dot me-2 primary-color"></i>
+            {{ $t('places.title') }}
           </h1>
         </v-col>
         <v-col cols="auto">
@@ -14,15 +14,15 @@
               <v-btn
                   class="text-none font-weight-regular bg-primary-color white"
                   prepend-icon="mdi-plus"
-                  text="اضافة مكان"
+                  :text="t('places.add')"
                   @click="resetCurrentItem"
                   v-bind="activatorProps"
               ></v-btn>
             </template>
             <ModalDialog
                 v-model="dialogSwitch"
-                dialog_icon="fa-duotone fa-solid fa-map-location"
-                dialog_title="اضافة مكان"
+                dialog_icon="fa-solid fa-location-dot"
+                :dialog_title="t('places.add')"
                 :store="placesStore"
                 :info="currentItem"
                 :inputs="finalInputsStructure"
@@ -30,7 +30,7 @@
           </v-dialog>
         </v-col>
       </v-row>
-      <v-divider class="mb-4"></v-divider>
+      <v-divider class="mb-7"></v-divider>
 
       <!-- Search Form and List of Places -->
       <v-row class="mb-3">
@@ -75,24 +75,27 @@
 <script setup lang="ts">
 import PlacesCardComponent from "~/components/places/PlacesCardComponent.vue";
 import ModalDialog from "~/components/global/ModalDialog.vue";
-import {formInputsComposable} from "~/pages/places/formInputsComposable";
+import {getFormInputs} from "~/pages/places/formInputsComposable";
 import {handleInputsApi} from "~/composables/HandleInputsApiFormComposable";
 import {useSharedStateComposable} from "~/composables/UseSharedStateComposable";
 import {usePlacesStore} from "~/stores/PlacesStore";
 import {callOnServerComposable} from "~/composables/CallOnServerComposable";
+import {useI18n} from "#imports";
 
 const nuxtApp = useNuxtApp();
+const {t} = useI18n();
 
 const PlacesInputsMapping = {
   area_in_meters: 'location.area'
 }
+const formInputs = getFormInputs(t);
 const {dialogSwitch, currentItem, update_current_item, page, tab, resetCurrentItem} =
-    useSharedStateComposable(formInputsComposable,PlacesInputsMapping);
+    useSharedStateComposable(formInputs, PlacesInputsMapping);
 
 const placesStore = usePlacesStore();
 callOnServerComposable(placesStore);
 
-const finalInputsStructure = ref([...formInputsComposable]);
+const finalInputsStructure = ref([...formInputs]);
 
 onMounted(async () => {
   await nuxtApp.runWithContext(async () => {

@@ -48,8 +48,7 @@
             <span>{{ formatDate(info?.created_at) }}</span>
           </v-col>
           <v-col cols="6" class="pa-0 d-flex align-center">
-            <v-chip color="success" size="small" v-if="info?.is_active">{{ t('exam.card.active') }}</v-chip>
-            <v-chip color="error" size="small" v-else>{{ t('exam.card.inactive') }}</v-chip>
+            <v-chip :color="examStatus.color" size="small">{{ examStatus.text }}</v-chip>
           </v-col>
         </v-row>
       </v-col>
@@ -59,24 +58,24 @@
 
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { formatDate } from '~/composables/FormatDateComposable';
 import { deleteItemComposable } from '~/composables/DeleteItemComposable';
 import EditOrDeleteActionsComponent from "~/components/global/ExtraActionsComponent.vue";
-import {useI18n} from '#imports'
-const {t} = useI18n();
+import { useI18n } from '#imports'
+const { t } = useI18n();
 
 interface ExamCardProps {
   has_action_edit: boolean;
   has_action_delete: boolean;
   info: any;
-  store:any
+  store: any
 }
 
 const props = defineProps<ExamCardProps>();
 const dialog_switch = defineModel<boolean>();
 const emit = defineEmits(['update:info_obj']);
 const config = useRuntimeConfig();
-
 
 const editItem = (obj: any): void => {
   emit('update:info_obj', obj);
@@ -85,6 +84,62 @@ const editItem = (obj: any): void => {
   }
 };
 
+// Calculate exam status based on start date
+const examStatus = computed(() => {
+  if (!props.info?.start_at) {
+    return { text: t('exam.card.status.no_date'), color: 'warning' };
+  }
+
+  const now = new Date();
+  const startDate = new Date(props.info.start_at);
+  
+  // Calculate exam end time (start time + duration + allowed entry time)
+  const totalMinutes = (props.info.time_in_minutes || 0) + (props.info.allowed_time || 0);
+  const endDate = new Date(startDate.getTime() + totalMinutes * 60000);
+  
+  // Check if exam is finished
+  if (now > endDate) {
+    return { text: t('exam.card.status.finished'), color: 'error' };
+  }
+  
+  // Check if exam is in progress
+  if (now >= startDate && now <= endDate) {
+    return { text: t('exam.card.status.in_progress'), color: 'success' };
+  }
+  
+  // Calculate days until exam starts
+  const diffTime = startDate.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+  // Check if exam starts today
+  if (diffDays === 0) {
+    // Calculate hours until exam starts
+    const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+    if (diffHours === 0) {
+      // Calculate minutes until exam starts
+      const diffMinutes = Math.floor(diffTime / (1000 * 60));
+      return { 
+        text: t('exam.card.status.starts_in_minutes', { minutes: diffMinutes }), 
+        color: 'warning' 
+      };
+    }
+    return { 
+      text: t('exam.card.status.starts_today', { hours: diffHours }), 
+      color: 'warning' 
+    };
+  }
+  
+  // Check if exam starts tomorrow
+  if (diffDays === 1) {
+    return { text: t('exam.card.status.starts_tomorrow'), color: 'info' };
+  }
+  
+  // Exam starts in the future
+  return { 
+    text: t('exam.card.status.starts_in_days', { days: diffDays }), 
+    color: 'info' 
+  };
+});
 </script>
 
 <style lang="scss" scoped>

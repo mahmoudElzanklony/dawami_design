@@ -13,7 +13,8 @@
     "exams": "الاختبارات",
     "places": "الاماكن",
     "lessons": "الدروس",
-    "attendance": "الحضور"
+    "attendance": "الحضور",
+    "packages": "الباقات"
   },
   "phone_input": {
     "country_code_required": "الكود مطلوب",
@@ -71,7 +72,10 @@
     "types": {
       "client": "عميل",
       "admin": "مسؤول",
-      "doctor": "دكتور"
+      "doctor": "دكتور",
+      "employee": "موظف",
+      "organization": "مؤسسة",
+      "superadmin": "مسؤول أعلى"
     },
     "inputs": {
       "username": "اسم المستخدم",
@@ -155,6 +159,7 @@
     "title": "الجامعات",
     "add": "اضافة جامعة",
     "name": "الاسم",
+    "package": "الباقة",
     "description": "وصف",
     "image": "الصورة",
     "created_at": "تاريخ الانشاء",
@@ -266,7 +271,8 @@
       "doctor": "الدكتور",
       "calculated_amount": "المبلغ المحسوب للفترة",
       "total_money": "إجمالي المبلغ المطلوب",
-      "notes": "ملاحظات"
+      "notes": "ملاحظات",
+      "organization": "المؤسسة"
     },
     "table": {
       "doctor": "الدكتور",
@@ -289,7 +295,12 @@
       "description": "وصف قصير",
       "branch": "الفرقة الدراسية",
       "field": "المادة",
-      "files": "الملفات"
+      "files": "الملفات",
+      "chapters": "الفصول",
+      "add_chapter": "إضافة فصل",
+      "no_chapters": "لا توجد فصول مضافة. اضغط على زر إضافة فصل لإضافة فصول للمساعد.",
+      "chapter_name": "اسم الفصل",
+      "chapter_name_placeholder": "ادخل اسم الفصل هنا"
     }
   },
   "delete_modal": {
@@ -359,6 +370,8 @@
     "no": "لا",
     "offline": "اغلاق",
     "online": "فتح",
+    "support": "يدعم",
+    "no_support": "لا يدعم",
     "show_qr": "عرض رمز QR",
     "qr_code_title": "رمز QR",
     "qr_code_close": "إغلاق",
@@ -385,6 +398,7 @@
       "places": "الأماكن",
       "status": "الحالة",
       "check_location": "التحقق من الموقع",
+      "check_tracking": "تتبع الحضور",
       "time_start": "وقت البداية",
       "time_end": "وقت النهاية",
       "allowed_time": "الوقت المسموح (دقائق)",
@@ -415,13 +429,22 @@
       "total_questions": "الاسئلة الكلية",
       "is_random_questions_mode": "اختيار عشوائي للأسئلة",
       "is_minus_mode": "خصم الدرجات للإجابات الخاطئة",
-      "questions": "الأسئلة"
+      "questions": "الأسئلة",
+      "start_time_hint": "الوقت الذي يمكن للمستخدم البدء في دخول الامتحان",
+      "allowed_time_hint": "المدة المسموح بها للدخول بعد وقت البدء (بالدقائق)"
     },
     "card": {
       "minutes": "دقيقة",
       "questions": "سؤال",
-      "active": "نشط",
-      "inactive": "غير نشط"
+      "status": {
+        "in_progress": "جاري الآن",
+        "finished": "انتهى",
+        "starts_today": "يبدأ اليوم (بعد {hours} ساعة)",
+        "starts_tomorrow": "يبدأ غداً",
+        "starts_in_days": "يبدأ بعد {days} يوم",
+        "starts_in_minutes": "يبدأ خلال {minutes} دقيقة",
+        "no_date": "لم يحدد موعد"
+      }
     },
     "add": "إضافة إمتحان",
     "create_new": "إنشاء إمتحان جديد",
@@ -438,5 +461,165 @@
     "more": "المزيد",
     "note": "ملاحظة"
 
+  },
+  "places": {
+    "title": "الأماكن",
+    "add": "اضافة مكان",
+    "name": "الاسم",
+    "organization": "المؤسسة",
+    "type": "نوع الموقع",
+    "types": {
+      "polygon": "منطقة جغرافية (دقة عالية)",
+      "gps": "موقع GPS (دقة متوسطة)",
+      "maps": "موقع على الخريطة (دقة منخفضة)"
+    },
+    "map_location": "الموقع على الخريطة",
+    "gps_location": "موقع GPS",
+    "polygon_area": "رسم المنطقة الجغرافية",
+    "area_in_meters": "المساحة (بالمتر المربع)",
+    "attendance_action": "نوع التسجيل",
+    "attendance_actions": {
+      "check_in": "تسجيل دخول",
+      "check_in_check_out": "تسجيل دخول وخروج"
+    },
+    "map": {
+      "search_location": "البحث عن موقع",
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "area_coordinates": "إحداثيات المنطقة",
+      "loading": "جاري تحميل الخريطة..."
+    },
+    "polygon": {
+      "instructions_1": "أضف على الأقل 4 نقاط لتشكيل المنطقة.",
+      "instructions_2": "يمكنك إضافة أي عدد من النقاط عن طريق النقر على الخريطة، وسيتم ربط النقطة الأخيرة بالنقطة الأولى تلقائياً لإكمال المنطقة.",
+      "instructions_3": "كلما زادت النقاط كلما زادت دقة تحديد المنطقة.",
+      "add_current_location": "إضافة موقعك الحالي كنقطة",
+      "points_selected": "النقاط المحددة ({count})",
+      "clear_all_points": "مسح كل النقاط",
+      "need_more_points": "يجب إضافة {count} نقاط على الأقل لتشكيل المنطقة.",
+      "area_defined": "تم تحديد المنطقة بنجاح ({count} نقاط)",
+      "approximate_area": "المساحة التقريبية",
+      "square_meters": "متر مربع",
+      "location_error": "فشل في الحصول على الموقع",
+      "browser_no_geolocation": "يبدو أن متصفحك لا يدعم تحديد الموقع الجغرافي",
+      "errors": {
+        "permission_denied": "تم رفض الوصول إلى الموقع الجغرافي",
+        "position_unavailable": "معلومات الموقع غير متاحة",
+        "timeout": "انتهت مهلة طلب الموقع الجغرافي",
+        "unknown": "حدث خطأ غير معروف"
+      }
+    }
+  },
+  "geolocation": {
+    "click_gps_icon": "انقر على أيقونة GPS لتحديد موقعك",
+    "error": "خطأ في تحديد الموقع",
+    "location_detected": "تم تحديد الموقع بنجاح",
+    "coordinates": "الإحداثيات"
+  },
+  "attendance": {
+    "title": "سجل الحضور",
+    "add": "تسجيل حضور",
+    "modal_title": "تسجيل حضور",
+    "view_details": "عرض التفاصيل",
+    "details_title": "تفاصيل الحضور",
+    "tracking": "تتبع",
+    "more_tracking": "تتبع آخر",
+    "pdf_report_title": "تقرير الحضور",
+    "status": {
+      "attend": "حاضر",
+      "absent": "غائب",
+      "late": "متأخر"
+    },
+    "tracking_type": {
+      "checkin": "تسجيل دخول",
+      "checkout": "تسجيل خروج"
+    },
+    "types": {
+      "auto": "تلقائي",
+      "manual": "يدوي"
+    },
+    "distance": {
+      "inside_area": "داخل المنطقة",
+      "meter": "متر",
+      "km": "كم"
+    },
+    "table": {
+      "user": "المستخدم",
+      "working_day": "يوم العمل",
+      "working_day_status": "حالة يوم العمل",
+      "attendance_status": "حالة الحضور",
+      "tracking_records": "سجلات التتبع",
+      "distance_from_place": "البعد عن المكان",
+      "check_count": "عدد مرات التسجيل",
+      "notes": "ملاحظات",
+      "created_at": "تاريخ الإنشاء"
+    },
+    "inputs": {
+      "working_day": "يوم العمل",
+      "user": "المستخدم",
+      "registration_type": "نوع التسجيل",
+      "location": "الموقع الجغرافي",
+      "status": "حالة الحضور"
+    },
+    "details": {
+      "user_info": "معلومات المستخدم",
+      "username": "اسم المستخدم",
+      "phone": "رقم الهاتف",
+      "user_type": "نوع المستخدم",
+      "working_day_info": "معلومات يوم العمل",
+      "day_name": "اسم اليوم",
+      "start_time": "وقت البدء",
+      "end_time": "وقت الإنتهاء",
+      "allowed_time": "الوقت المسموح (دقائق)",
+      "status": "الحالة",
+      "place_info": "مكان الحضور",
+      "place_name": "اسم المكان",
+      "organization": "المؤسسة",
+      "place_type": "نوع المكان",
+      "coordinates": "الإحداثيات",
+      "tracking_info": "معلومات التتبع",
+      "battery": "بطارية",
+      "steps": "خطوات",
+      "location": "الموقع",
+      "internet_connection": "الاتصال بالإنترنت",
+      "connected": "متصل",
+      "disconnected": "غير متصل",
+      "no_tracking_data": "لا توجد بيانات تتبع",
+      "distance_info": "معلومات المسافة",
+      "distance_from_place": "المسافة من المكان المحدد",
+      "notes": "ملاحظات",
+      "no_notes": "لا توجد ملاحظات",
+      "close": "إغلاق"
+    }
+  },
+  "packages": {
+    "title": "الباقات",
+    "add": "إضافة باقة",
+    "modal_title": "إضافة باقة جديدة",
+    "view_details": "عرض التفاصيل",
+    "details_title": "تفاصيل الباقة",
+    "pdf_report_title": "تقرير الباقات",
+    "no_packages": "لا توجد باقات متاحة",
+    "description": "الوصف",
+    "price": "السعر",
+    "max_users": "الحد الأقصى للمستخدمين",
+    "inputs": {
+      "name": "اسم الباقة",
+      "description": "وصف الباقة",
+      "price": "السعر",
+      "max_users": "الحد الأقصى للمستخدمين"
+    },
+    "details": {
+      "package_info": "معلومات الباقة",
+      "creator_info": "معلومات المنشئ",
+      "name": "الاسم",
+      "description": "الوصف",
+      "price": "السعر",
+      "max_users": "الحد الأقصى للمستخدمين",
+      "username": "اسم المستخدم",
+      "phone": "رقم الهاتف",
+      "created_at": "تاريخ الإنشاء",
+      "close": "إغلاق"
+    }
   }
 }

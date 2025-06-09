@@ -6,26 +6,67 @@
     </v-card-title>
     <form @submit.prevent="save" method="post" enctype="multipart/form-data">
       <input type="hidden" name="id" v-if="info?.id" :value="info?.id">
-      <v-row class="ma-0 pa-0">
-        <v-col
-            v-for="(i, key) in inputs"
-            :key="key"
-            :cols="props.is_exam_modal ? (i.type === 'question-selector' ? 8 : 4) : 12"
-            class="ma-0 pa-0"
-        >
-          <FormInputRenderer
-            :input="i"
-            :model-value="info"
-            :should-show-input="shouldShowInput"
-            :is-disabled="isDisabled"
-            :loading-states="loadingStates"
-            :get-item-props="getItemProps"
-          />
-        </v-col>
-      </v-row>
+
+      <!-- Exam modal layout -->
+      <template v-if="props.is_exam_modal">
+        <v-row>
+          <!-- Left side - Regular inputs (3 columns) -->
+          <v-col cols="12" md="3">
+            <div v-for="(i, key) in inputs" :key="key">
+              <FormInputRenderer
+                  v-if="shouldShowInput(i) && i.type !== 'question-selector'"
+                  :input="i"
+                  :model-value="info"
+                  :should-show-input="shouldShowInput"
+                  :is-disabled="isDisabled"
+                  :loading-states="loadingStates"
+                  :get-item-props="getItemProps"
+              />
+            </div>
+          </v-col>
+
+          <!-- Right side - Questions component (9 columns) -->
+          <v-col cols="12" md="9">
+            <div v-for="(i, key) in inputs" :key="'questions-'+key">
+              <FormInputRenderer
+                  v-if="shouldShowInput(i) && i.type === 'question-selector'"
+                  :input="i"
+                  :model-value="info"
+                  :should-show-input="shouldShowInput"
+                  :is-disabled="isDisabled"
+                  :loading-states="loadingStates"
+                  :get-item-props="getItemProps"
+              />
+            </div>
+          </v-col>
+        </v-row>
+      </template>
+
+      <!-- Standard layout -->
+      <template v-else>
+        <v-row class="ma-0 pa-0">
+          <v-col
+              v-for="(i, key) in inputs"
+              :key="key"
+              :cols="12"
+              class="ma-0 pa-0"
+          >
+            <FormInputRenderer
+                :input="i"
+                :model-value="info"
+                :should-show-input="shouldShowInput"
+                :is-disabled="isDisabled"
+                :loading-states="loadingStates"
+                :get-item-props="getItemProps"
+            />
+          </v-col>
+        </v-row>
+      </template>
+
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn :text="t('global.actions.cancel')" class="close_form" purpose="close" variant="plain" @click="dialog_switch = false"></v-btn>
+        <v-btn :text="t('global.actions.cancel')" class="close_form" purpose="close" variant="plain"
+               @click="dialog_switch = false"></v-btn>
         <v-btn
             :disabled="submit_form"
             type="submit"
@@ -47,6 +88,7 @@ import {ref, computed, watch, nextTick} from 'vue';
 import FormInputRenderer from "~/components/global/FormInputRenderer.vue";
 import getValueByPath from '~/composables/getValueByPathComposable';
 import {useI18n} from '#imports'
+
 const {t} = useI18n()
 
 let props = defineProps([
@@ -176,7 +218,7 @@ async function save(event) {
   try {
     const data = new FormData(event.target);
     for (const key in props.info) {
-      if (Array.isArray(props.info[key])) {
+      if (Array.isArray(props.info[key]) && key !== 'chapters') {  // TODO: fix this for chapters
         props.info[key].forEach((value, index) => {
           data.append(`${key}[${index}]`, value);
         });
@@ -193,7 +235,7 @@ async function save(event) {
     // Emit the submission-complete event with the response data
     emits('submission-complete', result);
 
-    if (result && result.status===200) {
+    if (result && result.status === 200) {
       dialog_switch.value = false;
     }
   } finally {

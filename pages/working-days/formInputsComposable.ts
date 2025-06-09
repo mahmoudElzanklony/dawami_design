@@ -71,8 +71,8 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         type: "select",
         options_getting_data: "fixed",
         options: [
-            {value: 'offline', label: t("working_days.status_closed")},
-            {value: 'online', label: t("working_days.status_open")},
+            {value: 'offline', label: t("working_days.status_offline")},
+            {value: 'online', label: t("working_days.status_online")},
         ],
         item_title: "label",
         item_value: "value",
@@ -87,8 +87,24 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         type: "select",
         options_getting_data: "fixed",
         options: [
-            {value: 1, label: t("working_days.yes")},
-            {value: 0, label: t("working_days.no")},
+            {value: 1, label: t("working_days.support")},
+            {value: 0, label: t("working_days.no_support")},
+        ],
+        item_title: "label",
+        item_value: "value",
+        searchable: true,
+        FormExists: true,
+        icon: ""
+    },
+    {
+        label: t("working_days.inputs.check_tracking"),
+        input_name: "check_tracking",
+        required: true,
+        type: "select",
+        options_getting_data: "fixed",
+        options: [
+            {value: 1, label: t("working_days.support")},
+            {value: 0, label: t("working_days.no_support")},
         ],
         item_title: "label",
         item_value: "value",

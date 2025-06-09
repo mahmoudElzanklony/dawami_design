@@ -2,9 +2,9 @@ import type {FormField} from "@/types/formField";
 import {useWorkingDaysStore} from "~/stores/WorkingDaysStore";
 import {useUsersStore} from "~/stores/UsersStore";
 
-export const formInputsComposable: FormField[] = [
+export const getFormInputs = (t: (key: string) => string): FormField[] => [
     {
-        label: "يوم العمل",
+        label: t('attendance.inputs.working_day'),
         input_name: "working_day_id",
         required: true,
         type: "select",
@@ -12,14 +12,14 @@ export const formInputsComposable: FormField[] = [
         options_getting_data: "api",
         item_title: "name",
         item_value: "id",
-        icon: "fa-duotone fa-solid fa-calendar-day",
+        icon: "",
         store_name: useWorkingDaysStore,
         continue_url_request: '?limit=9999999999',
         searchable: true,
         FormExists: true
     },
     {
-        label: "المستخدم",
+        label: t('attendance.inputs.user'),
         input_name: "user_id",
         required: true,
         type: "select",
@@ -27,68 +27,67 @@ export const formInputsComposable: FormField[] = [
         options_getting_data: "api",
         item_title: "username",
         item_value: "id",
-        icon: "fa-duotone fa-solid fa-user",
+        icon: "",
         store_name: useUsersStore,
         continue_url_request: '?limit=9999999999',
         searchable: true,
         FormExists: true
     },
     {
-        label: "نوع التسجيل",
+        label: t('attendance.inputs.registration_type'),
         input_name: "type",
         required: true,
         type: "radio",
         inline: true,
         options: [
-            {value: 'auto', label: 'تلقائي'},
-            {value: 'manual', label: 'يدوي'}
+            {value: 'auto', label: t('attendance.types.auto')},
+            {value: 'manual', label: t('attendance.types.manual')}
         ],
         item_title: "label",
         item_value: "value",
         searchable: false,
         FormExists: true,
-        icon: "fa-duotone fa-solid fa-gear",
+        icon: "",
         visibility:{
             create:true,
             update:false,
         }
     },
     {
-        label: "الموقع الجغرافي",
+        label: t('attendance.inputs.location'),
         input_name: "location",
         required: true,
-        type: "geolocation",  // Changed from "text" to "geolocation"
-        icon: "fa-duotone fa-solid fa-location-dot",
+        type: "geolocation",
+        icon: "",
         searchable: false,
         FormExists: true,
         conditional: {
             dependsOn: 'type',
             value: 'auto'
         },
-        placeholder: "سيتم تحديد موقعك الحالي تلقائيًا",
         visibility:{
             create:true,
             update:false,
         }
     },
     {
-        label: "حالة الحضور",
+        label: t('attendance.inputs.status'),
         input_name: "status",
         required: true,
-        type: "radio",
+        type: "select",
         inline: true,
         options: [
-            {value: 'attend', label: 'حاضر'},
-            {value: 'absent', label: 'غائب'}
+            {value: 'attend', label: t('attendance.status.attend')},
+            {value: 'absent', label: t('attendance.status.absent')}
         ],
         item_title: "label",
         item_value: "value",
         searchable: false,
         FormExists: true,
-        icon: "fa-duotone fa-solid fa-clipboard-check"
+        icon: ""
     },
     {
-        label: "عدد الصفوف",
+        label: t('global.row_count'),
         input_name: "limit",
         required: false,
         type: "select",
@@ -107,22 +106,22 @@ export const formInputsComposable: FormField[] = [
         icon: "fa-duotone fa-solid fa-list-ol"
     },
     {
-        label: 'تاريخ البداية',
+        label: t('global.start_date'),
         input_name: 'start_date',
         required: false,
         type: 'date',
         searchable: true,
         FormExists: false,
-        icon: 'fa-duotone fa-solid fa-calendar'
+        icon: ''
     },
     {
-        label: 'تاريخ النهاية',
+        label: t('global.end_date'),
         input_name: 'end_date',
         required: false,
         type: 'date',
         searchable: true,
         FormExists: false,
-        icon: 'fa-duotone fa-solid fa-calendar'
+        icon: ''
     }
 ];
 

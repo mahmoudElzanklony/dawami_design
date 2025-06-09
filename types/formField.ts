@@ -1,4 +1,4 @@
-export type FieldType = "text" | "number" | "date" | "select" | "file" | "options" | "radio" | 'textarea' | 'phone' | 'datetime-local' | 'geolocation' | 'check-period-amount'|'map'|"polygon-map"; // options for input type select
+export type FieldType = "text" | "number" | "date" | "select" | "file" | "options" | "radio" | 'textarea' | 'phone' | 'datetime-local' | 'geolocation' | 'check-period-amount'|'map'|"polygon-map" | "question-selector" | "chapters"; // options for input type select
 
 export interface ConditionalField {
     dependsOn: string;
@@ -66,4 +66,3 @@ export interface GeoLocationField extends BaseField {
 }
 
 export type FormField = BaseField | SelectField | FileField | RadioField | GeoLocationField;
-

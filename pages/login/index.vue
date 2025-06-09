@@ -56,7 +56,7 @@
       </div>
       <span>{{ t('login.copyright', { year: new Date().getFullYear() }) }}</span>
     </footer>
-    
+
     <!-- Organization Selection Dialog -->
     <OrganizationSelectDialog
       v-model="store.showOrgSelector"

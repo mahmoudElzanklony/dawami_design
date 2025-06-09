@@ -7,7 +7,9 @@
       icon="mdi-information-outline"
       class="mb-3"
     >
-      <p>أضف على الأقل 4 نقاط لتشكيل المنطقة.</p>
+      <p>{{ $t('places.polygon.instructions_1') }}</p>
+      <p class="mt-1">{{ $t('places.polygon.instructions_2') }}</p>
+      <p class="mt-1">{{ $t('places.polygon.instructions_3') }}</p>
     </v-alert>
 
     <v-btn
@@ -20,7 +22,7 @@
       :loading="locationLoading"
       :disabled="disabled"
     >
-      إضافة موقعك الحالي كنقطة
+      {{ $t('places.polygon.add_current_location') }}
     </v-btn>
 
     <v-alert
@@ -75,7 +77,7 @@
           ></l-polyline>
         </l-map>
         <div v-else class="loading-placeholder">
-          Loading map...
+          {{ $t('places.map.loading') }}
         </div>
       </div>
     </client-only>
@@ -101,7 +103,7 @@
     <v-card class="mt-3">
       <v-card-title class="pb-0">
         <div class="d-flex justify-space-between align-center">
-          <h3 class="text-subtitle-1">النقاط المحددة ({{ points.length }})</h3>
+          <h3 class="text-subtitle-1">{{ $t('places.polygon.points_selected', {count: points.length}) }}</h3>
           <v-btn
             v-if="points.length > 0"
             icon="mdi-delete-sweep"
@@ -109,7 +111,7 @@
             color="error"
             density="compact"
             @click="clearPoints"
-            title="مسح كل النقاط"
+            :title="$t('places.polygon.clear_all_points')"
           ></v-btn>
         </div>
       </v-card-title>
@@ -121,7 +123,7 @@
           density="compact"
           class="mb-3"
         >
-          يجب إضافة {{ 4 - points.length }} نقاط على الأقل لتشكيل المنطقة.
+          {{ $t('places.polygon.need_more_points', {count: 4 - points.length}) }}
         </v-alert>
 
         <v-alert
@@ -131,7 +133,7 @@
           density="compact"
           class="mb-3"
         >
-          تم تحديد المنطقة بنجاح ({{ points.length }} نقاط)
+          {{ $t('places.polygon.area_defined', {count: points.length}) }}
         </v-alert>
 
         <v-list density="compact" v-if="points.length > 0">
@@ -142,7 +144,8 @@
             <template v-slot:default>
               <v-list-item-title>
                   <span class="text-body-2">
-                    Lat: {{ Number(point.latitude).toFixed(6) }}, Lng: {{ Number(point.longitude).toFixed(6) }}
+                    {{ $t('places.map.latitude') }}: {{ Number(point.latitude).toFixed(6) }}, 
+                    {{ $t('places.map.longitude') }}: {{ Number(point.longitude).toFixed(6) }}
                   </span>
               </v-list-item-title>
             </template>
@@ -156,7 +159,7 @@
 
         <div v-if="calculatedArea && points.length >= 4" class="mt-3 d-flex align-center">
           <v-icon color="primary" class="mr-2">mdi-ruler-square</v-icon>
-          <span><strong>المساحة التقريبية:</strong> {{ calculatedArea }} متر مربع</span>
+          <span><strong>{{ $t('places.polygon.approximate_area') }}:</strong> {{ calculatedArea }} {{ $t('places.polygon.square_meters') }}</span>
         </div>
       </v-card-text>
     </v-card>
@@ -165,6 +168,9 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, nextTick } from 'vue';
+import { useI18n } from '#imports';
+
+const { t } = useI18n();
 
 const props = defineProps({
   modelValue: {
@@ -221,7 +227,7 @@ async function addCurrentLocation() {
 
     updateModel();
   } catch (error) {
-    locationError.value = `فشل في الحصول على الموقع: ${error.message}`;
+    locationError.value = `${t('places.polygon.location_error')}: ${error.message}`;
     console.error("Geolocation error:", error);
   } finally {
     locationLoading.value = false;
@@ -230,7 +236,7 @@ async function addCurrentLocation() {
 function getCurrentPosition() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      reject(new Error('يبدو أن متصفحك لا يدعم تحديد الموقع الجغرافي'));
+      reject(new Error(t('places.polygon.browser_no_geolocation')));
       return;
     }
 
@@ -240,16 +246,16 @@ function getCurrentPosition() {
         let errorMessage;
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            errorMessage = 'تم رفض الوصول إلى الموقع الجغرافي';
+            errorMessage = t('places.polygon.errors.permission_denied');
             break;
           case error.POSITION_UNAVAILABLE:
-            errorMessage = 'معلومات الموقع غير متاحة';
+            errorMessage = t('places.polygon.errors.position_unavailable');
             break;
           case error.TIMEOUT:
-            errorMessage = 'انتهت مهلة طلب الموقع الجغرافي';
+            errorMessage = t('places.polygon.errors.timeout');
             break;
           default:
-            errorMessage = 'حدث خطأ غير معروف';
+            errorMessage = t('places.polygon.errors.unknown');
             break;
         }
         reject(new Error(errorMessage));

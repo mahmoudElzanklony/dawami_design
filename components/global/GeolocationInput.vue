@@ -10,7 +10,7 @@
         :error="!!location.error"
         :error-messages="location.error"
         :prepend-inner-icon="icon"
-        :placeholder="placeholder || 'انقر على أيقونة GPS لتحديد موقعك'"
+        :placeholder="placeholder || $t('geolocation.click_gps_icon')"
     >
       <template v-slot:append>
         <v-btn
@@ -52,7 +52,9 @@
 <script setup lang="ts">
 import {ref, computed, onMounted, watch} from 'vue';
 import {useGeolocation} from '~/composables/useGeolocation';
+import {useI18n} from '#imports';
 
+const {t} = useI18n();
 const props = defineProps({
   name: {
     type: String,

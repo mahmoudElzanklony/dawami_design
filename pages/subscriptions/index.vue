@@ -149,8 +149,6 @@ const handlePdfExport = async (type: 'visible' | 'all') => {
           item.user.username,
           item.username,
           item.field.name,
-          0,
-          0,
           item.price,
           item.discount,
           item.note,

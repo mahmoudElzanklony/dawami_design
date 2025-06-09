@@ -1,4 +1,5 @@
 import type { FormField } from "@/types/formField";
+import { usePackagesStore } from "~/stores/PackagesStore";
 
 export const getFormInputs = (t: (key: string) => string): FormField[] => [
     {
@@ -9,6 +10,21 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         icon:"",
         searchable:true,
         FormExists:true,
+    },
+    {
+        label: t('organizations.package'),
+        input_name: "package_id",
+        required: true,
+        type: "select",
+        options: [],
+        options_getting_data: "api",
+        item_title: "name",
+        item_value: "id",
+        icon: "",
+        store_name: usePackagesStore,
+        continue_url_request: '?limit=9999999999',
+        searchable: false,
+        FormExists: true
     },
     {
         label: t('organizations.description'),

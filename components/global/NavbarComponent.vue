@@ -48,7 +48,7 @@
             <template v-if="user">
               <p class="hidden md:block mb-3 text-xs font-medium">
                 {{ t('account.currentAccount') }}
-                {{ user?.type === 'admin' ? t('users.types.admin') : t('users.types.doctor') }}
+                {{ getUserTypeDisplay(user?.type) }}
               </p>
               <p class="md:block mb-3 text-lg font-bold p-1 bg-primary-50 rounded-lg px-3">
                 {{ t('account.welcome') }} <span class="primary-color">{{ user?.username }}</span>
@@ -88,6 +88,17 @@ const authStore = useAuthStore();
 
 const drawerLocation = computed(() => locale.value === 'en' ? 'left' : 'right');
 
+// Function to get the translated user type display
+const getUserTypeDisplay = (type: string) => {
+  if (type === 'superadmin') return t('users.types.superadmin');
+  if (type === 'admin') return t('users.types.admin');
+  if (type === 'doctor') return t('users.types.doctor');
+  if (type === 'employee') return t('users.types.employee');
+  if (type === 'organization') return t('users.types.organization');
+  if (type === 'client') return t('users.types.client');
+  return type;
+}
+
 const items = [
   // {title: 'Home', to: '/', icon: 'fa-duotone fa-solid fa-house'},
   {key: 'users', to: '/users', icon: 'fa-solid fa-users'},
@@ -102,6 +113,7 @@ const items = [
   {key: 'questions', to: '/questions', icon: 'fa-solid fa-solid fa-seal-question'},
   {key: 'exams', to: '/exams', icon: 'fa-solid fa-solid fa-files'},
   {key: 'places', to: '/places', icon: 'fa-solid fa-location-dot'},
+  {key: 'packages', to: '/packages', icon: 'fa-solid fa-clipboard-list'},
   {key: 'lessons', to: '/working-days', icon: 'fa-solid fa-person-chalkboard'},
   {key: 'attendance', to: '/attendance', icon: 'fa-solid fa-clipboard-user'},
 ];

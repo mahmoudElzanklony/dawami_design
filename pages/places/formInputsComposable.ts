@@ -1,19 +1,19 @@
 import type {ConditionalField, DependencyField, FieldType, FormField} from "@/types/formField";
 import {useOrganizationsStore} from "~/stores/OrganizationsStore";
 
-export const formInputsComposable: FormField[] = [
+export const getFormInputs = (t: (key: string) => string): FormField[] => [
     {
-        label: "الاسم",
+        label: t('places.name'),
         input_name: "name",
         required: true,
         type: "text",
-        icon: "fa-duotone fa-solid fa-circle-info",
+        icon: "",
         searchable: true,
         FormExists: true
     },
 
     {
-        label: "الجامعة",
+        label: t('places.organization'),
         input_name: "organization_id",
         required: true,
         type: "select",
@@ -30,30 +30,30 @@ export const formInputsComposable: FormField[] = [
     },
     
     {
-        label: "نوع الموقع",
+        label: t('places.type'),
         input_name: "type",
         required: true,
         type: "select",
         options_getting_data: "fixed",
         options: [
-            {value: 'gps', label: 'موقع GPS'},
-            {value: 'maps', label: 'موقع على الخريطة'},
-            {value: 'polygon', label: 'منطقة جغرافية'},
+            {value: 'polygon', label: t('places.types.polygon')},
+            {value: 'gps', label: t('places.types.gps')},
+            {value: 'maps', label: t('places.types.maps')},
         ],
         item_title: "label",
         item_value: "value",
         searchable: true,
         FormExists: true,
-        icon: "fa-duotone fa-solid fa-location-dot",
+        icon: "",
     },
     
     {
-        label: "الموقع على الخريطة",
+        label: t('places.map_location'),
         input_name: "location",
         required: true,
         type: "map",
         FormExists: true,
-        icon: "fa-duotone fa-solid fa-map-location-dot",
+        icon: "",
         conditional: {
             dependsOn: 'type',
             value: 'maps'
@@ -61,12 +61,12 @@ export const formInputsComposable: FormField[] = [
     },
     
     {
-        label: "موقع GPS",
+        label: t('places.gps_location'),
         input_name: "location",
         required: true,
         type: "geolocation",
         FormExists: true,
-        icon: "fa-duotone fa-solid fa-location-crosshairs",
+        icon: "",
         conditional: {
             dependsOn: 'type',
             value: 'gps'
@@ -75,12 +75,12 @@ export const formInputsComposable: FormField[] = [
     },
     
     {
-        label: "رسم المنطقة الجغرافية",
+        label: t('places.polygon_area'),
         input_name: "location",
         required: true,
         type: "polygon-map",
         FormExists: true,
-        icon: "fa-duotone fa-solid fa-draw-polygon",
+        icon: "",
         conditional: {
             dependsOn: 'type',
             value: 'polygon'
@@ -88,7 +88,7 @@ export const formInputsComposable: FormField[] = [
     },
     
     {
-        label: "المساحة (بالمتر المربع)",
+        label: t('places.area_in_meters'),
         input_name: "area_in_meters",
         required: false,
         type: "number",
@@ -101,7 +101,7 @@ export const formInputsComposable: FormField[] = [
         },
     },
     {
-        label: "المساحة (بالمتر المربع)",
+        label: t('places.area_in_meters'),
         input_name: "area_in_meters",
         required: false,
         type: "number",
@@ -114,14 +114,14 @@ export const formInputsComposable: FormField[] = [
         },
     },
     {
-        label: "نوع التسجيل",
+        label: t('places.attendance_action'),
         input_name: "attendance_action",
         required: true,
         type: "select",
         options_getting_data: "fixed",
         options: [
-            {value: 'check_in', label: 'تسجيل دخول'},
-            {value: 'check_in_check_out', label: 'تسجيل دخول وخروج'},
+            {value: 'check_in', label: t('places.attendance_actions.check_in')},
+            {value: 'check_in_check_out', label: t('places.attendance_actions.check_in_check_out')},
         ],
         item_title: "label",
         item_value: "value",
@@ -131,7 +131,7 @@ export const formInputsComposable: FormField[] = [
     },
 
     {
-        label: "عدد الصفوف",
+        label: t('global.row_count'),
         input_name: "limit",
         required: false,
         type: "select",

@@ -63,6 +63,14 @@
         :hint="input?.hint"
         :disabled="isDisabled(input)"
       />
+      <template v-else-if="input.type === 'chapters'">
+        <ChaptersInputComponent
+            :label="input.label"
+            :required="input.required"
+            :modelValue="modelValue[input.input_name] || []"
+            :disabled="isDisabled(input)"
+        />
+      </template>
       <v-text-field
         v-else-if="input.type !== 'select' && input.type !== 'file' && input.type !== 'radio'"
         :label="input.label"
@@ -141,6 +149,7 @@ import PlacesMapComponent from "~/components/places/PlacesMapComponent.vue";
 import PlacesPolygonComponent from "~/components/places/PlacesPolygonComponent.vue";
 import CheckPeriodAmountComponent from "~/components/bills/CheckPeriodAmountComponent.vue";
 import PhoneInput from "~/components/global/PhoneInputComponent/PhoneInput.vue";
+import ChaptersInputComponent from "~/components/assistants/ChaptersInputComponent.vue";
 import getValueByPath from '~/composables/getValueByPathComposable';
 
 const props = defineProps({

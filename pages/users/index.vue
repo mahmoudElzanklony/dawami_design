@@ -35,7 +35,6 @@
                 :store="usersStore"
                 :info="currentItem"
                 :inputs="finalInputsStructure"
-                @submission-complete="handleSubmissionComplete"
             />
           </v-dialog>
         </v-col>

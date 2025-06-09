@@ -3,7 +3,7 @@
     <div class="search-container mb-3">
       <v-text-field
         v-model="searchQuery"
-        label="البحث عن موقع"
+        :label="$t('places.map.search_location')"
         prepend-icon="mdi-magnify"
       >
         <template v-slot:append>
@@ -56,7 +56,7 @@
           </template>
         </l-map>
         <div v-else class="loading-placeholder">
-          Loading map...
+          {{ $t('places.map.loading') }}
         </div>
       </div>
     </client-only>
@@ -66,13 +66,13 @@
         <div class="d-flex">
           <v-text-field
             v-model="latitude"
-            label="خط العرض"
+            :label="$t('places.map.latitude')"
             class="mr-2"
             readonly
           ></v-text-field>
           <v-text-field
             v-model="longitude"
-            label="خط الطول"
+            :label="$t('places.map.longitude')"
             readonly
           ></v-text-field>
         </div>
@@ -93,7 +93,7 @@
       <template v-if="mapType === 'polygon'">
         <v-textarea
           v-model="polygonCoordinatesString"
-          label="إحداثيات المنطقة"
+          :label="$t('places.map.area_coordinates')"
           readonly
           rows="2"
         ></v-textarea>
@@ -104,6 +104,9 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, nextTick } from 'vue';
+import { useI18n } from '#imports';
+
+const { t } = useI18n();
 
 const props = defineProps({
   modelValue: {

@@ -13,7 +13,8 @@
     "exams": "Exams",
     "places": "Places",
     "lessons": "Lessons",
-    "attendance": "Attendance"
+    "attendance": "Attendance",
+    "packages": "Packages"
   },
   "phone_input": {
     "country_code_required": "Country code required",
@@ -71,7 +72,10 @@
     "types": {
       "client": "Client",
       "admin": "Admin",
-      "doctor": "Doctor"
+      "doctor": "Doctor",
+      "employee": "Employee",
+      "organization": "Organization",
+      "superadmin": "Super Admin"
     },
     "inputs": {
       "username": "Username",
@@ -155,6 +159,7 @@
     "title": "Universities",
     "add": "Add University",
     "name": "Name",
+    "package": "Package",
     "description": "Description",
     "image": "Image",
     "created_at": "Creation Date",
@@ -266,7 +271,8 @@
       "doctor": "Doctor",
       "calculated_amount": "Calculated Amount",
       "total_money": "Total Amount Required",
-      "notes": "Notes"
+      "notes": "Notes",
+      "organization": "Organization"
     },
     "table": {
       "doctor": "Doctor",
@@ -289,7 +295,12 @@
       "description": "Short Description",
       "branch": "Grade",
       "field": "Subject",
-      "files": "Files"
+      "files": "Files",
+      "chapters": "Chapters",
+      "add_chapter": "Add Chapter",
+      "no_chapters": "No chapters added. Click the Add Chapter button to add chapters to the assistant.",
+      "chapter_name": "Chapter Name",
+      "chapter_name_placeholder": "Enter chapter name here"
     }
   },
   "questions": {
@@ -353,6 +364,8 @@
     "no": "No",
     "close": "Close",
     "open": "Open",
+    "support": "Support",
+    "no_support": "No Support",
     "show_qr": "Show QR Code",
     "qr_code_title": "QR Code",
     "qr_code_close": "Close",
@@ -379,6 +392,7 @@
       "places": "Places",
       "status": "Status",
       "check_location": "Location Verification",
+      "check_tracking": "Check Tracking",
       "time_start": "Start Time",
       "time_end": "End Time",
       "allowed_time": "Allowed Time (minutes)",
@@ -409,13 +423,22 @@
       "total_questions": "Total Questions",
       "is_random_questions_mode": "Random Questions Mode",
       "is_minus_mode": "Minus Marks For Wrong Answers",
-      "questions": "Questions"
+      "questions": "Questions",
+      "start_time_hint": "The time when users can start entering the exam",
+      "allowed_time_hint": "The time window after start time during which users are allowed to enter (in minutes)"
     },
     "card": {
       "minutes": "minutes",
       "questions": "questions",
-      "active": "Active",
-      "inactive": "Inactive"
+      "status": {
+        "in_progress": "In Progress",
+        "finished": "Finished",
+        "starts_today": "Starts in {hours}h",
+        "starts_tomorrow": "Starts Tomorrow",
+        "starts_in_days": "In {days} days",
+        "starts_in_minutes": "Starts in {minutes}m",
+        "no_date": "No date set"
+      }
     },
     "add": "Add Exam",
     "create_new": "Create New Exam",
@@ -437,5 +460,165 @@
     "places": "Places",
     "more": "More",
     "note": "Note"
+  },
+  "places": {
+    "title": "Places",
+    "add": "Add Place",
+    "name": "Name",
+    "organization": "Organization",
+    "type": "Location Type",
+    "types": {
+      "polygon": "Polygon (High Precision)",
+      "gps": "GPS Location (Medium Precision)",
+      "maps": "Map Location (Low Precision)"
+    },
+    "map_location": "Map Location",
+    "gps_location": "GPS Location",
+    "polygon_area": "Draw Geographic Area",
+    "area_in_meters": "Area (in square meters)",
+    "attendance_action": "Registration Type",
+    "attendance_actions": {
+      "check_in": "Check-in",
+      "check_in_check_out": "Check-in and Check-out"
+    },
+    "map": {
+      "search_location": "Search for location",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "area_coordinates": "Area coordinates",
+      "loading": "Loading map..."
+    },
+    "polygon": {
+      "instructions_1": "Add at least 4 points to form the area.",
+      "instructions_2": "You can add any number of points by clicking on the map, and the last point will automatically connect to the first point to complete the area.",
+      "instructions_3": "The more points you add, the more precise the area definition will be.",
+      "add_current_location": "Add your current location as a point",
+      "points_selected": "Selected Points ({count})",
+      "clear_all_points": "Clear all points",
+      "need_more_points": "You need to add {count} more points to form the area.",
+      "area_defined": "Area successfully defined ({count} points)",
+      "approximate_area": "Approximate Area",
+      "square_meters": "square meters",
+      "location_error": "Failed to get location",
+      "browser_no_geolocation": "Your browser doesn't seem to support geolocation",
+      "errors": {
+        "permission_denied": "Access to geolocation was denied",
+        "position_unavailable": "Location information is unavailable",
+        "timeout": "The request to get geolocation timed out",
+        "unknown": "An unknown error occurred"
+      }
+    }
+  },
+  "geolocation": {
+    "click_gps_icon": "Click on the GPS icon to determine your location",
+    "error": "Error detecting location",
+    "location_detected": "Location successfully detected",
+    "coordinates": "Coordinates"
+  },
+  "attendance": {
+    "title": "Attendance Record",
+    "add": "Record Attendance",
+    "modal_title": "Record Attendance",
+    "view_details": "View Details",
+    "details_title": "Attendance Details",
+    "tracking": "tracking",
+    "more_tracking": "more tracking",
+    "pdf_report_title": "Attendance Report",
+    "status": {
+      "attend": "Present",
+      "absent": "Absent",
+      "late": "Late"
+    },
+    "tracking_type": {
+      "checkin": "Check In",
+      "checkout": "Check Out"
+    },
+    "types": {
+      "auto": "Automatic",
+      "manual": "Manual"
+    },
+    "distance": {
+      "inside_area": "Inside Area",
+      "meter": "m",
+      "km": "km"
+    },
+    "table": {
+      "user": "User",
+      "working_day": "Working Day",
+      "working_day_status": "Working Day Status",
+      "attendance_status": "Attendance Status",
+      "tracking_records": "Tracking Records",
+      "distance_from_place": "Distance from Place",
+      "check_count": "Check Count",
+      "notes": "Notes",
+      "created_at": "Created At"
+    },
+    "inputs": {
+      "working_day": "Working Day",
+      "user": "User",
+      "registration_type": "Registration Type",
+      "location": "Geographic Location",
+      "status": "Attendance Status"
+    },
+    "details": {
+      "user_info": "User Information",
+      "username": "Username",
+      "phone": "Phone Number",
+      "user_type": "User Type",
+      "working_day_info": "Working Day Information",
+      "day_name": "Day Name",
+      "start_time": "Start Time",
+      "end_time": "End Time",
+      "allowed_time": "Allowed Time (minutes)",
+      "status": "Status",
+      "place_info": "Attendance Place",
+      "place_name": "Place Name",
+      "organization": "Organization",
+      "place_type": "Place Type",
+      "coordinates": "Coordinates",
+      "tracking_info": "Tracking Information",
+      "battery": "Battery",
+      "steps": "Steps",
+      "location": "Location",
+      "internet_connection": "Internet Connection",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "no_tracking_data": "No tracking data available",
+      "distance_info": "Distance Information",
+      "distance_from_place": "Distance from Designated Place",
+      "notes": "Notes",
+      "no_notes": "No notes available",
+      "close": "Close"
+    }
+  },
+  "packages": {
+    "title": "Packages",
+    "add": "Add Package",
+    "modal_title": "Add New Package",
+    "view_details": "View Details",
+    "details_title": "Package Details",
+    "pdf_report_title": "Packages Report",
+    "no_packages": "No packages available",
+    "price": "Price",
+    "max_users": "Maximum Users",
+     "description": "Description",
+    "inputs": {
+      "name": "Package Name",
+      "description": "Package Description",
+      "price": "Price",
+      "max_users": "Maximum Users Number"
+    },
+    "details": {
+      "package_info": "Package Information",
+      "creator_info": "Creator Information",
+      "name": "Name",
+      "description": "Description",
+      "price": "Price",
+      "max_users": "Maximum Users",
+      "username": "Username",
+      "phone": "Phone Number",
+      "created_at": "Created At",
+      "close": "Close"
+    }
   }
 }

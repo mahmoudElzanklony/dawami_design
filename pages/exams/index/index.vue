@@ -1,9 +1,10 @@
 <template>
   <div>
+    <v-card-text>
     <v-row class="justify-space-between align-center mb-3">
       <v-col cols="auto">
         <h1 class="bigger-normal-font font-weight-medium text-gray flex items-center">
-          <i class="fa-duotone fa-solid fa-clipboard-check me-2 primary-color"></i>
+          <i class="fa-solid fa-solid fa-files me-2 primary-color"></i>
           {{ t('exam.title') }}
         </h1>
       </v-col>
@@ -20,7 +21,7 @@
           </template>
           <ModalDialog
               v-model="dialogSwitch"
-              dialog_icon="fa-duotone fa-solid fa-clipboard-check"
+              dialog_icon="fa-solid fa-solid fa-files"
               :dialog_title="t('exam.create_new')"
               :store="examsStore"
               :info="currentItem"
@@ -62,6 +63,7 @@
         :length="examsStore?.data?.meta?.last_page"
         :total-visible="examsStore?.data?.meta?.per_page"
     ></v-pagination>
+    </v-card-text>
   </div>
 </template>
 
@@ -77,6 +79,7 @@ import {useI18n} from '#imports';
 const {t} = useI18n();
 const FieldsInputMappings = {
   ['questions']:(obj)=> obj.questions?.map(q => q.id) || [],
+  start_time:"start_at"
 };
 const { dialogSwitch, currentItem, update_current_item, page, resetCurrentItem } = useSharedStateComposable(getFormInputs(t),FieldsInputMappings);
 const nuxtApp = useNuxtApp();

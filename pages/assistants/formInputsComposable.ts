@@ -39,7 +39,7 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
     {
         label: t("assistants.inputs.field"),
         input_name: "field_id",
-        required: true,
+        required: false,
         type: "select",
         options: [],
         options_getting_data: "api", // fixed or api
@@ -57,7 +57,14 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
             updateUrl:true
         }
     },
-
+    {
+        label: t("assistants.inputs.chapters"),
+        input_name: "chapters",
+        required: false,
+        type: "chapters",
+        icon:null,
+        FormExists:true
+    },
     {
         label: t("assistants.inputs.files"),
         input_name: "files",

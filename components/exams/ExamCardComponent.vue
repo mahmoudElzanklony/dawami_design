@@ -1,54 +1,63 @@
 <template>
-  <v-card class="mx-auto pa-3 exam-card">
-    <v-row align="center">
-      <v-col cols="auto">
+  <v-card class="mx-auto pa-3 pa-sm-4 exam-card h-100 d-flex flex-column">
+    <v-row align="center" class="flex-grow-0">
+      <v-col cols="auto" class="pe-2 pe-sm-3">
         <span><i class="primary-color big-font fa-duotone fa-solid fa-clipboard-check"></i></span>
       </v-col>
 
-      <v-col>
-        <v-row class="align-center justify-space-between">
-          <v-card-title class="text-h6 mb-2 normal-font">{{ info?.name }}</v-card-title>
+      <v-col class="d-flex flex-column flex-grow-1">
+        <v-row class="align-center justify-space-between flex-nowrap">
+          <v-col class="pa-0 text-truncate">
+            <v-card-title class="text-h6 text-sm-h5 mb-2 normal-font text-truncate">{{ info?.name }}</v-card-title>
+          </v-col>
 
-          <v-menu>
-            <template v-slot:activator="{ props }">
-              <v-btn icon="fa-duotone fa-solid fa-ellipsis-vertical" v-bind="props" variant="plain"></v-btn>
-            </template>
-            <EditOrDeleteActionsComponent
-                @edit_item="editItem"
-                @delete_item="deleteItemComposable(props.store, info.id)"
-                :has_action_delete="has_action_delete"
-                :has_action_edit="has_action_edit"
-                :item_info="info"/>
-          </v-menu>
+          <v-col cols="auto" class="pa-0 ms-2">
+            <v-menu>
+              <template v-slot:activator="{ props }">
+                <v-btn icon v-bind="props" variant="plain" density="comfortable">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+              <EditOrDeleteActionsComponent
+                  @edit_item="editItem"
+                  @delete_item="deleteItemComposable(props.store, info.id)"
+                  :has_action_delete="has_action_delete"
+                  :has_action_edit="has_action_edit"
+                  :item_info="info"/>
+            </v-menu>
+          </v-col>
         </v-row>
 
-        <v-row class="ma-0 align-center">
+        <v-row class="ma-0 align-center mb-2">
           <v-col class="pa-0">
-            <div class="d-flex align-center gap-2">
-              <span class="icon primary-color"><i class="fa-duotone fa-solid fa-book"></i></span>
-              <span>{{ info?.field?.name }}</span>
+            <div class="d-flex align-center gap-2 text-truncate">
+              <span class="primary-color me-2 flex-shrink-0"><i class="fa-duotone fa-solid fa-book"></i></span>
+              <span class="text-truncate">{{ info?.field?.name }}</span>
             </div>
           </v-col>
         </v-row>
 
-        <v-row class="ma-0 mt-2">
-          <v-col cols="6" class="pa-0 d-flex align-center">
-            <span class="icon primary-color"><i class="fa-duotone fa-solid fa-clock"></i></span>
-            <span>{{ info?.time_in_minutes }} {{ t('exam.card.minutes') }}</span>
-          </v-col>
-          <v-col cols="6" class="pa-0 d-flex align-center">
-            <span class="icon primary-color"><i class="fa-duotone fa-solid fa-question"></i></span>
-            <span>{{ info?.total_questions }} {{ t('exam.card.questions') }}</span>
-          </v-col>
-        </v-row>
+        <div class="flex-grow-1 d-flex flex-column">
+          <v-row class="ma-0 mt-2">
+            <v-col cols="12" sm="6" class="pa-0 d-flex align-center mb-2 mb-sm-0">
+              <span class="primary-color me-2 flex-shrink-0"><i class="fa-duotone fa-solid fa-clock"></i></span>
+              <span class="text-body-2">{{ info?.time_in_minutes }} {{ t('exam.card.minutes') }}</span>
+            </v-col>
+            <v-col cols="12" sm="6" class="pa-0 d-flex align-center">
+              <span class="primary-color me-2 flex-shrink-0"><i class="fa-duotone fa-solid fa-question"></i></span>
+              <span class="text-body-2">{{ info?.total_questions }} {{ t('exam.card.questions') }}</span>
+            </v-col>
+          </v-row>
+          <v-spacer></v-spacer>
+        </div>
 
-        <v-row class="ma-0 mt-2">
-          <v-col cols="6" class="pa-0 d-flex align-center">
-            <span class="icon primary-color"><i class="fa-duotone fa-solid fa-calendar"></i></span>
-            <span>{{ formatDate(info?.created_at) }}</span>
+        <v-row class="ma-0 mt-auto pt-2 align-center">
+          <v-col cols="12" sm="6" class="pa-0 d-flex align-center mb-2 mb-sm-0">
+            <span class="primary-color me-2 flex-shrink-0"><i class="fa-duotone fa-solid fa-calendar"></i></span>
+            <span class="text-caption text-sm-body-2">{{ formatDate(info?.created_at) }}</span>
           </v-col>
-          <v-col cols="6" class="pa-0 d-flex align-center">
-            <v-chip :color="examStatus.color" size="small">{{ examStatus.text }}</v-chip>
+          <v-col cols="12" sm="6" class="pa-0 d-flex align-center justify-start justify-sm-end">
+            <v-chip :color="examStatus.color" size="small" class="text-caption">{{ examStatus.text }}</v-chip>
           </v-col>
         </v-row>
       </v-col>
@@ -153,7 +162,19 @@ const examStatus = computed(() => {
   }
 }
 
-.icon {
-  margin-inline-end: 8px;
+.big-font {
+  font-size: 1.75rem;
+}
+
+@media (max-width: 600px) {
+  .big-font {
+    font-size: 1.5rem;
+  }
+}
+
+/* RTL support */
+:lang(ar) .exam-card {
+  border-right: none;
+  border-left: 4px solid var(--v-primary-base);
 }
 </style>

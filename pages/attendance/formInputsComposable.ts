@@ -37,21 +37,10 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         label: t('attendance.inputs.registration_type'),
         input_name: "type",
         required: true,
-        type: "radio",
-        inline: true,
-        options: [
-            {value: 'auto', label: t('attendance.types.auto')},
-            {value: 'manual', label: t('attendance.types.manual')}
-        ],
-        item_title: "label",
-        item_value: "value",
-        searchable: false,
+        value:"manual",
+        type:"hidden",
         FormExists: true,
         icon: "",
-        visibility:{
-            create:true,
-            update:false,
-        }
     },
     {
         label: t('attendance.inputs.location'),

@@ -1,18 +1,18 @@
 {
   "navigation": {
     "users": "المستخدمين",
-    "organizations": "الجامعات",
-    "branches": "الفرق",
+    "organizations": "المؤسسات",
+    "branches": "الفروع",
     "groups": "المجموعات",
-    "fields": "المواد",
+    "fields": "المجالات",
     "files": "الملفات",
     "subscriptions": "الاشتراكات",
     "bills": "الفواتير",
     "assistants": "المساعدين",
     "questions": "الاسئلة",
-    "exams": "الاختبارات",
+    "exams": "الامتحانات",
     "places": "الاماكن",
-    "lessons": "الدروس",
+    "lessons": "ايام العمل",
     "attendance": "الحضور",
     "packages": "الباقات"
   },
@@ -46,7 +46,7 @@
     "delete": "حذف",
     "register": "تسجيل مستخدم",
     "user_type": "نوع المستخدم",
-    "university": "الجامعة",
+    "university": "المؤسسة",
     "account_status": "حالة الحساب",
     "actions": {
       "viewDetails": "عرض التفاصيل",
@@ -71,18 +71,18 @@
     },
     "types": {
       "client": "عميل",
-      "admin": "مسؤول",
+      "admin": "ادمن",
       "doctor": "دكتور",
       "employee": "موظف",
       "organization": "مؤسسة",
-      "superadmin": "مسؤول أعلى"
+      "superadmin": "سوبر ادمن"
     },
     "inputs": {
       "username": "اسم المستخدم",
       "password": "كلمة المرور",
       "phone": "رقم الهاتف",
       "nationality": "الجنسية",
-      "branch": "الفرقة الدراسية",
+      "branch": "الفرع",
       "group": "المجموعة"
     },
     "modal": {
@@ -99,8 +99,8 @@
     "groups_details": {
       "modal_title": "مجموعات المستخدم",
       "group_label": "المجموعة",
-      "branch_label": "الفرقة",
-      "organization_label": "الجامعة",
+      "branch_label": "الفرع",
+      "organization_label": "المؤسسة",
       "info_label": "معلومات",
       "no_groups": "لا توجد تفاصيل للمجموعات",
       "close_button": "إغلاق"
@@ -156,8 +156,8 @@
     "omani": "عماني"
   },
   "organizations": {
-    "title": "الجامعات",
-    "add": "اضافة جامعة",
+    "title": "المؤسسات",
+    "add": "اضافة مؤسسة",
     "name": "الاسم",
     "package": "الباقة",
     "description": "وصف",
@@ -169,8 +169,8 @@
     }
   },
   "branches": {
-    "title": "الفرق",
-    "add": "تسجيل فرقة",
+    "title": "الفروع",
+    "add": "تسجيل فرع",
     "name": "الاسم",
     "description": "وصف قصير",
     "university": "الجامعة",
@@ -181,9 +181,9 @@
     }
   },
   "fields": {
-    "title": "المواد",
-    "add": "تسجيل مادة",
-    "dialog_title": "حفظ المادة",
+    "title": "المجالات",
+    "add": "تسجيل مجال",
+    "dialog_title": "حفظ المجال",
     "name": "الاسم",
     "instructor": "الدكتور",
     "instructors": "الدكاترة",
@@ -215,7 +215,7 @@
     }
   },
   "files": {
-    "title": "ملفات",
+    "title": "الملفات",
     "delete": "حذف",
     "add": "إضافة ملف",
     "preview": "معاينة",
@@ -244,7 +244,7 @@
       "id": "ID",
       "student": "الطالب",
       "doctor": "الدكتور",
-      "subject": "المادة",
+      "subject": "المجال",
       "videoCount": "عدد الفيديوهات",
       "viewCount": "مرات المشاهدة",
       "amountDue": "المبلغ المستحق",
@@ -253,9 +253,9 @@
       "createdAt": "تاريخ الانشاء"
     },
     "inputs": {
-      "university": "الجامعة",
-      "branches": "الفرق الدراسية",
-      "subject": "المادة",
+      "university": "المؤسسة",
+      "branches": "الفرع",
+      "subject": "المجال",
       "price": "السعر",
       "paid": "المبلغ المدفوع",
       "student": "الطالب",
@@ -294,7 +294,7 @@
       "name": "الاسم",
       "description": "وصف قصير",
       "branch": "الفرقة الدراسية",
-      "field": "المادة",
+      "field": "المجال",
       "files": "الملفات",
       "chapters": "الفصول",
       "add_chapter": "إضافة فصل",
@@ -359,8 +359,8 @@
     "not_specified": "غير محدد"
   },
   "working_days": {
-    "title": "الدروس",
-    "add": "إضافة درس",
+    "title": "ايام العمل",
+    "add": "إضافة يوم عمل",
     "status_offline": "اوفلاين",
     "status_online": "اونلاين",
     "time_from": "من",
@@ -376,9 +376,9 @@
     "qr_code_title": "رمز QR",
     "qr_code_close": "إغلاق",
     "hints": {
-      "repeat_times": "إنشاء دروس مجدولة للأيام القادمة باستثناء أيام الاستثناء",
-      "remove_days": "الأيام التي سيتم تخطيها عند إنشاء دروس متكررة",
-      "allowed_time": "الفترة الزمنية (بالدقائق) بعد وقت البدء التي يمكن للمستخدمين خلالها الدخول إلى الدرس"
+      "repeat_times": "إنشاء ايام عمل مجدولة للأيام القادمة باستثناء أيام الاستثناء",
+      "remove_days": "الأيام التي سيتم تخطيها عند إنشاء ايام عمل متكررة",
+      "allowed_time": "الفترة الزمنية (بالدقائق) بعد وقت البدء التي يمكن للمستخدمين خلالها التسجيل إلى يوم العمل"
     },
     "table": {
       "name": "الاسم",

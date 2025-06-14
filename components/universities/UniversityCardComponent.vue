@@ -18,13 +18,11 @@
         <div class="d-flex flex-column flex-grow-1">
           <v-row class="align-center justify-space-between" no-gutters>
             <v-card-title class="text-h6 mb-0 line-clamp-2">{{ info?.name }}</v-card-title>
-            <v-menu>
+            <v-menu v-if="has_action_edit || has_action_delete">
               <template v-slot:activator="{ props: menuProps }">
-                <v-btn
-                    icon="fa-duotone fa-solid fa-ellipsis-vertical"
-                    v-bind="menuProps"
-                    variant="plain"
-                ></v-btn>
+                <v-btn icon v-bind="menuProps" variant="plain">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
               </template>
               <EditOrDeleteActionsComponent
                   @edit_item="editItem"

@@ -14,7 +14,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     })
 
     instance.interceptors.request.use((request) => {
-        console.log(request)
+        // console.log(request)
         let token: string | undefined
         let organizationId: string | undefined
         let locale: string | undefined

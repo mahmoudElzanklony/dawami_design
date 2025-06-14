@@ -12,6 +12,11 @@
         density="compact"
         :disabled="isDisabled(input)"
       ></v-textarea>
+      <input v-else-if="input.type == 'hidden'"
+             type="hidden"
+             :name="input.input_name"
+             :value="input.value"
+      />
       <PlacesMapComponent
         v-else-if="input.type === 'map'"
         v-model="modelValue[input.input_name]"

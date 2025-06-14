@@ -18,12 +18,13 @@
         <v-menu>
           <template v-slot:activator="{ props }">
             <v-btn 
-              icon="fa-duotone fa-solid fa-ellipsis-vertical" 
+              icon
               v-bind="props" 
-              variant="text" 
+              variant="plain"
               density="comfortable"
-              color="primary"
-            ></v-btn>
+            >
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
           </template>
           <EditOrDeleteActionsComponent
             @edit_item="editItem"

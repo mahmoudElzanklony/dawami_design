@@ -2,7 +2,7 @@
   <v-card class="mx-auto card-container" elevation="2" rounded="lg">
     <v-row align="center" class="px-4 pt-4 pb-2">
       <!-- Left Side: Tag Icon -->
-      <v-col cols="auto" class="mr-2">
+      <v-col cols="auto" class="ms-2">
         <v-avatar color="primary" size="42" class="icon-container">
           <i class="white--text fa-duotone fa-solid fa-question"></i>
         </v-avatar>
@@ -23,7 +23,7 @@
           <v-menu>
             <template v-slot:activator="{ props }">
               <v-btn
-                  icon="fa-duotone fa-solid fa-ellipsis-vertical"
+                  icon="mdi-dots-vertical"
                   v-bind="props"
                   variant="plain"
                   density="comfortable"
@@ -51,7 +51,7 @@
           <v-icon
               small
               :color="info?.type.toLowerCase() == 'select' ? 'primary' : (info?.answer == 1 ? 'success' : 'error')"
-              class="mr-1"
+              class="ms-1"
           >{{ info?.type.toLowerCase() == 'select' ? 'mdi-check-circle-outline' : (info?.answer == 1 ? 'mdi-check-circle' : 'mdi-close-circle') }}</v-icon>
           {{ info?.type.toLowerCase() == 'select' ? truncateText(info?.options[info?.answer]?.option) : (info?.answer == 1 ? $t('questions.types.true') : $t('questions.types.false')) }}
         </v-card-subtitle>
@@ -273,11 +273,11 @@ const editItem = (obj) => {
 }
 
 .icon:lang(en) {
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 
 .icon:lang(ar) {
-  margin-left: 8px;
+  margin-inline-start: 8px;
 }
 
 .cat-logo {

@@ -5,9 +5,13 @@
           color="primary"
           v-bind="props"
           :disabled="loading"
+          size="small"
+          class="w-100 w-sm-auto"
       >
-        {{ $t('global.export_pdf') }}
-        <v-icon icon="mdi-menu-down"></v-icon>
+        <v-icon class="d-block d-sm-none me-1">mdi-file-pdf-box</v-icon>
+        <span class="d-none d-sm-block">{{ $t('global.export_pdf') }}</span>
+        <span class="d-block d-sm-none">{{ $t('global.export_pdf') }}</span>
+        <v-icon size="small" class="ms-auto ms-sm-1">mdi-menu-down</v-icon>
       </v-btn>
     </template>
     <v-list>

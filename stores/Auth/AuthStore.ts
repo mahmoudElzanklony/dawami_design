@@ -1,4 +1,5 @@
 import {defineStore} from "pinia";
+import { useUserDataCleaner } from "~/composables/useUserDataCleaner";
 
 export const useAuthStore = defineStore('AuthStore', {
     state: () => ({
@@ -17,7 +18,9 @@ export const useAuthStore = defineStore('AuthStore', {
                 let response = await $axios.post('/auth/login', data)
                 
                 if (response?.status == 200) {
-                    this.user = response?.data?.data;
+                    // Clean user data before storing
+                    const { cleanUserData } = useUserDataCleaner();
+                    this.user = cleanUserData(response?.data?.data);
     
                     // Handle organizations
                     if (this.user?.organizations && Array.isArray(this.user.organizations)) {
@@ -71,10 +74,37 @@ export const useAuthStore = defineStore('AuthStore', {
             } finally {
                 this.loading = false;
             }
+        },
+        
+
+        hasRoutePermission(route: string): boolean {
+            if (!this.user || !this.user.permissions) return false;
+
+
+            return this.user.permissions.some((permItem: any) =>
+                permItem.route === route && permItem.actions?.read === true
+            );
+        },
+        
+
+        hasActionPermission(route: string, action: string): boolean {
+            if (!this.user || !this.user.permissions) return false;
+
+            return this.user.permissions.some((permItem: any) =>
+                permItem.route === route && permItem.actions?.[action] === true
+            );
+        },
+
+        getPermittedRoutes(): string[] {
+            if (!this.user || !this.user.permissions) return [];
+
+            return this.user.permissions
+                .filter((permItem: any) => permItem.actions?.read === true)
+                .map((permItem: any) => permItem.route);
         }
     },
     persist: {
-        storage: piniaPluginPersistedstate.localStorage(),
+        storage: piniaPluginPersistedstate.cookies(),
         pick: ['user', 'showOrgSelector', 'organizations'],
     },
 });

@@ -29,14 +29,16 @@
             </v-card-subtitle>
           </div>
           
-          <v-menu>
+          <v-menu v-if="has_action_edit || has_action_delete">
             <template v-slot:activator="{ props: menuProps }">
               <v-btn
-                icon="fa-duotone fa-solid fa-ellipsis-vertical"
+                icon
                 v-bind="menuProps"
                 variant="plain"
                 class="menu-button"
-              ></v-btn>
+              >
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
             </template>
             <EditOrDeleteActionsComponent
               @edit_item="editItem"
@@ -138,6 +140,7 @@
 
 <script setup lang="ts">
 import EditOrDeleteActionsComponent from '~/components/global/ExtraActionsComponent.vue';
+import {deleteItemComposable} from "~/composables/DeleteItemComposable";
 import { formatRelativeDate } from '~/utilities/dateHelpers';
 import { useI18n } from '#imports';
 const {t} = useI18n();
@@ -149,6 +152,7 @@ const props = defineProps<{
   store: any;
 }>();
 
+const dialog_switch = defineModel<boolean>();
 const emit = defineEmits(['update:info_obj']);
 const config = useRuntimeConfig();
 
@@ -159,6 +163,7 @@ const isEnabled = computed(() => {
 
 function editItem(obj: any) {
   emit('update:info_obj', obj);
+  dialog_switch.value = true;
 }
 
 function formatDate(dateString: string) {
@@ -176,14 +181,14 @@ function formatDate(dateString: string) {
   border-radius: 12px;
   transition: all 0.3s ease;
   overflow: hidden;
+  padding: 10px;
+  height: 100%; /* Ensure card takes full height of its container */
+  display: flex; /* Add flex display */
+  flex-direction: column; /* Stack content vertically */
 
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15) !important;
-  }
-
-  &--enabled {
-    border-left: 4px solid var(--v-primary-base, #1976D2);
   }
 }
 
@@ -341,6 +346,19 @@ function formatDate(dateString: string) {
   }
 }
 
+/* Ensure the v-row inside the card fills the height */
+.v-card > .v-row {
+  flex: 1;
+  min-height: 100%;
+}
+
+/* Ensure the main column grows to fill available space */
+.v-card .v-col.d-flex.flex-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 600px) {
   .subject-image-container {
     padding: 12px;
@@ -363,4 +381,3 @@ function formatDate(dateString: string) {
   }
 }
 </style>
-

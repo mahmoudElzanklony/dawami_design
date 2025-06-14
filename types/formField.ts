@@ -1,4 +1,4 @@
-export type FieldType = "text" | "number" | "date" | "select" | "file" | "options" | "radio" | 'textarea' | 'phone' | 'datetime-local' | 'geolocation' | 'check-period-amount'|'map'|"polygon-map" | "question-selector" | "chapters"; // options for input type select
+export type FieldType = "text" | "number" | "date" | "select" | "file" | "options" | "radio" | 'textarea' | 'phone' | 'datetime-local' | 'geolocation' | 'check-period-amount'|'map'|"polygon-map" | "question-selector" | "chapters" | "hidden"; // options for input type select
 
 export interface ConditionalField {
     dependsOn: string;
@@ -37,6 +37,10 @@ export interface BaseField {
     search_name?: string,
 }
 
+export interface HiddenField extends BaseField {
+    value?:any;
+}
+
 export interface SelectField extends BaseField {
     options: any[];
     options_getting_data: "fixed" | "api";
@@ -65,4 +69,4 @@ export interface GeoLocationField extends BaseField {
     submit_as_array : boolean;
 }
 
-export type FormField = BaseField | SelectField | FileField | RadioField | GeoLocationField;
+export type FormField = BaseField | SelectField | FileField | RadioField | GeoLocationField | HiddenField;

@@ -27,7 +27,7 @@
 
       <v-list class="!p-0 flex-grow-1  " style="overflow-y: auto">
         <v-list-item
-            v-for="(item, i) in items"
+            v-for="(item, i) in filteredItems"
             :key="i"
             :value="item"
             :to="localePath(item.to)"
@@ -100,7 +100,6 @@ const getUserTypeDisplay = (type: string) => {
 }
 
 const items = [
-  // {title: 'Home', to: '/', icon: 'fa-duotone fa-solid fa-house'},
   {key: 'users', to: '/users', icon: 'fa-solid fa-users'},
   {key: 'organizations', to: '/organizations', icon: 'fa-solid fa-solid fa-university'},
   {key: 'branches', to: '/branches', icon: 'fa-solid fa-solid fa-tags'},
@@ -117,6 +116,19 @@ const items = [
   {key: 'lessons', to: '/working-days', icon: 'fa-solid fa-person-chalkboard'},
   {key: 'attendance', to: '/attendance', icon: 'fa-solid fa-clipboard-user'},
 ];
+
+// Filter menu items based on user permissions
+const filteredItems = computed(() => {
+  if (!authStore.user) return [];
+
+  
+  // Get permitted routes
+  const permittedRoutes = authStore.getPermittedRoutes();
+  
+  // Filter items based on permissions
+  return items.filter(item => permittedRoutes.includes(item.to));
+});
+
 const user = authStore?.user;
 
 onMounted(() => {

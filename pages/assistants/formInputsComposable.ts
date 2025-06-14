@@ -8,7 +8,7 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         input_name: "name",
         required: true,
         type: "text",
-        icon:"fa-duotone fa-solid fa-circle-info",
+        icon:"",
         searchable:true,
     },
     {
@@ -16,7 +16,7 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         input_name: "description",
         required: true,
         type: "textarea",
-        icon:"fa-duotone fa-solid fa-circle-info",
+        icon:"",
         searchable:false,
         FormExists:true
     },

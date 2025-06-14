@@ -46,6 +46,7 @@
             dir="ltr"
             @update:modelValue="handleInput"
             @keydown="allowOnlyNumbers"
+            @paste="handlePaste"
         />
       </v-col>
     </v-row>
@@ -135,9 +136,42 @@ function sanitizePhoneNumber(value: string) {
 }
 
 function handleInput(value: string) {
-  phoneNumber.value = sanitizePhoneNumber(value)
+  value = sanitizePhoneNumber(value)
+  phoneNumber.value = value
   emitUpdate()
 }
+
+const handlePaste = (e: ClipboardEvent) => {
+  e.preventDefault();
+  const clipboardData = e.clipboardData || (window as any).clipboardData;
+  let pastedData = clipboardData.getData('Text');
+  pastedData = sanitizePhoneNumber(pastedData);
+  pastedData = pastedData.replace(/\D/g, '');
+  
+  const target = e.target as HTMLInputElement;
+  const selectionStart = target.selectionStart ?? 0;
+  const selectionEnd = target.selectionEnd ?? 0;
+  
+  let newCursorPosition: number;
+  if (selectionStart !== selectionEnd) {
+    const before = phoneNumber.value.substring(0, selectionStart);
+    const after = phoneNumber.value.substring(selectionEnd);
+    phoneNumber.value = before + pastedData + after;
+    newCursorPosition = selectionStart + pastedData.length;
+  } else {
+    const before = phoneNumber.value.substring(0, selectionStart);
+    const after = phoneNumber.value.substring(selectionStart);
+    phoneNumber.value = before + pastedData + after;
+    newCursorPosition = selectionStart + pastedData.length;
+  }
+  
+  emitUpdate();
+
+  setTimeout(() => {
+    target.setSelectionRange(newCursorPosition, newCursorPosition);
+    target.focus();
+  }, 0);
+};
 
 function emitUpdate() {
   emit('update:model-value', fullPhoneNumber.value)
@@ -149,7 +183,7 @@ const allowOnlyNumbers = (e: KeyboardEvent) => {
       [
         'Backspace', 'Enter', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete'
       ].includes(e.key) ||
-      (e.ctrlKey && (e.key === 'c' || e.key === 'v' || e.key === 'C' || e.key === 'V'))
+      (e.ctrlKey)
   ) {    return
   }
   if (!/^[0-9]$/.test(e.key)) {

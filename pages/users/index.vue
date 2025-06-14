@@ -1,49 +1,58 @@
 <template>
   <div>
     <v-card-text>
-      <v-row class="justify-space-between align-center mb-3">
-        <v-col cols="auto">
-          <h1 class="bigger-normal-font font-weight-medium text-gray flex items-center">
+      <v-row class="justify-space-between align-center mb-3 flex-column flex-sm-row">
+        <v-col cols="12" sm="auto" class="pb-0 pb-sm-3 text-center text-sm-start mb-4 mb-sm-0">
+          <h1 class="bigger-normal-font font-weight-medium text-gray d-flex justify-center justify-sm-start align-center">
             <i class="fa-solid fa-users me-2 primary-color"></i>
             {{ $t('users.title') }}
           </h1>
         </v-col>
-        <v-col cols="auto" class="d-flex gap-2">
-          <v-btn
-              color="error"
-              :disabled="selected.length===0"
-              @click="handleBulkDelete"
-          >
-            {{ t('global.delete') }} ({{ selected.length }})
-          </v-btn>
+        <v-col cols="12" sm="auto" class="pt-0 pt-sm-3">
+          <div class="d-flex flex-column flex-sm-row gap-2 justify-center justify-sm-end">
+            <v-btn
+                v-if="can('/users', 'delete')"
+                :disabled="selected.length === 0"
+                color="error"
+                size="small"
+                @click="handleBulkDelete"
+                class="w-100 w-sm-auto"
+            >
+              <v-icon class="me-1">mdi-delete</v-icon>
+              <span>{{ t('global.delete') }} ({{ selected.length }})</span>
+            </v-btn>
 
-          <PdfExporter @export="handlePdfExport" :store="usersStore"/>
-          <v-dialog v-model="dialogSwitch" max-width="600" transition="fade-transition">
-            <template v-slot:activator="{ props: activatorProps }">
-              <v-btn
-                  class="text-none font-weight-bold bg-primary-color white"
-                  prepend-icon="mdi-plus"
-                  :text="t('users.register')"
-                  @click="resetCurrentItem"
-                  v-bind="activatorProps"
-              ></v-btn>
-            </template>
-            <UsersModalDialog
-                v-model="dialogSwitch"
-                dialog_icon="fa-duotone fa-solid fa-user"
-                :dialog_title="t('users.modal.title')"
-                :store="usersStore"
-                :info="currentItem"
-                :inputs="finalInputsStructure"
-            />
-          </v-dialog>
+            <PdfExporter @export="handlePdfExport" :store="usersStore" class="w-100 w-sm-auto mb-2 mb-sm-0"/>
+            <v-dialog v-model="dialogSwitch" max-width="600" transition="fade-transition">
+              <template v-slot:activator="{ props: activatorProps }">
+                <v-btn
+                    class="text-none font-weight-bold bg-primary-color white w-100 w-sm-auto"
+                    size="small"
+                    v-bind="activatorProps"
+                    v-if="can('/users', 'create')"
+                    @click="resetCurrentItem"
+                >
+                  <v-icon>mdi-plus</v-icon>
+                  <span class="d-none d-sm-block ms-1">{{ t('users.register') }}</span>
+                  <span class="d-block d-sm-none ms-1">{{ t('users.register') }}</span>
+                </v-btn>
+              </template>
+              <UsersModalDialog
+                  v-model="dialogSwitch"
+                  dialog_icon="fa-duotone fa-solid fa-user"
+                  :dialog_title="t('users.modal.title')"
+                  :store="usersStore"
+                  :info="currentItem"
+                  :inputs="finalInputsStructure"
+              />
+            </v-dialog>
+          </div>
         </v-col>
       </v-row>
       <v-divider
           class="mb-4"
       ></v-divider>
 
-      <!-- Search Form -->
       <SearchableFormComponent
           :inputs="finalInputsStructure"
           :page="page"
@@ -106,8 +115,8 @@
 
             <EditOrDeleteActionsComponent
                 :item_info="item"
-                :has_action_edit="true"
-                :has_action_delete="true"
+                :has_action_edit="can('/users', 'update')"
+                :has_action_delete="can('/users', 'delete')"
                 @edit_item="update_current_item">
               <template #extra-actions="{ item }">
                 <v-list-item @click="handleViewDetails(item)">
@@ -118,7 +127,7 @@
                     {{ $t('users.actions.viewDetails') }}
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="resetDevice(item)">
+                <v-list-item @click="resetDevice(item)" v-if="can('/users', 'update')">
                   <v-list-item-title>
                     <span class="info">
                       <i class="fa-solid fa-mobile-screen"></i>
@@ -126,7 +135,9 @@
                     {{ $t('users.actions.resetDevice') }}
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="toggleAccountBlockStatus(item)" :disabled="Boolean(item.is_block)">
+                <v-list-item
+                    @click="toggleAccountBlockStatus(item)"
+                    v-if="can('/users', 'update') && !item.is_block">
                   <v-list-item-title>
                     <span class="info">
                         <i class="fa-solid fa-ban"></i>
@@ -134,7 +145,9 @@
                     {{ $t('users.actions.blockAccount') }}
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="toggleAccountBlockStatus(item)" :disabled="Boolean(!item.is_block)">
+                <v-list-item
+                    @click="toggleAccountBlockStatus(item)"
+                    v-if="can('/users', 'update') && item.is_block">
                   <v-list-item-title>
                     <span class="info">
                         <i class="fa-solid fa-circle-check"></i>
@@ -147,74 +160,25 @@
           </v-menu>
         </template>
       </v-data-table>
-      <v-pagination
-          v-model="page"
-          :length="usersStore?.data?.meta?.last_page"
-          :total-visible="usersStore?.data?.meta?.per_page"
-          :active-color="'#1e64ff'"
-          rounded="circle"
-      ></v-pagination>
 
-      <!-- Updated User Groups Details Dialog -->
-      <v-dialog v-model="showGroupsDialog" max-width="600">
-        <v-card>
-          <v-card-title class="headline primary-color white--text">
-            <i class="fa-solid fa-users-viewfinder me-2"></i>
-            {{ $t('users.groups_details.modal_title') }}
-            <span v-if="selectedUser" class="ms-2">- {{ selectedUser.username }}</span>
-          </v-card-title>
-          <v-card-text class="pt-4">
-            <div v-if="selectedUser && selectedUser.groups && selectedUser.groups.length">
-              <v-list>
-                <div v-for="(groupItem, index) in selectedUser.groups" :key="groupItem.id">
-                  <v-card flat class="mb-3 pa-3" outlined>
-                    <v-row>
-                      <v-col cols="12" sm="6">
-                        <div class="text-subtitle-2 font-weight-medium primary--text">
-                          {{ $t('users.groups_details.group_label') }}
-                        </div>
-                        <div class="text-body-1 mb-2">{{ groupItem.group.name }}</div>
+      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
+        <v-pagination
+            v-model="page"
+            :length="usersStore?.data?.meta?.last_page"
+            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : usersStore?.data?.meta?.per_page"
+            :active-color="'#1e64ff'"
+            rounded="circle"
+            :disabled="usersStore.loading"
+            density="comfortable"
+            variant="outlined"
+            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
+        ></v-pagination>
+      </div>
 
-                        <div class="text-subtitle-2 font-weight-medium primary--text">
-                          {{ $t('users.groups_details.branch_label') }}
-                        </div>
-                        <div class="text-body-1">{{ groupItem.branch.name }}</div>
-                      </v-col>
-                      <v-col cols="12" sm="6">
-                        <div class="text-subtitle-2 font-weight-medium primary--text">
-                          {{ $t('users.groups_details.organization_label') }}
-                        </div>
-                        <div class="text-body-1 mb-2">{{ groupItem.branch.organization.name }}</div>
-
-                        <div class="text-subtitle-2 font-weight-medium primary--text">
-                          {{ $t('users.groups_details.info_label') }}
-                        </div>
-                        <div class="text-body-1">{{ groupItem.branch.info || '-' }}</div>
-                      </v-col>
-                    </v-row>
-                  </v-card>
-                  <v-divider></v-divider>
-                </div>
-              </v-list>
-            </div>
-            <div v-else class="text-center pa-4">
-              <v-icon large color="grey">mdi-account-group-outline</v-icon>
-              <p class="mt-2 text-grey">{{ $t('users.groups_details.no_groups') }}</p>
-            </div>
-          </v-card-text>
-          <v-card-actions class="pb-4 px-4">
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              rounded
-              elevation="0"
-              @click="showGroupsDialog = false"
-            >
-              {{ $t('users.groups_details.close_button') }}
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <UserGroupsDetailsDialog
+        v-model="showGroupsDialog"
+        :user="selectedUser"
+      />
 
     </v-card-text>
   </div>
@@ -238,11 +202,14 @@ import UserType from '~/components/users/UserTypeComponent.vue';
 import PdfExporter from '~/components/global/ExportToPdfComponent.vue'
 import {usePdfExport} from '~/composables/usePdfExportComposable'
 import {useI18n} from '#imports'
+import {usePermissions} from '~/composables/usePermissions';
+import UserGroupsDetailsDialog from '~/components/users/UserGroupsDetailsDialog.vue';
 
 const nuxtApp = useNuxtApp();
 const selected = ref<any[]>([]);
 const {exportToPDF} = usePdfExport()
 const {t} = useI18n()
+const {can} = usePermissions();
 
 const formInputs = getFormInputs(t);
 const headers = getTableHeaders(t);

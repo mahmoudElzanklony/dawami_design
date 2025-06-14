@@ -1,44 +1,53 @@
 <template>
   <div>
     <v-card-text>
-      <v-row class="justify-space-between align-center mb-3">
-        <v-col cols="auto">
-          <h1 class="bigger-normal-font font-weight-medium text-gray flex items-center">
+      <v-row class="justify-space-between align-center mb-3 flex-column flex-sm-row">
+        <v-col cols="12" sm="auto" class="pb-0 pb-sm-3 text-center text-sm-start mb-4 mb-sm-0">
+          <h1 class="bigger-normal-font font-weight-medium text-gray d-flex justify-center justify-sm-start align-center">
             <i class="fa-solid fa-play me-2 primary-color"></i>
             {{ $t('files.title') }}
           </h1>
         </v-col>
-        <v-col cols="auto" class="d-flex ga-2">
-          <v-btn
-              color="error"
-              :disabled="selected.length===0"
-              @click="handleBulkDelete"
-          >
-            {{ $t('files.delete') }} ({{ selected.length }})
-          </v-btn>
-          <v-dialog v-model="dialogSwitch" max-width="600" transition="fade-transition">
-            <template v-slot:activator="{ props: activatorProps }">
-              <v-btn
-                  class="text-none font-weight-regular bg-primary-color white"
-                  prepend-icon="mdi-plus"
-                  :text="$t('files.add')"
-                  @click="resetCurrentItem"
-                  v-bind="activatorProps"
-              ></v-btn>
-            </template>
-            <ModalDialog
-                v-model="dialogSwitch"
-                dialog_icon="fa-solid fa-play"
-                :dialog_title="$t('files.add')"
-                :store="filesStore"
-                :info="currentItem"
-                :inputs="finalInputsStructure"
-            />
-          </v-dialog>
+        <v-col cols="12" sm="auto" class="pt-0 pt-sm-3">
+          <div class="d-flex flex-column flex-sm-row gap-2 justify-center justify-sm-end">
+            <v-btn
+                color="error"
+                size="small"
+                :disabled="selected.length===0 || !can('/files', 'delete')"
+                @click="handleBulkDelete"
+                class="w-100 w-sm-auto"
+            >
+              <v-icon class="me-1">mdi-delete</v-icon>
+              <span>{{ t('global.delete') }} ({{ selected.length }})</span>
+            </v-btn>
+            <v-dialog v-model="dialogSwitch" max-width="600" transition="fade-transition">
+              <template v-slot:activator="{ props: activatorProps }">
+                <v-btn
+                    class="text-none font-weight-bold bg-primary-color white w-100 w-sm-auto"
+                    size="small"
+                    v-bind="activatorProps"
+                    v-if="can('/files', 'create')"
+                    @click="resetCurrentItem"
+                >
+                  <v-icon>mdi-plus</v-icon>
+                  <span class="d-none d-sm-block ms-1">{{ $t('files.add') }}</span>
+                  <span class="d-block d-sm-none ms-1">{{ $t('files.add') }}</span>
+                </v-btn>
+              </template>
+              <ModalDialog
+                  v-model="dialogSwitch"
+                  dialog_icon="fa-solid fa-play"
+                  :dialog_title="$t('files.add')"
+                  :store="filesStore"
+                  :info="currentItem"
+                  :inputs="finalInputsStructure"
+              />
+            </v-dialog>
+          </div>
         </v-col>
       </v-row>
       <v-divider
-          class="mb-6"
+          class="mb-4"
       ></v-divider>
 
       <SearchableFormComponent
@@ -76,8 +85,8 @@
             </template>
             <EditOrDeleteActionsComponent
                 :item_info="item"
-                :has_action_edit="true"
-                :has_action_delete="true"
+                :has_action_edit="can('/files', 'update')"
+                :has_action_delete="can('/files', 'delete')"
                 @edit_item="update_current_item"
                 @delete_item=deleteItemComposable(filesStore,item.id)
             >
@@ -100,12 +109,19 @@
         </template>
       </v-data-table>
 
-
-      <v-pagination
-          v-model="page"
-          :length="filesStore?.data?.meta?.last_page"
-          :total-visible="filesStore?.data?.meta?.per_page"
-      ></v-pagination>
+      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
+        <v-pagination
+            v-model="page"
+            :length="filesStore?.data?.meta?.last_page"
+            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : filesStore?.data?.meta?.per_page"
+            :active-color="'#1e64ff'"
+            rounded="circle"
+            :disabled="filesStore.loading"
+            density="comfortable"
+            variant="outlined"
+            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
+        ></v-pagination>
+      </div>
     </v-card-text>
   </div>
 </template>
@@ -123,10 +139,13 @@ import {deleteItemComposable, useRuntimeConfig, useI18n} from '#imports';
 import EditOrDeleteActionsComponent from "~/components/global/ExtraActionsComponent.vue";
 import VideoPlayModal from "~/components/files/VideoModal.vue";
 import {getTableHeaders} from '~/pages/files/tableHeadersComposable';
+import {usePermissions} from '~/composables/usePermissions';
 
 const nuxtApp = useNuxtApp();
 const {t} = useI18n();
+const {can} = usePermissions();
 const selected = ref<any[]>([]);
+
 const handleBulkDelete = async () => {
   const success = await deleteItemComposable(
       filesStore,
@@ -172,7 +191,3 @@ onMounted(async () => {
   });
 });
 </script>
-
-<style scoped>
-
-</style>

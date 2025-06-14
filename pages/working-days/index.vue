@@ -1,169 +1,184 @@
 <template>
   <div>
-
     <v-card-text>
-          <v-row class="justify-space-between align-center mb-3">
-            <v-col cols="auto">
-              <h1 class="bigger-normal-font font-weight-medium text-gray flex items-center">
-                <i class="fa-solid fa-person-chalkboard me-2 primary-color"></i>
-                {{ $t('working_days.title') }}
-              </h1>
-            </v-col>
-            <v-col cols="auto" class="d-flex gap-2">
-              <v-btn
-                  color="error"
-                  :disabled="selected.length===0"
-                  @click="handleBulkDelete"
-              >
-                {{ $t('global.delete') }} ({{ selected.length }})
-              </v-btn>
+      <v-row class="justify-space-between align-center mb-3 flex-column flex-sm-row">
+        <v-col cols="12" sm="auto" class="pb-0 pb-sm-3 text-center text-sm-start mb-4 mb-sm-0">
+          <h1 class="bigger-normal-font font-weight-medium text-gray d-flex justify-center justify-sm-start align-center">
+            <i class="fa-solid fa-person-chalkboard me-2 primary-color"></i>
+            {{ $t('working_days.title') }}
+          </h1>
+        </v-col>
+        <v-col cols="12" sm="auto" class="pt-0 pt-sm-3">
+          <div class="d-flex flex-column flex-sm-row gap-2 justify-center justify-sm-end">
+            <v-btn
+                v-if="can('/working-days', 'delete')"
+                :disabled="selected.length === 0"
+                color="error"
+                size="small"
+                @click="handleBulkDelete"
+                class="w-100 w-sm-auto"
+            >
+              <v-icon class="me-1">mdi-delete</v-icon>
+              <span>{{ t('global.delete') }} ({{ selected.length }})</span>
+            </v-btn>
 
-              <!-- Export PDF Button -->
-              <PdfExporter @export="handlePdfExport" :store="workingDaysStore"/>
+            <!-- Export PDF Button -->
+            <PdfExporter @export="handlePdfExport" :store="workingDaysStore" class="w-100 w-sm-auto mb-2 mb-sm-0"/>
 
-              <v-dialog v-model="dialogSwitch" max-width="600" transition="fade-transition">
-                <template v-slot:activator="{ props: activatorProps }">
-                  <v-btn
-                      class="text-none font-weight-bold bg-primary-color white"
-                      prepend-icon="mdi-plus"
-                      :text="$t('working_days.add')"
-                      @click="resetCurrentItem"
-                      v-bind="activatorProps"
-                  ></v-btn>
-                </template>
-                <ModalDialog
-                    v-model="dialogSwitch"
-                    dialog_icon="fa-solid fa-person-chalkboard"
-                    :dialog_title="$t('working_days.add')"
-                    :store="workingDaysStore"
-                    :info="currentItem"
-                    :inputs="finalInputsStructure"
-                />
-              </v-dialog>
-            </v-col>
-          </v-row>
-          <v-divider class="mb-4"></v-divider>
+            <v-dialog v-model="dialogSwitch" max-width="600" transition="fade-transition">
+              <template v-slot:activator="{ props: activatorProps }">
+                <v-btn
+                    class="text-none font-weight-bold bg-primary-color white w-100 w-sm-auto"
+                    size="small"
+                    v-bind="activatorProps"
+                    v-if="can('/working-days', 'create')"
+                    @click="resetCurrentItem"
+                >
+                  <v-icon>mdi-plus</v-icon>
+                  <span class="d-none d-sm-block ms-1">{{ $t('working_days.add') }}</span>
+                  <span class="d-block d-sm-none ms-1">{{ $t('working_days.add') }}</span>
+                </v-btn>
+              </template>
+              <ModalDialog
+                  v-model="dialogSwitch"
+                  dialog_icon="fa-solid fa-person-chalkboard"
+                  :dialog_title="$t('working_days.add')"
+                  :store="workingDaysStore"
+                  :info="currentItem"
+                  :inputs="finalInputsStructure"
+              />
+            </v-dialog>
+          </div>
+        </v-col>
+      </v-row>
+      <v-divider class="mb-4"></v-divider>
 
-          <!-- Search Form -->
-          <SearchableFormComponent
-              :inputs="finalInputsStructure"
-              :page="page"
-              :store_name="workingDaysStore"
-          />
+      <!-- Search Form -->
+      <SearchableFormComponent
+          :inputs="finalInputsStructure"
+          :page="page"
+          :store_name="workingDaysStore"
+      />
 
-          <!-- Working Days Data Table -->
-          <v-data-table
-              :headers="headers"
-              v-model="selected"
-              :items="workingDaysStore.data.data"
-              :server-items-length="workingDaysStore.data.meta?.total"
-              class="elevation-1 text-center"
-              :loading="workingDaysStore.loading"
-              :items-per-page="workingDaysStore.data.meta?.per_page"
-              show-select
-              hide-default-footer
+      <!-- Working Days Data Table -->
+      <v-data-table
+          :headers="headers"
+          v-model="selected"
+          :items="workingDaysStore.data.data"
+          :server-items-length="workingDaysStore.data.meta?.total"
+          class="elevation-1 text-center"
+          :loading="workingDaysStore.loading"
+          :items-per-page="workingDaysStore.data.meta?.per_page"
+          show-select
+          hide-default-footer
+      >
+        <template #item.field_name="{ item }">
+          {{ item.field?.name }}
+        </template>
+
+        <template #item.instructor="{ item }">
+          {{ item.user?.username }}
+        </template>
+
+        <template #item.status="{ item }">
+          <v-chip
+              :color="item.status === 'online' ? 'success' : 'error'"
+              text-color="white"
+              size="small"
           >
+            {{ item.status === 'online' ? $t('working_days.status_online') : $t('working_days.status_offline') }}
+          </v-chip>
+        </template>
 
-            <template #item.field_name="{ item }">
-              {{ item.field?.name }}
+        <template #item.check_location="{ item }">
+          <v-icon :color="item.check_location ? 'success' : 'error'">
+            {{ item.check_location ? 'mdi-check-circle' : 'mdi-close-circle' }}
+          </v-icon>
+        </template>
+
+        <template #item.groups="{ item }">
+          <v-chip-group>
+            <v-chip
+                v-for="group in item.groups.slice(0, 2)"
+                :key="group.id"
+                size="small"
+                class="ma-1"
+                color="primary"
+            >
+              {{ group.name }}
+            </v-chip>
+            <v-chip
+                v-if="item.groups.length > 2"
+                size="small"
+                class="ma-1"
+                color="grey"
+            >
+              +{{ item.groups.length - 2 }}
+            </v-chip>
+          </v-chip-group>
+        </template>
+
+        <template #item.time="{ item }">
+          <div class="d-flex flex-column">
+            <span>{{ $t('working_days.time_from') }}: {{ formatDateTime(item.time_start, $i18n.locale) }}</span>
+            <span>{{ $t('working_days.time_to') }}: {{ formatDateTime(item.time_end, $i18n.locale) }}</span>
+          </div>
+        </template>
+
+        <template #item.allowed_time="{ item }">
+          {{ item.allowed_time }} {{ $t('working_days.minutes') }}
+        </template>
+
+        <template #item.actions="{ item }">
+          <v-menu>
+            <template #activator="{ props }">
+              <v-btn icon v-bind="props" variant="plain">
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
             </template>
 
-            <template #item.instructor="{ item }">
-              {{ item.user?.username }}
-            </template>
+            <EditOrDeleteActionsComponent
+                :item_info="item"
+                :has_action_edit="can('/working-days', 'update')"
+                :has_action_delete="can('/working-days', 'delete')"
+                @edit_item="update_current_item"
+                @delete_item="deleteItemComposable(workingDaysStore, item.id)">
+              <template #extra-actions="{ item }">
+                <v-list-item @click="handleViewQRCode(item)">
+                  <v-list-item-title>
+                    <span class="info">
+                      <i class="fa-solid fa-qrcode"></i>
+                    </span>
+                    {{ $t('working_days.show_qr') }}
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="toggleStatus(item)" v-if="can('/working-days', 'update')">
+                  <v-list-item-title>
+                    <span class="info">
+                      <i class="fa-solid" :class="item.status === 'online' ? 'fa-lock' : 'fa-lock-open'"></i>
+                    </span>
+                    {{ item.status === 'online' ? $t('working_days.close') : $t('working_days.open') }}
+                  </v-list-item-title>
+                </v-list-item>
+              </template>
+            </EditOrDeleteActionsComponent>
+          </v-menu>
+        </template>
+      </v-data-table>
 
-            <template #item.status="{ item }">
-              <v-chip
-                  :color="item.status === 'online' ? 'success' : 'error'"
-                  text-color="white"
-                  size="small"
-              >
-                {{ item.status === 'online' ? $t('working_days.status_online') : $t('working_days.status_offline') }}
-              </v-chip>
-            </template>
-
-            <template #item.check_location="{ item }">
-              <v-icon :color="item.check_location ? 'success' : 'error'">
-                {{ item.check_location ? 'mdi-check-circle' : 'mdi-close-circle' }}
-              </v-icon>
-            </template>
-
-            <template #item.groups="{ item }">
-              <v-chip-group>
-                <v-chip
-                    v-for="group in item.groups.slice(0, 2)"
-                    :key="group.id"
-                    size="small"
-                    class="ma-1"
-                    color="primary"
-                >
-                  {{ group.name }}
-                </v-chip>
-                <v-chip
-                    v-if="item.groups.length > 2"
-                    size="small"
-                    class="ma-1"
-                    color="grey"
-                >
-                  +{{ item.groups.length - 2 }}
-                </v-chip>
-              </v-chip-group>
-            </template>
-
-            <template #item.time="{ item }">
-              <div class="d-flex flex-column">
-                <span>{{ $t('working_days.time_from') }}: {{ formatDateTime(item.time_start, $i18n.locale) }}</span>
-                <span>{{ $t('working_days.time_to') }}: {{ formatDateTime(item.time_end, $i18n.locale) }}</span>
-              </div>
-            </template>
-
-            <template #item.allowed_time="{ item }">
-              {{ item.allowed_time }} {{ $t('working_days.minutes') }}
-            </template>
-
-            <template #item.actions="{ item }">
-              <v-menu>
-                <template #activator="{ props }">
-                  <v-btn icon v-bind="props" variant="plain">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-
-                <EditOrDeleteActionsComponent
-                    :item_info="item"
-                    :has_action_edit="true"
-                    :has_action_delete="true"
-                    @edit_item="update_current_item">
-                  <template #extra-actions="{ item }">
-                    <v-list-item @click="handleViewQRCode(item)">
-                      <v-list-item-title>
-                        <span class="info">
-                          <i class="fa-solid fa-qrcode"></i>
-                        </span>
-                        {{ $t('working_days.show_qr') }}
-                      </v-list-item-title>
-                    </v-list-item>
-                    <v-list-item @click="toggleStatus(item)">
-                      <v-list-item-title>
-                        <span class="info">
-                          <i class="fa-solid" :class="item.status === 'online' ? 'fa-lock' : 'fa-lock-open'"></i>
-                        </span>
-                        {{ item.status === 'online' ? $t('working_days.close') : $t('working_days.open') }}
-                      </v-list-item-title>
-                    </v-list-item>
-                  </template>
-                </EditOrDeleteActionsComponent>
-              </v-menu>
-            </template>
-          </v-data-table>
-          <v-pagination
-              v-model="page"
-              :length="workingDaysStore?.data?.meta?.last_page"
-              :total-visible="workingDaysStore?.data?.meta?.per_page"
-              :active-color="'#1e64ff'"
-              rounded="circle"
-          ></v-pagination>
-
+      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
+        <v-pagination
+            v-model="page"
+            :length="workingDaysStore?.data?.meta?.last_page"
+            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : workingDaysStore?.data?.meta?.per_page"
+            :active-color="'#1e64ff'"
+            rounded="circle"
+            :disabled="workingDaysStore.loading"
+            density="comfortable"
+            variant="outlined"
+            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
+        ></v-pagination>
+      </div>
     </v-card-text>
 
     <!-- QR Code Dialog -->
@@ -197,11 +212,14 @@ import {useWorkingDaysStore} from '~/stores/WorkingDaysStore';
 import {callOnServerComposable} from '~/composables/CallOnServerComposable';
 import PdfExporter from '~/components/global/ExportToPdfComponent.vue';
 import {usePdfExport} from '~/composables/usePdfExportComposable';
+import {usePermissions} from '~/composables/usePermissions';
+
 const WorkingDaysInputMappings = {
   ['groups[]']: (obj) => obj.groups?.map(gp => gp.id) || [],
   ['places[]']: (obj) => [...new Set(obj.group_places?.map(pc => pc.place_id) || [])],
 };
 const {t, locale} = useI18n();
+const {can} = usePermissions();
 const {dialogSwitch, currentItem, update_current_item, page, tab, resetCurrentItem} =
     useSharedStateComposable(getFormInputs(t),WorkingDaysInputMappings);
 const nuxtApp = useNuxtApp();

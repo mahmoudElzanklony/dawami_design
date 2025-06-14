@@ -13,13 +13,11 @@
           <v-row class="align-center justify-space-between mb-1">
             <v-card-title class="text-h6 pb-0">{{ info?.name }}</v-card-title>
 
-            <v-menu>
+            <v-menu v-if="has_action_edit || has_action_delete">
               <template v-slot:activator="{ props }">
-                <v-btn icon="fa-duotone fa-solid fa-ellipsis-vertical" 
-                       v-bind="props" 
-                       variant="plain" 
-                       class="action-button"
-                       density="comfortable"></v-btn>
+                <v-btn icon v-bind="props" variant="plain" class="action-button" density="comfortable">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
               </template>
               <EditOrDeleteActionsComponent
                   @edit_item="editItem"

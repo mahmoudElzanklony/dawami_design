@@ -13,15 +13,11 @@
           <v-row class="align-center justify-space-between mb-0 no-gutters">
             <v-card-title class="text-h6 mb-0 text-truncate px-0 py-1">{{ package.name }}</v-card-title>
 
-            <v-menu>
+            <v-menu v-if="has_action_edit || has_action_delete">
               <template v-slot:activator="{ props }">
-                <v-btn
-                  icon="fa-duotone fa-solid fa-ellipsis-vertical"
-                  v-bind="props"
-                  variant="plain"
-                  density="comfortable"
-                  class="action-btn"
-                ></v-btn>
+                <v-btn icon v-bind="props" variant="plain" density="comfortable" class="action-btn">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
               </template>
               <EditOrDeleteActionsComponent
                 @edit_item="editItem"
@@ -93,16 +89,16 @@
 
     <!-- Package Footer -->
     <div class="package-footer pa-3 d-flex align-center">
-      <v-avatar size="32" class="me-2 bg-grey-lighten-4">
+      <v-avatar size="32" class="me-2 avatar-icon bg-grey-lighten-4">
         <v-icon color="primary">mdi-account-circle</v-icon>
       </v-avatar>
-      <div>
+      <div class="d-flex flex-column justify-center">
         <div class="text-caption font-weight-medium">{{ package.user?.username || '-' }}</div>
         <div class="text-caption text-grey-darken-1">{{ formatDate(package.created_at) }}</div>
       </div>
       <v-spacer></v-spacer>
-      <v-btn 
-        variant="outlined" 
+      <v-btn
+        variant="outlined"
         color="primary"
         size="small"
         rounded="pill"
@@ -234,6 +230,12 @@ const truncateText = (text, maxLength = 80) => {
   margin-top: auto;
   background-color: rgba(0, 0, 0, 0.03);
   border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  .v-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 600px) {
@@ -257,10 +259,22 @@ const truncateText = (text, maxLength = 80) => {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    
+
     .v-btn {
       align-self: center;
       margin-top: 8px;
+    }
+
+    .d-flex.flex-column {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .avatar-icon {
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+      margin-bottom: 8px;
+      align-self: center;
     }
   }
 }

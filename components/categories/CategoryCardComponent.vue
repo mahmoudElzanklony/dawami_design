@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto pa-3">
+  <v-card class="mx-auto pa-3 h-100 d-flex flex-column">
     <v-row align="center">
       <!-- Left Side: Tag Icon -->
       <v-col cols="auto">
@@ -7,17 +7,19 @@
         <img class="cat-logo" v-else src="/images/branch-placeholder.png">
       </v-col>
 
-      <v-col>
+      <v-col class="d-flex flex-column flex-grow-1">
         <v-row class="align-center justify-space-between">
           <v-card-title class="text-h6 mb-0">{{ truncateText(info?.name, 25) }}</v-card-title>
 
           <v-menu>
             <template v-slot:activator="{ props }">
-              <v-btn icon="fa-duotone fa-solid fa-ellipsis-vertical" v-bind="props" variant="plain"></v-btn>
+              <v-btn icon v-bind="props" variant="plain">
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
             </template>
             <EditOrDeleteActionsComponent
                 @edit_item="editItem"
-                @delete_item=deleteItemComposable(props.store,info.id)
+                @delete_item="deleteItemComposable(props.store, info.id)"
                 :has_action_delete="has_action_delete"
                 :has_action_edit="has_action_edit"
                 :item_info="info"></EditOrDeleteActionsComponent>
@@ -26,17 +28,18 @@
 
         <v-card-subtitle class="py-2 px-1">{{ info?.description }}</v-card-subtitle>
 
+        <v-spacer class="flex-grow-1"></v-spacer>
+
         <v-card-text class="pa-0">
           <v-row class="justify-space-between align-center">
             <v-col cols="auto" class="d-flex align-center">
-              <span class="mr-1 icon primary-color"><i class="fa-solid fa-building"></i></span>
+              <span class="primary-color me-1"><i class="fa-solid fa-building"></i></span>
               <span>{{ truncateText( info?.organization?.name,14) }}</span>
             </v-col>
 
-
             <!-- Right: Date -->
             <v-col cols="auto" class="d-flex align-center">
-              <span class="mr-1 icon primary-color"><i class="fa-duotone fa-solid fa-calendar-days"></i></span>
+              <span class="primary-color me-1"><i class="fa-duotone fa-solid fa-calendar-days"></i></span>
               <span>{{formatDate(info?.created_at)}}</span>
             </v-col>
           </v-row>
@@ -44,7 +47,6 @@
       </v-col>
     </v-row>
   </v-card>
-
 </template>
 
 
@@ -67,7 +69,6 @@ const editItem = (obj: any) => {
     dialog_switch.value = true
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -84,5 +85,4 @@ const editItem = (obj: any) => {
 .icon:lang(ar) {
   margin-left: 8px;
 }
-
 </style>

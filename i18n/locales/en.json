@@ -1,10 +1,10 @@
 {
   "navigation": {
     "users": "Users",
-    "organizations": "Universities",
-    "branches": "Grades",
+    "organizations": "Organizations",
+    "branches": "Branches",
     "groups": "Groups",
-    "fields": "Subjects",
+    "fields": "Fields",
     "files": "Files",
     "subscriptions": "Subscriptions",
     "bills": "Bills",
@@ -12,7 +12,7 @@
     "questions": "Questions",
     "exams": "Exams",
     "places": "Places",
-    "lessons": "Lessons",
+    "lessons": "Working Days",
     "attendance": "Attendance",
     "packages": "Packages"
   },
@@ -46,7 +46,7 @@
     "delete": "Delete",
     "register": "Register User",
     "user_type": "User Type",
-    "university": "University",
+    "university": "Organization",
     "account_status": "Account Status",
     "actions": {
       "viewDetails": "View Details",
@@ -62,7 +62,7 @@
       "nationality": "Nationality",
       "device": "Device",
       "status": "Account Status",
-      "studentCount": "Student Count",
+      "studentCount": "Members Count",
       "createdAt": "Creation Date"
     },
     "status": {
@@ -82,7 +82,7 @@
       "password": "Password",
       "phone": "Phone Number",
       "nationality": "Nationality",
-      "branch": "Grade",
+      "branch": "Branch",
       "group": "Group"
     },
     "modal": {
@@ -156,8 +156,8 @@
     "omani": "Omani"
   },
   "organizations": {
-    "title": "Universities",
-    "add": "Add University",
+    "title": "Organizations",
+    "add": "Add Organization",
     "name": "Name",
     "package": "Package",
     "description": "Description",
@@ -169,11 +169,11 @@
     }
   },
   "branches": {
-    "title": "Grades",
-    "add": "Add Grade",
+    "title": "Branches",
+    "add": "Add Branch",
     "name": "Name",
     "description": "Short Description",
-    "university": "University",
+    "university": "Organization",
     "created_at": "Creation Date",
     "actions": {
       "edit": "Edit",
@@ -181,16 +181,16 @@
     }
   },
   "fields": {
-    "title": "Subjects",
-    "add": "Add Subject",
-    "dialog_title": "Save Subject",
+    "title": "Fields",
+    "add": "Add Field",
+    "dialog_title": "Save Field",
     "name": "Name",
     "instructor": "Doctor",
     "instructors": "Doctors",
     "no_additional_info": "No Additional Information",
     "places": "Places",
-    "university": "University",
-    "branch": "Grade",
+    "university": "Organization",
+    "branch": "Branch",
     "groups": "Groups",
     "semester": "Semester",
     "bluetooth_support": "Bluetooth Support",
@@ -221,14 +221,14 @@
     "preview": "Preview",
     "filename": "File Name",
     "filetype": "File Type",
-    "branch": "Grade",
-    "subject": "Subject",
+    "branch": "Branch",
+    "subject": "Field",
     "semester": "Semester",
     "price": "Price",
     "created_at": "Creation Date",
     "name": "File Name",
     "type": "File Type",
-    "university": "University",
+    "university": "Organization",
     "file": "File",
     "types": {
       "pdf": "PDF File",
@@ -253,14 +253,14 @@
       "createdAt": "Creation Date"
     },
     "inputs": {
-      "university": "University",
-      "branches": "Grades",
-      "subject": "Subject",
+      "university": "Organization",
+      "branches": "Branches",
+      "subject": "Field",
       "price": "Price",
       "paid": "Paid Amount",
       "student": "Student",
       "notes": "Notes",
-      "priceHint": "Select a subject to show price",
+      "priceHint": "Select a Field to show price",
       "discount": "Discount"
     }
   },
@@ -293,8 +293,8 @@
     "inputs": {
       "name": "Name",
       "description": "Short Description",
-      "branch": "Grade",
-      "field": "Subject",
+      "branch": "Branch",
+      "field": "Field",
       "files": "Files",
       "chapters": "Chapters",
       "add_chapter": "Add Chapter",
@@ -344,7 +344,7 @@
     "search_question": "Search for a question",
     "available_questions": "Available Questions",
     "selected_questions": "Selected Questions",
-    "select_subject_first": "Please select the subject first",
+    "select_subject_first": "Please select the Field first",
     "multiple_choice": "Multiple Choice",
     "true_false": "True / False",
     "question": "Question",
@@ -353,8 +353,8 @@
     "not_specified": "Not specified"
   },
   "working_days": {
-    "title": "Lessons",
-    "add": "Add Lesson",
+    "title": "Working Days",
+    "add": "Add Working Day",
     "status_offline": "Offline",
     "status_online": "Online",
     "time_from": "From",
@@ -370,13 +370,13 @@
     "qr_code_title": "QR Code",
     "qr_code_close": "Close",
     "hints": {
-      "repeat_times": "Creates scheduled lessons for the upcoming days excluding exception days",
-      "remove_days": "Days that will be skipped when creating repeated lessons",
-      "allowed_time": "Time window (in minutes) after start time during which users can enter the lesson"
+      "repeat_times": "Creates scheduled Working Days for the upcoming days excluding exception days",
+      "remove_days": "Days that will be skipped when creating repeated Working Days",
+      "allowed_time": "Time window (in minutes) after start time during which users can enter the Working Day"
     },
     "table": {
       "name": "Name",
-      "field": "Subject",
+      "field": "Field",
       "instructor": "Instructor",
       "groups": "Groups",
       "status": "Status",
@@ -387,7 +387,7 @@
     },
     "inputs": {
       "name": "Name",
-      "field": "Subject",
+      "field": "Field",
       "groups": "Groups",
       "places": "Places",
       "status": "Status",

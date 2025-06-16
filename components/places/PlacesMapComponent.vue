@@ -147,15 +147,15 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const mapRef = ref(null);
-const searchInputRef = ref(null); // Added ref for search input
+const searchInputRef = ref(null);
 const isClient = ref(false);
 const mapReady = ref(false);
 const searchQuery = ref('');
 const searchResults = ref([]);
-const isInputFocused = ref(false); // Added for focus tracking
+const isInputFocused = ref(false);
 const zoom = ref(13);
 const searchTimeout = ref(null);
-const isSearching = ref(false); // Added for loading state
+const isSearching = ref(false);
 
 const latitude = ref(30.033333);
 const longitude = ref(31.233334);

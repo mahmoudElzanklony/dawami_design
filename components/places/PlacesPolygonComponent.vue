@@ -202,7 +202,7 @@ const center = computed(() => {
   if (points.value.length > 0) {
     return [points.value[0].latitude, points.value[0].longitude];
   }
-  return [24.7136, 46.6753];
+  return [30.033333, 31.233334];
 });
 
 const displayPoints = computed(() => {

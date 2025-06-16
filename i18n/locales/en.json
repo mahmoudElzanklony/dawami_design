@@ -585,8 +585,13 @@
       "disconnected": "Disconnected",
       "no_tracking_data": "No tracking data available",
       "distance_info": "Distance Information",
+      "tracking_points": "Tracking Points",
+      "created_at": "Created At",
       "distance_from_place": "Distance from Designated Place",
       "notes": "Notes",
+      "yes": "Yes",
+      "non_existent": "Not Existent",
+      "existent": "Existent",
       "no_notes": "No notes available",
       "close": "Close"
     }

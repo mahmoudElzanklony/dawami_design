@@ -148,67 +148,14 @@
             </v-card>
           </v-col>
 
-          <!-- Tracking Information -->
+          <!-- Distance Information -->
           <v-col cols="12" md="6" class="d-flex">
             <v-card variant="outlined" class="mb-4 d-flex flex-column fill-height w-100">
-              <v-card-title class="subtitle-1 font-weight-bold">
-                <v-icon class="me-2">mdi-map-marker-path</v-icon>
-                {{ $t('attendance.details.tracking_info') }}
-              </v-card-title>
-              <v-card-text class="flex-grow-1">
-                <div v-if="item.tracking && item.tracking.length > 0">
-                  <v-expansion-panels>
-                    <v-expansion-panel
-                        v-for="(track, index) in item.tracking"
-                        :key="index"
-                        :title="`${formatTrackingType(track.type)} - ${formatDate(track.created_at)}`"
-                        :text="`${$t('attendance.details.battery')}: ${track.battery}% | ${$t('attendance.details.steps')}: ${track.steps}`"
-                    >
-                      <v-expansion-panel-text>
-                        <v-list-item v-if="track.location">
-                          <template v-slot:prepend>
-                            <v-icon color="primary">mdi-map-marker</v-icon>
-                          </template>
-                          <v-list-item-title>{{ $t('attendance.details.location') }}</v-list-item-title>
-                          <v-list-item-subtitle>
-                            {{ getTrackingLocationString(track) }}
-                          </v-list-item-subtitle>
-                        </v-list-item>
-
-                        <v-list-item>
-                          <template v-slot:prepend>
-                            <v-icon color="primary">mdi-wifi</v-icon>
-                          </template>
-                          <v-list-item-title>{{ $t('attendance.details.internet_connection') }}</v-list-item-title>
-                          <v-list-item-subtitle>
-                            <v-chip
-                                size="small"
-                                :color="track.is_connected_net ? 'success' : 'error'"
-                                text-color="white"
-                            >
-                              {{ track.is_connected_net ? $t('attendance.details.connected') : $t('attendance.details.disconnected') }}
-                            </v-chip>
-                          </v-list-item-subtitle>
-                        </v-list-item>
-                      </v-expansion-panel-text>
-                    </v-expansion-panel>
-                  </v-expansion-panels>
-                </div>
-                <div v-else class="text-center pa-4">
-                  {{ $t('attendance.details.no_tracking_data') }}
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-
-          <!-- Distance Information -->
-          <v-col cols="12">
-            <v-card variant="outlined" class="mb-4">
               <v-card-title class="subtitle-1 font-weight-bold">
                 <v-icon class="me-2">mdi-map-marker-distance</v-icon>
                 {{ $t('attendance.details.distance_info') }}
               </v-card-title>
-              <v-card-text>
+              <v-card-text class="flex-grow-1">
                 <v-list-item>
                   <template v-slot:prepend>
                     <v-icon color="primary">mdi-ruler</v-icon>
@@ -235,6 +182,24 @@
               </v-card-text>
             </v-card>
           </v-col>
+
+          <!-- Tracking Information -->
+          <v-col cols="12">
+            <v-card variant="outlined" class="mb-4">
+              <v-card-title class="subtitle-1 font-weight-bold">
+                <v-icon class="me-2">mdi-map-marker-path</v-icon>
+                {{ $t('attendance.details.tracking_info') }}
+              </v-card-title>
+              <v-card-text>
+                <div v-if="item.tracking && item.tracking.length > 0">
+                  <TrackingMap :tracking-data="item.tracking" />
+                </div>
+                <div v-else class="text-center pa-4">
+                  {{ $t('attendance.details.no_tracking_data') }}
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
         </v-row>
       </v-card-text>
 
@@ -252,6 +217,7 @@ import { useI18n } from '#imports';
 import { formatDate } from '~/composables/FormatDateComposable';
 import { useDistanceCalculation } from '~/composables/useDistanceCalculation';
 import AttendanceStatusChip from '~/components/attendance/AttendanceStatusChip.vue';
+import TrackingMap from '~/components/attendance/TrackingMap.vue';
 
 const { t } = useI18n();
 
@@ -270,12 +236,10 @@ const emit = defineEmits(['update:modelValue']);
 
 const localModelValue = ref(props.modelValue);
 
-// Watch for changes in the modelValue prop and update localModelValue
 watch(() => props.modelValue, (newValue) => {
   localModelValue.value = newValue;
 });
 
-// Watch for changes in localModelValue and emit update:modelValue event
 watch(localModelValue, (newValue) => {
   emit('update:modelValue', newValue);
 });
@@ -286,27 +250,8 @@ const close = () => {
 
 // Get distance calculation utilities
 const { calculateDistance, formatDistance, getDistanceColor } = useDistanceCalculation();
-
-// Get tracking location as a string
-const getTrackingLocationString = (track: any) => {
-  try {
-    if (track.location) {
-      const location = typeof track.location === 'string'
-        ? JSON.parse(track.location)
-        : track.location;
-
-      return `${location.latitude}, ${location.longitude}`;
-    }
-    return '-';
-  } catch (error) {
-    console.error('Error parsing tracking location:', error);
-    return '-';
-  }
-};
-
-const formatTrackingType = (type: string) => {
-  if (type === 'checkin') return t('attendance.tracking_type.checkin');
-  if (type === 'checkout') return t('attendance.tracking_type.checkout');
-  return type;
-};
 </script>
+
+<style scoped>
+
+</style>

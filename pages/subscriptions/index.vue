@@ -92,19 +92,10 @@
         </template>
       </v-data-table>
       
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="subscriptionsStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : subscriptionsStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="subscriptionsStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="subscriptionsStore"
+      />
     </v-card-text>
   </div>
 </template>
@@ -122,9 +113,9 @@ import {callOnServerComposable} from '~/composables/CallOnServerComposable';
 import {useRuntimeConfig, useI18n} from '#imports';
 import {formatDate} from '~/composables/FormatDateComposable';
 import PdfExporter from '~/components/global/ExportToPdfComponent.vue'
-import {usePdfExport} from '~/composables/usePdfExportComposable'
-import {getTableHeaders} from '~/pages/subscriptions/tableHeadersComposable';
+import {usePdfExport} from '~/composables/usePdfExportComposable';
 import {usePermissions} from '~/composables/usePermissions';
+import PaginationComponent from '~/components/global/PaginationComponent.vue';
 
 const config = useRuntimeConfig();
 const nuxtApp = useNuxtApp();

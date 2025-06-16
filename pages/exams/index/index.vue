@@ -63,19 +63,10 @@
         ></v-progress-linear>
       </v-row>
 
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="examsStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : examsStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="examsStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="examsStore"
+      />
     </v-card-text>
   </div>
 </template>
@@ -83,6 +74,7 @@
 <script setup lang="ts">
 import ExamCardComponent from "~/components/exams/ExamCardComponent.vue";
 import ModalDialog from "~/components/global/ModalDialog.vue";
+import PaginationComponent from "~/components/global/PaginationComponent.vue";
 import { getFormInputs } from "~/pages/exams/index/formInputsComposable";
 import { handleInputsApi } from "~/composables/HandleInputsApiFormComposable";
 import { useSharedStateComposable } from "~/composables/UseSharedStateComposable";

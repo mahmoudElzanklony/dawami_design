@@ -68,19 +68,10 @@
         <p>{{ $t('packages.no_packages') }}</p>
       </div>
 
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="packagesStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : packagesStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="packagesStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="packagesStore"
+      />
     </v-card-text>
 
     <!-- Package Details Modal -->
@@ -107,6 +98,7 @@ import {useI18n} from '#imports';
 import PackageCard from '~/components/packages/PackageCard.vue';
 import PackageDetailsModal from '~/components/packages/PackageDetailsModal.vue';
 import {usePermissions} from '~/composables/usePermissions';
+import PaginationComponent from '~/components/global/PaginationComponent.vue';
 
 const config = useRuntimeConfig();
 const nuxtApp = useNuxtApp();

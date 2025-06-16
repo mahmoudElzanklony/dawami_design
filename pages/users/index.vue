@@ -161,19 +161,10 @@
         </template>
       </v-data-table>
 
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="usersStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : usersStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="usersStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="usersStore"
+      />
 
       <UserGroupsDetailsDialog
         v-model="showGroupsDialog"
@@ -189,6 +180,7 @@ import {deleteItemComposable} from '~/composables/DeleteItemComposable';
 import UsersModalDialog from '~/components/users/UsersModalDialog.vue';
 import SearchableFormComponent from '~/components/global/SearchableFormComponent.vue';
 import EditOrDeleteActionsComponent from '~/components/global/ExtraActionsComponent.vue';
+import PaginationComponent from '~/components/global/PaginationComponent.vue';
 import {getFormInputs} from '~/pages/users/formInputsComposable';
 import {getTableHeaders} from '~/pages/users/tableHeadersComposable';
 import {handleInputsApi} from '~/composables/HandleInputsApiFormComposable';

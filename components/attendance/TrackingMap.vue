@@ -2,21 +2,21 @@
   <div class="map-container" style="height: 400px;">
     <client-only>
       <l-map
-        ref="trackingMapRef"
-        :zoom="mapZoom"
-        :center="mapCenter"
-        :use-global-leaflet="false"
+          ref="trackingMapRef"
+          :zoom="mapZoom"
+          :center="mapCenter"
+          :use-global-leaflet="false"
       >
-        <l-tile-layer 
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" 
-          attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
+        <l-tile-layer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
         ></l-tile-layer>
-        
+
         <l-marker
-          v-for="(track, index) in trackingData"
-          :key="index"
-          :lat-lng="getTrackingLatLng(track)"
-          :icon="redMarkerIcon"
+            v-for="(track, index) in trackingData"
+            :key="index"
+            :lat-lng="getTrackingLatLng(track)"
+            :icon="getMarkerIcon(index)"
         >
           <l-tooltip :options="tooltipOptions">
             <div class="tracking-tooltip">
@@ -96,8 +96,8 @@ const getTrackingCoordinates = (track) => {
   try {
     if (track.location) {
       return typeof track.location === 'string'
-        ? JSON.parse(track.location)
-        : track.location;
+          ? JSON.parse(track.location)
+          : track.location;
     }
     return null;
   } catch (error) {
@@ -117,8 +117,8 @@ const getTrackingLocationString = (track) => {
   try {
     if (track.location) {
       const location = typeof track.location === 'string'
-        ? JSON.parse(track.location)
-        : track.location;
+          ? JSON.parse(track.location)
+          : track.location;
 
       return `${location.latitude}, ${location.longitude}`;
     }
@@ -137,18 +137,39 @@ const formatTrackingType = (type) => {
 
 // Create a red marker icon
 const redMarkerIcon = ref(null);
+const divIcons = ref({});
+
+// Get marker icon with index
+const getMarkerIcon = (index) => {
+  if (divIcons.value[index]) {
+    return divIcons.value[index];
+  }
+  return redMarkerIcon.value;
+};
 
 onMounted(() => {
   if (process.client) {
     import('leaflet').then((L) => {
-      redMarkerIcon.value = L.icon({
-        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-      });
+      // Create a div icon for each marker with index
+      if (props.trackingData) {
+        props.trackingData.forEach((_, index) => {
+          divIcons.value[index] = L.divIcon({
+            className: 'custom-marker-icon',
+            html: `
+              <div class="marker-wrapper">
+                <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png" 
+                     class="marker-image" />
+                <div class="marker-index-container">
+                  <span class="marker-index-text">${index + 1}</span>
+                </div>
+              </div>
+            `,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34]
+          });
+        });
+      }
     });
   }
 });
@@ -162,18 +183,18 @@ const isRTL = computed(() => {
 });
 
 const tooltipOptions = computed(() => {
-  const options = { 
-    permanent: false, 
+  const options = {
+    permanent: false,
     sticky: true,
     className: isRTL.value ? 'leaflet-tooltip-rtl' : ''
   };
-  
+
   if (isRTL.value) {
     // Adjust offset for RTL mode
     options.direction = 'right';
     options.offset = [15, 0]; // Shift tooltip to the right in RTL mode
   }
-  
+
   return options;
 });
 </script>
@@ -191,6 +212,46 @@ const tooltipOptions = computed(() => {
   text-align: right;
   margin-right: 12px !important;
   transform: translateX(-12px);
+}
+
+/* Custom marker styling */
+:global(.custom-marker-icon) {
+  background: none !important;
+  border: none !important;
+}
+
+:global(.marker-wrapper) {
+  position: relative;
+  width: 25px;
+  height: 41px;
+}
+
+:global(.marker-image) {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+:global(.marker-index-container) {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  z-index: 2;
+}
+
+:global(.marker-index-text) {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
 .tracking-tooltip {

@@ -135,19 +135,10 @@
         </template>
       </v-data-table>
 
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="attendanceStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : attendanceStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="attendanceStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="attendanceStore"
+      />
     </v-card-text>
 
     <AttendanceDetailsModal 
@@ -180,6 +171,7 @@ import {getTableHeaders} from '~/pages/attendance/tableHeadersComposable';
 import {useAttendancePdfFormat} from '~/pages/attendance/pdfFormatComposable';
 import {useDistanceCalculation} from '~/composables/useDistanceCalculation';
 import {usePermissions} from '~/composables/usePermissions';
+import PaginationComponent from '~/components/global/PaginationComponent.vue';
 
 const config = useRuntimeConfig();
 const nuxtApp = useNuxtApp();

@@ -55,20 +55,10 @@
         ></v-progress-linear>
       </v-row>
 
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="assistantsStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : assistantsStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="assistantsStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        >
-        </v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="assistantsStore"
+      />
     </v-card-text>
   </div>
 </template>
@@ -84,6 +74,7 @@ import {useAssistantStore} from "~/stores/AssistantsStore";
 import {callOnServerComposable} from "~/composables/CallOnServerComposable";
 import {useI18n} from '#imports';
 import {usePermissions} from '~/composables/usePermissions';
+import PaginationComponent from '~/components/global/PaginationComponent.vue';
 
 const {t} = useI18n();
 const {can} = usePermissions();

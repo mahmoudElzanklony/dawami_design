@@ -68,19 +68,10 @@
       </v-row>
 
       <!-- Pagination -->
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="universitiesStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : universitiesStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="universitiesStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="universitiesStore"
+      />
     </v-card-text>
   </div>
 </template>
@@ -96,6 +87,7 @@ import {useOrganizationsStore} from "~/stores/OrganizationsStore";
 import {callOnServerComposable} from "~/composables/CallOnServerComposable";
 import {useI18n} from '#imports';
 import {usePermissions} from '~/composables/usePermissions';
+import PaginationComponent from '~/components/global/PaginationComponent.vue';
 
 definePageMeta({
   access:"admin",

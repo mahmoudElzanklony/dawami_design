@@ -110,19 +110,10 @@
         </template>
       </v-data-table>
 
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="filesStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : filesStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="filesStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="filesStore"
+      />
     </v-card-text>
   </div>
 </template>
@@ -130,6 +121,7 @@
 <script setup lang="ts">
 import ModalDialog from '~/components/global/ModalDialog.vue';
 import SearchableFormComponent from '~/components/global/SearchableFormComponent.vue';
+import PaginationComponent from "~/components/global/PaginationComponent.vue";
 import {getFormInputs} from '~/pages/files/formInputsComposable';
 import {handleInputsApi} from '~/composables/HandleInputsApiFormComposable';
 import {useSharedStateComposable} from '~/composables/UseSharedStateComposable';

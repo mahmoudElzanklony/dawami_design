@@ -166,19 +166,11 @@
         </template>
       </v-data-table>
 
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="workingDaysStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : workingDaysStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="workingDaysStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
+      <PaginationComponent 
+        v-model="page"
+        :store="workingDaysStore"
+      />
+
     </v-card-text>
 
     <!-- QR Code Dialog -->
@@ -202,6 +194,7 @@ import {deleteItemComposable} from '~/composables/DeleteItemComposable';
 import ModalDialog from '~/components/global/ModalDialog.vue';
 import SearchableFormComponent from '~/components/global/SearchableFormComponent.vue';
 import EditOrDeleteActionsComponent from '~/components/global/ExtraActionsComponent.vue';
+import PaginationComponent from '~/components/global/PaginationComponent.vue';
 import {getFormInputs} from '~/pages/working-days/formInputsComposable';
 import {formatRow} from '~/pages/working-days/formatRowComposable';
 import {getTableHeaders} from '~/pages/working-days/getTableHeaders';

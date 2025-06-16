@@ -70,20 +70,10 @@
       </v-row>
 
       <!-- Pagination -->
-      <div class="d-flex justify-center mt-4 px-2 overflow-x-auto">
-        <v-pagination
-            v-model="page"
-            :length="subjectsStore?.data?.meta?.last_page"
-            :total-visible="$vuetify.display.xs ? 3 : $vuetify.display.sm ? 5 : subjectsStore?.data?.meta?.per_page"
-            :active-color="'#1e64ff'"
-            rounded="circle"
-            :disabled="subjectsStore.loading"
-            density="comfortable"
-            variant="outlined"
-            :size="$vuetify.display.smAndDown ? 'small' : 'default'"
-        ></v-pagination>
-      </div>
-
+      <PaginationComponent 
+        v-model="page"
+        :store="subjectsStore"
+      />
     </v-card-text>
   </div>
 </template>
@@ -92,6 +82,7 @@
 import SubjectComponent from "~/components/subjects/SubjectCardComponent.vue";
 import ModalDialog from "~/components/global/ModalDialog.vue";
 import SearchableFormComponent from "~/components/global/SearchableFormComponent.vue";
+import PaginationComponent from "~/components/global/PaginationComponent.vue";
 import {getFormInputs} from "~/pages/fields/formInputsComposable";
 import {handleInputsApi} from "~/composables/HandleInputsApiFormComposable";
 import {useSharedStateComposable} from "~/composables/UseSharedStateComposable";

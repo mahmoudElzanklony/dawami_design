@@ -12,46 +12,48 @@
             attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
         ></l-tile-layer>
 
-        <l-marker
-            v-for="(track, index) in trackingData"
-            :key="index"
-            :lat-lng="getTrackingLatLng(track)"
-            :icon="getMarkerIcon(index)"
-        >
-          <l-tooltip :options="tooltipOptions">
-            <div class="tracking-tooltip">
-              <div class="tracking-title">
-                {{ formatTrackingType(track.type) }} - {{ formatDate(track.created_at) }}
+        <template v-if="iconsReady">
+          <l-marker
+              v-for="(track, index) in trackingData"
+              :key="index"
+              :lat-lng="getTrackingLatLng(track)"
+              :icon="getMarkerIcon(index)"
+          >
+            <l-tooltip :options="tooltipOptions">
+              <div class="tracking-tooltip">
+                <div class="tracking-title">
+                  {{ formatTrackingType(track.type) }} - {{ formatDate(track.created_at) }}
+                </div>
+                <div class="tracking-detail">
+                  <v-icon small color="primary">mdi-map-marker</v-icon>
+                  {{ getTrackingLocationString(track) }}
+                </div>
+                <div class="tracking-detail">
+                  <v-icon small color="primary">mdi-calendar-clock</v-icon>
+                  {{ $t('attendance.details.created_at') }}: {{ formatTime(track.created_at) }}
+                </div>
+                <div class="tracking-detail">
+                  <v-icon small color="primary">mdi-battery</v-icon>
+                  {{ $t('attendance.details.battery') }}: {{ track.battery }}%
+                </div>
+                <div class="tracking-detail">
+                  <v-icon small color="primary">mdi-walk</v-icon>
+                  {{ $t('attendance.details.steps') }}: {{ track.steps }}
+                </div>
+                <div class="tracking-detail">
+                  <v-icon small :color="track.is_connected_net ? 'success' : 'error'">mdi-wifi</v-icon>
+                  {{ track.is_connected_net ? $t('attendance.details.connected') : $t('attendance.details.disconnected') }}
+                </div>
+                <div class="tracking-detail">
+                  <v-icon small :color="track.is_existence ? 'success' : 'error'">
+                    {{ track.is_existence ? 'mdi-check-circle' : 'mdi-alert-circle' }}
+                  </v-icon>
+                  {{ track.is_existence ? $t('attendance.details.existent') : $t('attendance.details.non_existent') }}
+                </div>
               </div>
-              <div class="tracking-detail">
-                <v-icon small color="primary">mdi-map-marker</v-icon>
-                {{ getTrackingLocationString(track) }}
-              </div>
-              <div class="tracking-detail">
-                <v-icon small color="primary">mdi-calendar-clock</v-icon>
-                {{ $t('attendance.details.created_at') }}: {{ formatTime(track.created_at) }}
-              </div>
-              <div class="tracking-detail">
-                <v-icon small color="primary">mdi-battery</v-icon>
-                {{ $t('attendance.details.battery') }}: {{ track.battery }}%
-              </div>
-              <div class="tracking-detail">
-                <v-icon small color="primary">mdi-walk</v-icon>
-                {{ $t('attendance.details.steps') }}: {{ track.steps }}
-              </div>
-              <div class="tracking-detail">
-                <v-icon small :color="track.is_connected_net ? 'success' : 'error'">mdi-wifi</v-icon>
-                {{ track.is_connected_net ? $t('attendance.details.connected') : $t('attendance.details.disconnected') }}
-              </div>
-              <div class="tracking-detail">
-                <v-icon small :color="track.is_existence ? 'success' : 'error'">
-                  {{ track.is_existence ? 'mdi-check-circle' : 'mdi-alert-circle' }}
-                </v-icon>
-                {{ track.is_existence ? $t('attendance.details.existent') : $t('attendance.details.non_existent') }}
-              </div>
-            </div>
-          </l-tooltip>
-        </l-marker>
+            </l-tooltip>
+          </l-marker>
+        </template>
       </l-map>
     </client-only>
   </div>
@@ -76,6 +78,7 @@ const props = defineProps({
 const trackingMapRef = ref(null);
 const mapZoom = ref(13);
 const defaultCenter = [30.033333, 31.233334]; // Cairo, Egypt default
+const iconsReady = ref(false);
 
 // Compute center based on tracking data
 const mapCenter = computed(() => {
@@ -147,31 +150,53 @@ const getMarkerIcon = (index) => {
   return redMarkerIcon.value;
 };
 
-onMounted(() => {
-  if (process.client) {
-    import('leaflet').then((L) => {
-      // Create a div icon for each marker with index
-      if (props.trackingData) {
-        props.trackingData.forEach((_, index) => {
-          divIcons.value[index] = L.divIcon({
-            className: 'custom-marker-icon',
-            html: `
-              <div class="marker-wrapper">
-                <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png" 
-                     class="marker-image" />
-                <div class="marker-index-container">
-                  <span class="marker-index-text">${index + 1}</span>
-                </div>
-              </div>
-            `,
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34]
-          });
-        });
-      }
+// Initialize Leaflet and icons
+const initializeLeaflet = async () => {
+  if (!process.client) return;
+  
+  try {
+    const L = await import('leaflet');
+    
+    // Create the standard marker icon first
+    redMarkerIcon.value = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
     });
+    
+    // Create a div icon for each marker with index
+    if (props.trackingData) {
+      props.trackingData.forEach((_, index) => {
+        divIcons.value[index] = L.divIcon({
+          className: 'custom-marker-icon',
+          html: `
+            <div class="marker-wrapper">
+              <img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png" 
+                   class="marker-image" />
+              <div class="marker-index-container">
+                <span class="marker-index-text">${index + 1}</span>
+              </div>
+            </div>
+          `,
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34]
+        });
+      });
+    }
+    
+    // Set icons as ready once everything is initialized
+    iconsReady.value = true;
+  } catch (error) {
+    console.error('Error initializing Leaflet:', error);
   }
+};
+
+onMounted(() => {
+  initializeLeaflet();
 });
 
 // Detect RTL mode

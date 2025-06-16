@@ -114,7 +114,7 @@ const editItem = (obj: any) => {
   overflow: hidden;
   height: 100%;
   display: flex;
-  padding: 5px;
+  padding: 12px 5px;
   
   &:hover {
     transform: translateY(-2px);

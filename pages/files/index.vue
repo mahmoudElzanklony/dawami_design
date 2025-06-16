@@ -13,7 +13,8 @@
             <v-btn
                 color="error"
                 size="small"
-                :disabled="selected.length===0 || !can('/files', 'delete')"
+                v-if="can('/files', 'delete')"
+                :disabled="selected.length===0"
                 @click="handleBulkDelete"
                 class="w-100 w-sm-auto"
             >

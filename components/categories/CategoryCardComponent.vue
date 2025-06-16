@@ -33,13 +33,13 @@
         <v-card-text class="pa-0">
           <v-row class="justify-space-between align-center">
             <v-col cols="auto" class="d-flex align-center">
-              <span class="primary-color me-1"><i class="fa-solid fa-building"></i></span>
+              <span class="primary-color me-2"><i class="fa-solid fa-building"></i></span>
               <span>{{ truncateText( info?.organization?.name,14) }}</span>
             </v-col>
 
             <!-- Right: Date -->
             <v-col cols="auto" class="d-flex align-center">
-              <span class="primary-color me-1"><i class="fa-duotone fa-solid fa-calendar-days"></i></span>
+              <span class="primary-color me-2"><i class="fa-duotone fa-solid fa-calendar-days"></i></span>
               <span>{{formatDate(info?.created_at)}}</span>
             </v-col>
           </v-row>

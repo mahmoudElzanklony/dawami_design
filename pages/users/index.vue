@@ -204,12 +204,14 @@ import {usePdfExport} from '~/composables/usePdfExportComposable'
 import {useI18n} from '#imports'
 import {usePermissions} from '~/composables/usePermissions';
 import UserGroupsDetailsDialog from '~/components/users/UserGroupsDetailsDialog.vue';
+import {formatRowComposable} from '~/pages/users/formatRowComposable';
 
 const nuxtApp = useNuxtApp();
 const selected = ref<any[]>([]);
 const {exportToPDF} = usePdfExport()
 const {t} = useI18n()
 const {can} = usePermissions();
+const {formatUserRow} = formatRowComposable();
 
 const formInputs = getFormInputs(t);
 const headers = getTableHeaders(t);
@@ -234,22 +236,11 @@ const handleBulkDelete = async () => {
 const handlePdfExport = async (type: 'visible' | 'all') => {
   try {
     await exportToPDF({
-      title: 'تقرير المستخدمين',
+      title: t('users.pdf_report_title'),
       headers,
       store: usersStore,
       fetchAllData: type === 'all',
-      formatRow: (item) => {
-        return [
-          item.username,
-          item.phone,
-          item.type === 'admin' ? 'أدمن' : 'دكتور',
-          item.nationality,
-          item.ip ? 'مسجل' : 'غير مسجل',
-          item.is_block ? 'محظور' : 'نشط',
-          item.unique_students,
-          formatDate(item.created_at)
-        ]
-      }
+      formatRow: formatUserRow
     })
   } catch (error) {
 

@@ -38,12 +38,13 @@
       </v-row>
       <v-divider class="mb-4"></v-divider>
       
-      <v-row class="mb-3">
+
         <SearchableFormComponent 
           :inputs="finalInputsStructure" 
           :page="page"
           :store_name="groupsStore"
         />
+      <v-row class="mt-3">
         <v-col cols="12" lg="3" md="4" sm="6" v-for="(i,key) in groupsStore?.data?.data" :key="key">
           <GroupCardComponent 
             v-model="dialogSwitch" 

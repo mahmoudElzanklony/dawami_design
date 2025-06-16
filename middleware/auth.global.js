@@ -10,6 +10,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         if (token.value) {
             return navigateTo(permittedRoutes[0]);
         }
+        else return;
     }
     if (!token.value) {
         return navigateTo('/login');

@@ -12,7 +12,7 @@
           </v-btn>
         </template>
       </v-text-field>
-      
+
       <div v-if="searchResults.length > 0" class="search-results">
         <v-list density="compact">
           <v-list-item
@@ -25,30 +25,41 @@
         </v-list>
       </div>
     </div>
-    
+
     <client-only>
       <div class="map-container" style="height: 400px;">
-        <l-map 
-          v-if="isClient" 
-          ref="mapRef" 
-          :zoom="zoom" 
+        <l-map
+          v-if="isClient"
+          ref="mapRef"
+          :zoom="zoom"
           :center="center"
           :use-global-leaflet="false"
           @click="handleMapClick"
           @ready="onMapReady"
         >
           <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
-          
+
           <template v-if="mapType === 'gps' || mapType === 'maps'">
-            <l-marker 
-              :lat-lng="markerPosition" 
-              draggable 
+            <l-marker
+              :lat-lng="markerPosition"
+              draggable
               @dragend="updateMarkerPosition"
             ></l-marker>
+
+            <!-- Add circle around marker if radius is provided -->
+            <l-circle
+              v-if="displayRadius > 0"
+              :lat-lng="markerPosition"
+              :radius="displayRadius"
+              color="#3388ff"
+              fill
+              fillColor="#3388ff"
+              fillOpacity="0.2"
+            ></l-circle>
           </template>
-          
+
           <template v-if="mapType === 'polygon'">
-            <l-polygon 
+            <l-polygon
               :lat-lngs="polygonPositions"
               @update="updatePolygon"
               :use-global-leaflet="false"
@@ -60,7 +71,7 @@
         </div>
       </div>
     </client-only>
-    
+
     <div class="mt-2">
       <template v-if="mapType === 'gps' || mapType === 'maps'">
         <div class="d-flex">
@@ -89,7 +100,7 @@
           :value="longitude"
         />
       </template>
-      
+
       <template v-if="mapType === 'polygon'">
         <v-textarea
           v-model="polygonCoordinatesString"
@@ -106,7 +117,7 @@
 import { ref, computed, watch, onMounted, nextTick } from 'vue';
 import { useI18n } from '#imports';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const props = defineProps({
   modelValue: {
@@ -117,6 +128,10 @@ const props = defineProps({
     type: String,
     default: 'maps',
     validator: (value) => ['gps', 'maps', 'polygon'].includes(value)
+  },
+  radius: {
+    type: [Number, String],
+    default: 0
   }
 });
 
@@ -154,6 +169,13 @@ const polygonCoordinatesString = computed(() => {
   return JSON.stringify(polygonPositions.value);
 });
 
+// Computed property to handle radius display
+const displayRadius = computed(() => {
+  // Convert to number and provide a default if NaN
+  const radiusValue = Number(props.radius);
+  return !isNaN(radiusValue) && radiusValue > 0 ? radiusValue : 0;
+});
+
 // Get location object for emitting
 const getLocationObject = () => {
   if (props.mapType === 'polygon') {
@@ -170,7 +192,7 @@ const getLocationObject = () => {
 
 onMounted(() => {
   isClient.value = true;
-  
+
   if (props.modelValue) {
     try {
       if (props.modelValue.coordinates) {
@@ -225,10 +247,17 @@ watch(searchQuery, (newValue) => {
 
 const searchLocation = async () => {
   if (!searchQuery.value && !searchQuery.value.trim()) return;
-  
+
   try {
-    // Using Nominatim API for geocoding
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery.value)}&format=json&limit=5`);
+    // Using Nominatim API for geocoding with language parameters
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?` +
+      `q=${encodeURIComponent(searchQuery.value)}` +
+      `&format=json` +
+      `&limit=10` +
+      `&accept-language=${locale.value}`
+    );
+
     const data = await response.json();
     searchResults.value = data;
   } catch (error) {

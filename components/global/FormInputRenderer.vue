@@ -21,6 +21,7 @@
         v-else-if="input.type === 'map'"
         v-model="modelValue[input.input_name]"
         :disabled="isDisabled(input)"
+        :radius="modelValue['area_in_meters']"
       ></PlacesMapComponent>
       <geolocation-input
         v-else-if="input.type === 'geolocation'"

@@ -111,11 +111,12 @@ import {useSharedStateComposable} from '~/composables/UseSharedStateComposable';
 import {useSubscriptionsStore} from '~/stores/SubscriptionsStore';
 import {callOnServerComposable} from '~/composables/CallOnServerComposable';
 import {useRuntimeConfig, useI18n} from '#imports';
-import {formatDate} from '~/composables/FormatDateComposable';
 import PdfExporter from '~/components/global/ExportToPdfComponent.vue'
 import {usePdfExport} from '~/composables/usePdfExportComposable';
 import {usePermissions} from '~/composables/usePermissions';
 import PaginationComponent from '~/components/global/PaginationComponent.vue';
+import {formatRowComposable} from '~/pages/subscriptions/formatRowComposable';
+import {getTableHeaders} from '~/pages/subscriptions/tableHeadersComposable'
 
 const config = useRuntimeConfig();
 const nuxtApp = useNuxtApp();
@@ -123,7 +124,8 @@ const selected = ref<any[]>([]);
 const {t} = useI18n();
 const {can} = usePermissions();
 const headers = getTableHeaders(t);
-const {exportToPDF} = usePdfExport()
+const {exportToPDF} = usePdfExport();
+const {formatSubscriptionRow} = formatRowComposable();
 const FieldsInputMappings = {
   ['paid']:(obj)=> obj.price,
 };
@@ -153,18 +155,7 @@ const handlePdfExport = async (type: 'visible' | 'all') => {
       headers,
       store: subscriptionsStore,
       fetchAllData: type === 'all',
-      formatRow: (item) => {
-        return [
-          item.id,
-          item.user.username,
-          item.username,
-          item.field.name,
-          item.price,
-          item.discount,
-          item.note,
-          formatDate(item.created_at)
-        ]
-      }
+      formatRow: formatSubscriptionRow
     })
   } catch (error) {
 

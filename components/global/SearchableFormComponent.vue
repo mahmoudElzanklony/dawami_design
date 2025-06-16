@@ -53,10 +53,10 @@ for (let input of props.inputs) {
   }
 }
 
-// onMounted(()=>{     // INQUIRY: why was this added ? it does an extra request on every page load
-//   console.log('from searchable')
-//   props.store_name.get_all_data((props.continue_url_search ?? ''));
-// })
+onMounted(()=>{     // INQUIRY: why was this added ? it does an extra request on every page load
+  console.log('from searchable')
+  props.store_name.get_all_data((props.continue_url_search ?? ''));
+})
 
 const dependencyValues = computed(() => {
   const values: Record<string, any> = {};

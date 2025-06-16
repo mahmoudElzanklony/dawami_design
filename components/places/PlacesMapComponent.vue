@@ -2,18 +2,27 @@
   <div>
     <div class="search-container mb-3">
       <v-text-field
+        ref="searchInputRef"
         v-model="searchQuery"
         :label="$t('places.map.search_location')"
         prepend-icon="mdi-magnify"
+        @focus="isInputFocused = true"
+        @blur="handleInputBlur"
       >
         <template v-slot:append>
           <v-btn icon @click="searchLocation">
-            <v-icon>mdi-magnify</v-icon>
+            <v-progress-circular
+              v-if="isSearching"
+              indeterminate
+              size="24"
+              color="primary"
+            ></v-progress-circular>
+            <v-icon v-else>mdi-magnify</v-icon>
           </v-btn>
         </template>
       </v-text-field>
 
-      <div v-if="searchResults.length > 0" class="search-results">
+      <div v-if="searchResults.length > 0 && isInputFocused" class="search-results">
         <v-list density="compact">
           <v-list-item
             v-for="(result, index) in searchResults"
@@ -138,12 +147,15 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const mapRef = ref(null);
+const searchInputRef = ref(null); // Added ref for search input
 const isClient = ref(false);
 const mapReady = ref(false);
 const searchQuery = ref('');
 const searchResults = ref([]);
+const isInputFocused = ref(false); // Added for focus tracking
 const zoom = ref(13);
 const searchTimeout = ref(null);
+const isSearching = ref(false); // Added for loading state
 
 const latitude = ref(30.033333);
 const longitude = ref(31.233334);
@@ -231,7 +243,7 @@ watch(polygonPositions, () => {
 
 
 watch(searchQuery, (newValue) => {
-  if (newValue.trim().length < 3) {
+  if (newValue.trim().length < 2) {
     searchResults.value = [];
     return;
   }
@@ -245,9 +257,16 @@ watch(searchQuery, (newValue) => {
   }, 500); // 500ms debounce delay
 });
 
+const handleInputBlur = () => {
+  setTimeout(() => {
+    isInputFocused.value = false;
+  }, 150);
+};
+
 const searchLocation = async () => {
   if (!searchQuery.value && !searchQuery.value.trim()) return;
 
+  isSearching.value = true; // Set loading state to true
   try {
     // Using Nominatim API for geocoding with language parameters
     const response = await fetch(
@@ -262,6 +281,8 @@ const searchLocation = async () => {
     searchResults.value = data;
   } catch (error) {
     console.error('Error searching for location:', error);
+  } finally {
+    isSearching.value = false;
   }
 };
 
@@ -270,6 +291,11 @@ const selectLocation = (result) => {
   longitude.value = parseFloat(result.lon);
   searchResults.value = [];
   searchQuery.value = result.display_name;
+  isInputFocused.value = false;
+
+  if (searchInputRef.value) {
+    searchInputRef.value.blur();
+  }
   
   // Update map center
   if (mapRef.value && mapRef.value.leafletObject) {

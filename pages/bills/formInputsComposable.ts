@@ -54,34 +54,34 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         searchable: true,
         FormExists: true
     },
-    {
-        label: t('global.start_date'),
-        input_name: 'start_date',
-        required: true,
-        type: 'date',
-        searchable: true,
-        FormExists: true,
-        icon: ''
-    },
-    {
-        label: t('global.end_date'),
-        input_name: 'end_date',
-        required: true,
-        type: 'date',
-        searchable: true,
-        FormExists: true,
-        icon: ''
-    },
-    {
-        label: t('bills.inputs.calculated_amount'),
-        input_name: 'checked_amount',
-        required: false,
-        type: 'check-period-amount',
-        searchable: false,
-        FormExists: true,
-        readonly: true,
-        icon: ''
-    },
+    // {
+    //     label: t('global.start_date'),
+    //     input_name: 'start_date',
+    //     required: true,
+    //     type: 'date',
+    //     searchable: true,
+    //     FormExists: true,
+    //     icon: ''
+    // },
+    // {
+    //     label: t('global.end_date'),
+    //     input_name: 'end_date',
+    //     required: true,
+    //     type: 'date',
+    //     searchable: true,
+    //     FormExists: true,
+    //     icon: ''
+    // },
+    // {
+    //     label: t('bills.inputs.calculated_amount'),
+    //     input_name: 'checked_amount',
+    //     required: false,
+    //     type: 'check-period-amount',
+    //     searchable: false,
+    //     FormExists: true,
+    //     readonly: true,
+    //     icon: ''
+    // },
     {
         label: t('bills.inputs.total_money'),
         input_name: 'paid',

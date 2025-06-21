@@ -15,7 +15,7 @@
         :temporary="$vuetify.display.mobile"
         width="250"
         mobile-breakpoint="sm"
-        class="d-flex flex-column drawer bg-gray-50-color pa-4"
+        class="d-flex flex-column drawer bg-gray-100-color pa-4"
     >
       <div class="d-flex justify-center align-center mb-4"><img src="/images/logo-sm.png" alt="" width="80">
       </div>

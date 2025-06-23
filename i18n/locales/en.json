@@ -14,7 +14,8 @@
     "places": "Places",
     "lessons": "Working Days",
     "attendance": "Attendance",
-    "packages": "Packages"
+    "packages": "Packages",
+    "roles": "Roles"
   },
   "phone_input": {
     "country_code_required": "Country code required",
@@ -624,6 +625,32 @@
       "phone": "Phone Number",
       "created_at": "Created At",
       "close": "Close"
+    }
+  },
+  "roles": {
+    "title": "Roles",
+    "add": "Add Role",
+    "name": "Role Name",
+    "permissions": "Permissions",
+    "permissions_count": "Permissions count",
+    "created_at": "Creation Date",
+    "no_permissions": "No permissions available",
+    "no_roles_found": "No roles available",
+    "info": "Role Information",
+    "view_permissions": "View Permissions",
+    "permissions_details": "Permissions Details"
+  },
+  "permissions": {
+    "actions": {
+      "read": "View",
+      "create": "Create",
+      "update": "Edit",
+      "delete": "Delete"
+    },
+    "scopes": {
+      "all": "All",
+      "organization": "Organization",
+      "mine": "Mine"
     }
   }
 }

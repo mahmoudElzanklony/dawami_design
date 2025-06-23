@@ -14,7 +14,8 @@
     "places": "الاماكن",
     "lessons": "ايام العمل",
     "attendance": "الحضور",
-    "packages": "الباقات"
+    "packages": "الباقات",
+    "roles" : "الصلاحيات"
   },
   "phone_input": {
     "country_code_required": "الكود مطلوب",
@@ -625,6 +626,32 @@
       "phone": "رقم الهاتف",
       "created_at": "تاريخ الإنشاء",
       "close": "إغلاق"
+    }
+  },
+  "roles": {
+    "title": "الصلاحيات",
+    "add": "إضافة صلاحية",
+    "name": "اسم الصلاحية",
+    "permissions": "الصلاحيات",
+    "permissions_count": "عدد الصلاحيات",
+    "created_at": "تاريخ الإنشاء",
+    "no_permissions": "لا توجد صلاحيات",
+    "no_roles_found": "لا توجد صلاحيات متاحة",
+    "info": "معلومات الصلاحية",
+    "view_permissions": "عرض الصلاحيات",
+    "permissions_details": "تفاصيل الصلاحيات"
+  },
+  "permissions": {
+    "actions": {
+      "read": "عرض",
+      "create": "إضافة",
+      "update": "تعديل",
+      "delete": "حذف"
+    },
+    "scopes": {
+      "all": "الكل",
+      "organization": "المؤسسة",
+      "mine": "خاص بي"
     }
   }
 }

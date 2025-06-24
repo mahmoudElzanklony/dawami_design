@@ -115,6 +115,7 @@ const items = [
   {key: 'packages', to: '/packages', icon: 'fa-solid fa-clipboard-list'},
   {key: 'lessons', to: '/working-days', icon: 'fa-solid fa-person-chalkboard'},
   {key: 'attendance', to: '/attendance', icon: 'fa-solid fa-clipboard-user'},
+  {key: 'roles', to: '/roles', icon: 'fa-solid fa-sitemap'},
 ];
 
 // Filter menu items based on user permissions

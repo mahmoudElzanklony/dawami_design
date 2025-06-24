@@ -14,7 +14,8 @@
     "places": "Places",
     "lessons": "Working Days",
     "attendance": "Attendance",
-    "packages": "Packages"
+    "packages": "Packages",
+    "roles": "Roles"
   },
   "phone_input": {
     "country_code_required": "Country code required",
@@ -32,7 +33,7 @@
     "register": "Register a new account",
     "remember_me": "Remember me",
     "no_account": "Don't have an account?",
-    "app_name": "iLearn",
+    "app_name": "Dawami",
     "copyright": "© All rights reserved - {year}",
     "error": {
       "invalid_credentials": "Invalid username or password",
@@ -624,6 +625,60 @@
       "phone": "Phone Number",
       "created_at": "Created At",
       "close": "Close"
+    }
+  },
+  "roles": {
+    "title": "Roles",
+    "add": "Add Role",
+    "name": "Role Name",
+    "permissions": "Permissions",
+    "permissions_count": "Permissions count",
+    "created_at": "Creation Date",
+    "no_permissions": "No permissions available",
+    "no_roles_found": "No roles available",
+    "info": "Role Information",
+    "view_permissions": "View Permissions",
+    "permissions_details": "Permissions Details"
+  },
+  "permissions": {
+    "actions": {
+      "read": "View",
+      "create": "Create",
+      "update": "Edit",
+      "delete": "Delete"
+    },
+    "scopes": {
+      "all": "All",
+      "organization": "Organization",
+      "mine": "Mine"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "introduction": "At iLEARN, we are committed to protecting your privacy. This Privacy Policy explains how your personal information is collected, used, disclosed, and protected when you visit our website and use our services. By accessing or using the functionality, you agree to the practices described in this Privacy Policy.",
+    "collected_info": {
+      "title": "Information We Collect:",
+      "content": "We may collect personal information, such as your name, email address, and other relevant details when you register an account or submit information through our website. We also collect non-personal information, such as your IP address and browsing behavior, to improve our services and enhance your user experience."
+    },
+    "info_usage": {
+      "title": "Use of Information:",
+      "content": "We use the information collected to provide and personalize our services, respond to inquiries and requests, improve our website functionality, and communicate with you about updates and relevant information. We may also use aggregated and anonymized data for statistical and analytical purposes."
+    },
+    "info_sharing": {
+      "title": "Information Sharing:",
+      "content": "We do not sell, trade, or rent your personal information to third parties. However, we may share your information with trusted service providers who help us operate our website and deliver our services. We may also disclose your information when required by law or to protect our rights, safety, or property."
+    },
+    "data_security": {
+      "title": "Data Security:",
+      "content": "We use security measures consistent with industry standards to protect your personal information from unauthorized access, disclosure, alteration, or destruction. However, please note that no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security."
+    },
+    "third_party": {
+      "title": "Third-Party Links:",
+      "content": "Our website may contain links to third-party websites or services. We are not responsible for the privacy practices or content of these third parties. We encourage you to review the privacy policies of those sites before submitting any personal information."
+    },
+    "policy_updates": {
+      "title": "Privacy Policy Updates:",
+      "content": "We reserve the right to update or modify this Privacy Policy at any time. Any changes will be effective immediately upon posting on our website. It is your responsibility to review the Privacy Policy periodically for any updates."
     }
   }
 }

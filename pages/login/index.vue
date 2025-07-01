@@ -10,8 +10,36 @@
           {{ submitError }}
         </v-alert>
 
+        <!-- verification form -->
+        <v-form v-if="requireVerification" @submit.prevent="verifyDevice" ref="verificationForm">
+          <v-alert type="success" density="compact" closable class="mb-4">
+            {{t('login.verification_sent')}}
+          </v-alert>
+
+          <v-text-field
+          v-model="verificationCode"
+          :label="t('login.verification_code')"
+          variant="outlined"
+          :rules="verificationCodeRules"
+          density="compact"
+          color="primary"
+          class="mb-4 "
+          required
+          >
+          </v-text-field>
+          <v-btn
+          type="submit"
+          variant="elevated"
+          block
+          :loading="verificationLoading"
+          class="mb-4 bg-primary-color text-white"
+          >
+            {{t('login.verify')}}
+          </v-btn>
+        </v-form>
+
         <!-- Login Form -->
-        <v-form @submit.prevent="handleLogin" ref="loginForm">
+        <v-form v-else @submit.prevent="handleLogin" ref="loginForm">
           <!-- Phone Input Component -->
           <PhoneInput
               v-model="phone"
@@ -72,6 +100,7 @@ import {useI18n} from '#i18n'
 import {useAuthStore} from "~/stores/Auth/AuthStore"
 import PhoneInput from '~/components/global/PhoneInputComponent/PhoneInput.vue'
 import OrganizationSelectDialog from '~/components/login/OrganizationSelectDialog.vue'
+import {useTrustedDevicesStore} from "~/stores/TrustedDevicesStore";
 
 definePageMeta({
   layout: "login",
@@ -81,12 +110,21 @@ definePageMeta({
 const {t} = useI18n()
 const store = useAuthStore()
 const loginForm = ref()
+const verificationForm = ref()
 const submitError = ref('')
 const phone = ref('')
 const password = ref('')
-
+const requireVerification = ref(false);
+const trustedDevicesStore = useTrustedDevicesStore();
+const verificationCode = ref('');
+const verificationLoading = ref(false);
+const userId = ref(null);
 const passwordRules = [
   (v: string) => !!v || t('login.error.password_required')
+]
+const verificationCodeRules = [
+  (v: string) => !!v || t('login.error.verification_code_required'),
+  (v: string) => /^[\da-zA-Z\-_]{4,}$/.test(v) || t('login.error.verification_code_invalid')
 ]
 
 const handleLogin = async () => {
@@ -95,17 +133,34 @@ const handleLogin = async () => {
   submitError.value = ''
 
   try {
-    await store.login(
+    const response = await store.login(
         {
           phone: phone.value,
           password: password.value
         }
-    )
+    );
+    if(response?.require_verify_device){
+      requireVerification.value = true;
+      userId.value = response.user_id;
+    }
   } catch (error: any) {
     submitError.value = error.status ?
         t('login.error.invalid_credentials') :
         t('login.error.general_error')
   }
+}
+
+const verifyDevice = async () => {
+  if (!(await verificationForm.value.validate()).valid) return
+  verificationLoading.value = true;
+  const verificationData = new FormData();
+  verificationData.append('user_id', userId.value);
+  verificationData.append('verified_code', verificationCode.value);
+  const response = await trustedDevicesStore.create_or_update(verificationData);
+  if (response.status === 200) {
+    await handleLogin();
+  }
+  verificationLoading.value = false;
 }
 
 const handleOrgSelection = (organizationId: number) => {

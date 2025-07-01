@@ -16,8 +16,11 @@ export const useAuthStore = defineStore('AuthStore', {
             try {
                 if (data === null) data = new FormData(event.target)
                 let response = await $axios.post('/auth/login', data)
-                
                 if (response?.status == 200) {
+                    // return response data to retrieve user id and show verification input
+                    if(response?.data?.data?.require_verify_device){
+                        return response?.data?.data;
+                    }
                     // Clean user data before storing
                     const { cleanUserData } = useUserDataCleaner();
                     this.user = cleanUserData(response?.data?.data);
@@ -32,7 +35,6 @@ export const useAuthStore = defineStore('AuthStore', {
                             // Store organizations and show selector
                             this.organizations = this.user.organizations;
                             this.showOrgSelector = true;
-                            // Navigation will happen after selection
                         } else {
                             // No organizations, navigate to dashboard
                             await navigateTo('/users');

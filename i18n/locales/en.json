@@ -34,12 +34,17 @@
     "remember_me": "Remember me",
     "no_account": "Don't have an account?",
     "app_name": "Dawami",
+    "verification_sent": "Verification Code Has Been Sent To Your Phone",
+    "verify": "Verify",
+    "verification_code": "Verification Code",
     "copyright": "© All rights reserved - {year}",
     "error": {
       "invalid_credentials": "Invalid username or password",
       "account_blocked": "Account is blocked",
       "general_error": "An error occurred while logging in",
-      "password_required": "Password is required"
+      "password_required": "Password is required",
+      "verification_code_required": "Verification code is required",
+      "verification_code_invalid": "Invalid verification code"
     }
   },
   "users": {
@@ -607,7 +612,7 @@
     "no_packages": "No packages available",
     "price": "Price",
     "max_users": "Maximum Users",
-     "description": "Description",
+    "description": "Description",
     "inputs": {
       "name": "Package Name",
       "description": "Package Description",

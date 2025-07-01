@@ -34,12 +34,17 @@
     "remember_me": "تذكرني",
     "no_account": "ليس لديك حساب؟",
     "app_name": "Dawami",
+    "verification_sent": "تم إرسال رمز التحقق إلى رقم الهاتف المسجل",
+    "verify": "تحقق",
+    "verification_code": "رمز التحقق",
     "copyright": "© جميع الحقوق محفوظة - {year}",
     "error": {
       "invalid_credentials": "اسم المستخدم أو كلمة المرور غير صحيحة",
       "account_blocked": "تم حظر الحساب",
       "general_error": "حدث خطأ أثناء تسجيل الدخول",
-      "password_required": "كلمة المرور مطلوبة"
+      "password_required": "كلمة المرور مطلوبة",
+      "verification_code_required": "رمز التحقق مطلوب",
+      "verification_code_invalid": "رمز التحقق غير صحيح"
     }
   },
   "users": {

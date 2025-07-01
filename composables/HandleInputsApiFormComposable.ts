@@ -13,7 +13,6 @@ export async function handleInputsApi(formInputsComposable: any, info: Record<st
 
     const apiPromises = itemsToFetch.map(async (item) => {
         if (item?.dependency && !info[item?.dependency?.field]) {
-            item.options = [];
             item.loading = false;
             return;
         }
@@ -29,10 +28,9 @@ export async function handleInputsApi(formInputsComposable: any, info: Record<st
             if (item.dependency) {
                 info[item.input_name] = item.multiple ? [] : null;
             }
-            item.options = res?.data;
+            item.options.push(...res.data);
         } catch (error) {
             console.error("API fetch failed:", error);
-            item.options = [];
         } finally {
             item.loading = false;
         }

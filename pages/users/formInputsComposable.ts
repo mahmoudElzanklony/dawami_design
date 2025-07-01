@@ -3,6 +3,7 @@ import {useOrganizationsStore} from "~/stores/OrganizationsStore";
 import {useBranchesStore} from "~/stores/BranchesStore";
 import {useGroupsStore} from "~/stores/GroupsStore";
 import {useGroupBranchStore} from "~/stores/BranchGroupStore";
+import {useRolesStore} from "~/stores/RolesStore";
 
 export const getFormInputs = (t: (key: string) => string): FormField[] => [
     {
@@ -61,30 +62,15 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         input_name: "type",
         required: true,
         type: "select",
-        options: [
-            {value: 'client', label: t('users.types.client')},
-            {value: 'doctor', label: t('users.types.doctor')},
-            {value: 'admin', label: t('users.types.admin')},
-        ],
-        item_title: "label",
-        item_value: "value",
-        searchable: true,
-        FormExists: false,
-        icon: "",
-    },
-    {
-        label: t('users.user_type'),
-        input_name: "type",
-        required: true,
-        type: "radio",
         inline: true,
         options: [
-            {value: 'client', label: t('users.types.client')},
-            {value: 'doctor', label: t('users.types.doctor')},
-            {value: 'admin', label: t('users.types.admin')},
+            {name: 'Client'},
         ],
-        item_title: "label",
-        item_value: "value",
+        options_getting_data: "api",
+        store_name: useRolesStore,
+        continue_url_request: '?limit=9999999999',
+        item_title: "name",
+        item_value: "name",
         searchable: false,
         FormExists: true,
         icon: "fa-duotone fa-solid fa-image",
@@ -103,13 +89,8 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         store_name: useOrganizationsStore,
         continue_url_request: '?limit=9999999999',
         disable_option_in_update_if_option_equal_current: true,
-        search_name:"organization_id",
-        searchable: true,
+        searchable: false,
         FormExists: true,
-        conditional: {   // if it will render or not until another input has a certain value
-            dependsOn: 'type',
-            value: 'client'
-        }
     },
     {
         label: t('users.inputs.branch'),
@@ -125,78 +106,6 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         continue_url_request: '?limit=9999999999&organization_id=',
         searchable: false,
         FormExists: true,
-        conditional: {
-            dependsOn: 'type',
-            value: 'client'
-        },
-        dependency: {
-            field: "organization",       // This field depends on the 'university' field.
-            disabledWhenEmpty: true,   // Disable this input if no university is selected.
-            updateUrl: true            // Append the selected university's ID to the URL.
-        }
-    },
-    {
-        label: t('users.inputs.group'),
-        input_name: "groups_id[0]",
-        required: true,
-        type: "select",
-        options: [],
-        options_getting_data: "api",
-        item_title: "group.name",
-        item_value: "id",
-        icon: null,
-        store_name:useGroupBranchStore,
-        continue_url_request: '?limit=9999999999&branch_id=',
-        searchable: false,
-        FormExists: true,
-        conditional: {
-            dependsOn: 'type',
-            value: 'client'
-        },
-        dependency: {
-            field: "branch_id",
-            disabledWhenEmpty: true,
-            updateUrl: true
-        }
-    },
-    {
-        label: t('users.university'),
-        input_name: "organization",
-        required: true,
-        type: "select",
-        options: [],
-        options_getting_data: "api",
-        item_title: "name",
-        item_value: "id",
-        icon: null,
-        store_name: useOrganizationsStore,
-        continue_url_request: '?limit=9999999999',
-        disable_option_in_update_if_option_equal_current: true,
-        searchable: false,
-        FormExists: true,
-        conditional: {
-            dependsOn: 'type',
-            value: 'doctor'
-        }
-    },
-    {
-        label: t('users.inputs.branch'),
-        input_name: "branch_id",
-        required: true,
-        type: "select",
-        options: [],
-        options_getting_data: "api",
-        item_title: "name",
-        item_value: "id",
-        icon: null,
-        store_name: useBranchesStore,
-        continue_url_request: '?limit=9999999999&organization_id=',
-        searchable: false,
-        FormExists: true,
-        conditional: {
-            dependsOn: 'type',
-            value: 'doctor'
-        },
         dependency: {
             field: "organization",
             disabledWhenEmpty: true,
@@ -211,17 +120,13 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         multiple: true,
         options: [],
         options_getting_data: "api",
-        store_name:useGroupBranchStore,
+        store_name: useGroupBranchStore,
         continue_url_request: '?limit=9999999999&branch_id=',
         item_title: "group.name",
         item_value: "id",
         icon: null,
         searchable: false,
         FormExists: true,
-        conditional: {
-            dependsOn: 'type',
-            value: 'doctor'
-        },
         dependency: {
             field: "branch_id",
             disabledWhenEmpty: true,
@@ -275,7 +180,7 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         icon: ''
     },
     {
-        label:t('global.end_date'),
+        label: t('global.end_date'),
         input_name: 'end_date',
         required: false,
         type: 'date',

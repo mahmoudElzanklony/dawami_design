@@ -71,9 +71,9 @@ export const getFormInputs = (t: (key: string) => string): FormField[] => [
         continue_url_request: '?limit=9999999999',
         item_title: "name",
         item_value: "name",
-        searchable: false,
+        searchable: true,
         FormExists: true,
-        icon: "fa-duotone fa-solid fa-image",
+        icon: "",
     },
 
     {

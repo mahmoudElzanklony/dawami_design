@@ -17,12 +17,17 @@
           >
           </v-text-field>
           <v-select v-else-if="i['type'] == 'select' && i?.searchable"
-                    :items="i['input_name'] !== 'limit'
-                    ? [ { [i['item_value']]: '', [i['item_title']]: t('global.all') }, ...i['options'] ]
-                    : i['options']"
+                    :items="!['limit','type'].includes(i['input_name'])     // handled the case where item_title and value are the same
+                        ? [
+                            i['item_title'] === i['item_value']
+                              ? { [i['item_value']]: '', label: t('global.all') }
+                              : { [i['item_value']]: '', [i['item_title']]: t('global.all') },
+                            ...i['options']
+                          ]
+                        : i['options']"
+                    :item-title="i['item_title']"
                     :name="i['search_name'] ?? i['input_name']"
                     :item-value="i['item_value']"
-                    :item-title="i['item_title']"
                     :label="i['label']"
                     :loading="i['loading']"
                     :required="i['required']"
@@ -53,7 +58,7 @@ for (let input of props.inputs) {
   }
 }
 
-onMounted(()=>{     // INQUIRY: why was this added ? it does an extra request on every page load
+onMounted(() => {     // INQUIRY: why was this added ? it does an extra request on every page load
   console.log('from searchable')
   props.store_name.get_all_data((props.continue_url_search ?? ''));
 })

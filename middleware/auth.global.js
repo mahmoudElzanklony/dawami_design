@@ -3,7 +3,7 @@ import {useAuthStore} from "~/stores/Auth/AuthStore.js";
 export default defineNuxtRouteMiddleware(async (to, from) => {
     const token = useCookie('authToken');
     const authStore = useAuthStore();
-    const publicRoutes = ['/login','/privacy'];
+    const publicRoutes = ['/login','/privacy','/how-to-delete-my-account'];
     const permittedRoutes = authStore.getPermittedRoutes();
 
     if (publicRoutes.includes(to.path)) {

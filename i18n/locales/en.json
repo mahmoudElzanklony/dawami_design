@@ -78,7 +78,7 @@
     "types": {
       "client": "Client",
       "admin": "Admin",
-      "doctor": "Doctor",
+      "doctor": "Employee",
       "employee": "Employee",
       "organization": "Organization",
       "superadmin": "Super Admin"
@@ -191,8 +191,8 @@
     "add": "Add Field",
     "dialog_title": "Save Field",
     "name": "Name",
-    "instructor": "Doctor",
-    "instructors": "Doctors",
+    "instructor": "Employee",
+    "instructors": "Employees",
     "no_additional_info": "No Additional Information",
     "places": "Places",
     "university": "Organization",
@@ -205,12 +205,6 @@
     "attendance_support": "Attendance Support",
     "price": "Price",
     "image": "Image",
-    "course_type": "Course Type",
-    "course_types": {
-      "exam_revision": "Exam Revision",
-      "revision": "Revision",
-      "explanation": "Explanation"
-    },
     "support_options": {
       "supported": "Supported",
       "not_supported": "Not Supported"
@@ -249,7 +243,7 @@
     "table": {
       "id": "ID",
       "student": "Student",
-      "doctor": "Doctor",
+      "doctor": "Employee",
       "subject": "Subject",
       "videoCount": "Video Count",
       "viewCount": "View Count",
@@ -274,14 +268,14 @@
     "title": "Bills",
     "add": "Add Bill",
     "inputs": {
-      "doctor": "Doctor",
+      "doctor": "Employee",
       "calculated_amount": "Calculated Amount",
       "total_money": "Total Amount Required",
       "notes": "Notes",
       "organization": "Organization"
     },
     "table": {
-      "doctor": "Doctor",
+      "doctor": "Employee",
       "phone": "Phone Number",
       "start_date": "Start Date",
       "end_date": "End Date",

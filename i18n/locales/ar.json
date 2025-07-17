@@ -78,7 +78,7 @@
     "types": {
       "client": "عميل",
       "admin": "ادمن",
-      "doctor": "دكتور",
+      "doctor": "موظف",
       "employee": "موظف",
       "organization": "مؤسسة",
       "superadmin": "سوبر ادمن"
@@ -179,7 +179,7 @@
     "add": "تسجيل فرع",
     "name": "الاسم",
     "description": "وصف قصير",
-    "university": "الجامعة",
+    "university": "المؤسسة",
     "created_at": "تاريخ الانشاء",
     "actions": {
       "edit": "تعديل",
@@ -195,8 +195,8 @@
     "instructors": "الدكاترة",
     "no_additional_info": "لا توجد معلومات اضافية",
     "places": "الاماكن",
-    "university": "الجامعة",
-    "branch": "الفرقة",
+    "university": "المؤسسة",
+    "branch": "الفرع",
     "groups": "المجموعات",
     "semester": "الترم",
     "bluetooth_support": "البلوتوث",
@@ -205,12 +205,6 @@
     "attendance_support": "الحضور",
     "price": "السعر",
     "image": "الصورة",
-    "course_type": "نوع الكورس",
-    "course_types": {
-      "exam_revision": "مراجعة امتحان",
-      "revision": "مراجعة",
-      "explanation": "شرح"
-    },
     "support_options": {
       "supported": "يدعم",
       "not_supported": "لا يدعم"
@@ -234,7 +228,7 @@
     "created_at": "تاريخ الإنشاء",
     "name": "اسم الملف",
     "type": "نوع الملف",
-    "university": "الجامعة",
+    "university": "المؤسسة",
     "file": "الملف",
     "types": {
       "pdf": "ملف PDF",
@@ -249,7 +243,7 @@
     "table": {
       "id": "ID",
       "student": "الطالب",
-      "doctor": "الدكتور",
+      "doctor": "الموظف",
       "subject": "المجال",
       "videoCount": "عدد الفيديوهات",
       "viewCount": "مرات المشاهدة",
@@ -274,14 +268,14 @@
     "title": "الفواتير",
     "add": "إضافة فاتورة",
     "inputs": {
-      "doctor": "الدكتور",
+      "doctor": "الموظف",
       "calculated_amount": "المبلغ المحسوب للفترة",
       "total_money": "إجمالي المبلغ المطلوب",
       "notes": "ملاحظات",
       "organization": "المؤسسة"
     },
     "table": {
-      "doctor": "الدكتور",
+      "doctor": "الموظف",
       "phone": "رقم الهاتف",
       "start_date": "تاريخ البدء",
       "end_date": "تاريخ الانتهاء",
@@ -299,7 +293,7 @@
     "inputs": {
       "name": "الاسم",
       "description": "وصف قصير",
-      "branch": "الفرقة الدراسية",
+      "branch": "الفرع",
       "field": "المجال",
       "files": "الملفات",
       "chapters": "الفصول",
